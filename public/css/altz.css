@@ -1,0 +1,58 @@
+      .container {
+        width: 100%;
+        height: 100%; 
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .box {
+        width: 30%;
+        min-width: 300px;
+        position: relative;
+      }
+      .clear {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+      }
+      .aspect {
+        padding-bottom: 100%;
+      }
+      .altzBoard {
+        position: absolute;
+        top: 0;  bottom: 0;  left: 0;  right: 0;
+        display: grid;
+        grid-template-rows: repeat(3, auto);
+        grid-template-columns: repeat(3, auto);
+      }
+      .altzBoxes {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 400%;
+        /*display: inline-block;*/
+        height: 92%;
+        border: 5px solid black;
+        border-radius: 10px;
+        font-family: 'Orbitron', sans-serif;
+      }
+      .altzDesc {
+        font-family: 'Orbitron', sans-serif;
+      }
+      .riv {
+        font-family: 'Orbitron', sans-serif;
+        color: red;
+      }
+      .altzBoxes:hover {
+        background-color: yellow;
+      }
+      .altzBoxes:active {
+        background-color: red;
+        color: white;
+      }
+      [id = "0"] {
+        text-indent: -9999px;
+      }

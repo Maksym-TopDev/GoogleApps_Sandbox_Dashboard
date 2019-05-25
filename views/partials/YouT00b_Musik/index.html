@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>yuutoob</title>
+	</head>
+	<body>
+		<h1 id="intro">Welcome</h1>
+		<div id="config">
+		    <input type="text" id="togg" placeholder="name"/>
+		    <input type="submit" value="log up" id="button" onclick='storeName(document.querySelector("#togg").value)'>
+	  	</div>
+
+		<button id="toggle" onclick="show()">Click for lists</button><br>
+
+		<!-- style must be installed in elements so the toggle cna be instantaneous -->
+		<div id="listers" style="display: none;">
+			<button onclick="playlist('PL8A13ED54AD5AE30A')">Decibel list</button>
+		</div>
+		<div id="singles" style="display: inline;"></div>
+		<!-- <div id="listers"></div> -->
+		<div id="block"></div>
+
+		<script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+	    <script src='./src/main.js'></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</body>
+</html>

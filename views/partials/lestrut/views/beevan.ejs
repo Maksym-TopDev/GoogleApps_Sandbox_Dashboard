@@ -1,0 +1,282 @@
+<% include boilerplates/topBun.ejs%>
+
+<!-- 	<div id="edit">
+		<input type="text" id="title" placeholder="TITLE">
+		<br>
+		<textarea type="text" placeholder="ARTICLE" id="art" style="height:300px;width:80%;" rows="4" cols="50"><div></div>\
+</textarea> -->
+
+		<!-- <pre placeholder="ARTICLE" id="art" contenteditable="true" style="height:200px; width:70%; border: solid grey"></pre> -->
+<!-- 		<br>
+		<div id="post">
+			<select id="cata">
+				<option disabled selected placeholder="TOPICS"></option>
+				<option value="world">world</option>
+				<option value="sex">sex</option>
+				<option value="fashion">fashion</option>
+				<option value="gossip">gossip</option>     
+			</select>	
+			<button onclick="post(document.querySelector('#title').value,document.querySelector('#art').value,document.querySelector('#cata').value)">POST</button>
+		</div>
+	</div> -->
+
+	<form method="POST" action="">
+		<input type="text" id="title" placeholder="TITLE" name="title" />
+		<br>
+
+		<textarea type="text" placeholder="ARTICLE" id="art" name="article" style="height:300px;width:80%;" rows="4" cols="50"></textarea>
+		<br>
+
+		<select id="cata" name="cata">
+			<option disabled selected placeholder="TOPICS"></option>
+			<option value="world">world</option>
+			<option value="sex">sex</option>
+			<option value="fashion">fashion</option>
+			<option value="gossip">gossip</option>     
+		</select>	
+		<br>
+
+		<input type="submit" name="submit"/>
+	</form>
+
+	<div id="edi"></div>
+
+	<%= title %>
+
+	<% include boilerplates/styleTop.ejs %>
+
+		let refAll = db.ref('all');
+
+		let art = document.querySelector('#art');
+		let tit = document.querySelector('#title');
+
+		// document.onkeydown = function(event){
+		// 	console.log(event.keyCode);
+		// 	if(event.keyCode == 13){
+		// 		console.log("guuh: "+art);
+		// 		art.appendChild(document.createTextNode(`<br><div></div>\\`));
+		// 	}
+		// }
+
+		function post(title,art,cata){
+
+			let ref = db.ref(`${cata}`);
+			let data = {
+				title: `${title}`,
+				article: `${art}`,
+				catagory: `${cata}`
+			};
+			ref.push(data);
+			refAll.push(data);
+
+			// document.querySelector('#edi').innerHTML = "";
+			// art.value = "";
+			// tit.value = "";
+
+			// OR
+
+			location.reload();
+		}
+
+		refAll.on('value', gotData, errData);
+
+		let articles = [];
+		let titles = [];
+		let catagories = [];
+		let leKeys = [];
+
+		let sa = [];
+
+		function gotData(data){
+			// console.log(data.val());
+			let names = data.val();
+			let keys = Object.keys(names);
+			// console.log(keys);
+
+			for(let i=0; i<keys.length; i++){
+				let k = keys[i];
+				// console.log("all keys:"+k);
+				articles.push(names[k].article);
+				titles.push(names[k].title);
+				catagories.push(names[k].catagory);
+				leKeys.push(k);
+			}
+
+			let catRef = [];
+			for(let i=0; i<4; i++){
+				catRef.push(db.ref(catagories[i]));
+				catRef[i].on('value', cheese, errData);
+			}
+			// console.log("looping cats: "+catRef);
+			
+			function cheese(stuff){
+				// console.log("looping cats???: "+catRef);
+
+				let games = stuff.val();
+				let bees = Object.keys(games);
+				// console.log("bees:"+bees);
+				sa.push(bees);
+			}
+
+			let space = [];
+			setTimeout(function(){
+				// console.log(`lengths of: t is ${titles.length}, a is ${articles.length}, c is ${catagories.length}, k is ${leKeys.length}, s is ${sa.length}`);
+				// space = articles.replace(/p/g,"bold");
+				for (let j=0; j<titles.length; j++){
+					// test
+					// console.log(`titles: ${titles[j]}, articles: ${articles[j]}, allKeys: ${leKeys[j]}, catKeys: ${sa[j]}`);	
+
+					space += articles[j].replace(/\\/g, '\\');
+
+					let h3 = document.createElement('h3');
+					h3.setAttribute("onclick",`fill("${titles[j]}","${space}","${catagories[j]}","${leKeys[j]}","${sa[j]}")`);
+					h3.appendChild(document.createTextNode(`${titles[j]}`));
+					document.querySelector("#edi").appendChild(h3);
+					
+					console.log("space is: "+space);
+				}
+			}, 1000)
+		}
+
+		function fill(t,a,c,k,s){
+			console.log('in fill');
+			console.log(`t is ${t}. a is ${a}. c is ${c}. k is ${k}. s is ${s}`);
+
+			document.querySelector('#post').innerHTML = "";
+
+			art.value = a;
+			tit.value = t;
+			// console.log(`art has ${art.value} and tit has ${tit.value}`);
+
+			let cat = [];
+
+			setTimeout(function(){
+				let world = sa[0];
+				let sex = sa[1];
+				let gossip = sa[2];
+				let fashion = sa[3];
+				// console.log(world);
+
+				// console.log("s is "+s);
+
+				if(c=="world"){	
+					for(let i=0; i<world.length; i++){
+						db.ref(`${c}/${world[i]}/title`).on('value', function(guuh){
+							// console.log(guuh.val());
+							if(t==guuh.val()){
+								// console.log('ya its gewt. '+world[i]);
+								cat = world[i];
+							}
+						}, errData);
+						// console.log("world: "+world[i]);
+					}
+					// console.log("cat is: "+cat);
+					// console.log(`update button: ${t}/${a}/${c}/${k}/${cat}`);
+					// let post = document.querySelector('#post');
+					// post.innerHTML = `<button onclick="update('${t}','${a}','${c}','${k}','${cat}')">UPDATE</button>`;
+
+					let but = document.createElement('button');
+					but.setAttribute("onclick",`update("${t}","${a}","${c}","${k}","${cat}")`);
+					but.appendChild(document.createTextNode(`UPDATE`));
+					document.querySelector("#post").appendChild(but);
+				}
+
+				else if(c=="sex"){
+					for(let i=0; i<sex.length; i++){
+						db.ref(`${c}/${sex[i]}/title`).on('value', function(guuh){
+							// console.log(guuh.val());
+							if(t==guuh.val()){
+								// console.log('ya its gewt. '+sex[i]);
+								cat = sex[i];
+							}
+						}, errData);
+						// console.log("sex: "+sex[i]);
+					}
+					// console.log(`update button: ${t}/${a}/${c}/${k}/${cat}`);
+					// let post = document.querySelector('#post');
+					// post.innerHTML = `<button onclick="update('${t}','${a}','${c}','${k}','${cat}')">UPDATE</button>`;
+
+					let but = document.createElement('button');
+					but.setAttribute("onclick",`update("${t}","${a}","${c}","${k}","${cat}")`);
+					but.appendChild(document.createTextNode(`UPDATE`));
+					document.querySelector("#post").appendChild(but);
+				}
+				
+				else if(c=="gossip"){
+					for(let i=0; i<gossip.length; i++){
+						db.ref(`${c}/${gossip[i]}/title`).on('value', function(guuh){
+							// console.log(guuh.val());
+							if(t==guuh.val()){
+								// console.log('ya its gewt. '+gossip[i]);
+								cat = gossip[i];
+							}
+						}, errData);
+						// console.log("gossip: "+gossip[i]);
+					}
+					// console.log(`update button: ${t}/${a}/${c}/${k}/${cat}`);
+					// let post = document.querySelector('#post');
+					// post.innerHTML = `<button onclick="update('${t}','${a}','${c}','${k}','${cat}')">UPDATE</button>`;
+
+					let but = document.createElement('button');
+					but.setAttribute("onclick",`update("${t}","${a}","${c}","${k}","${cat}")`);
+					but.appendChild(document.createTextNode(`UPDATE`));
+					document.querySelector("#post").appendChild(but);
+				}
+
+				else if(c=="fashion"){
+					for(let i=0; i<fashion.length; i++){
+						db.ref(`${c}/${fashion[i]}/title`).on('value', function(guuh){
+							// console.log(guuh.val());
+							if(t==guuh.val()){
+								// console.log('ya its gewt. '+fashion[i]);
+								cat = fashion[i];
+							}
+						}, errData);
+						// console.log("fashion: "+fashion[i]);
+					}
+					// console.log(`update button: ${t}/${a}/${c}/${k}/${cat}`);
+					// let post = document.querySelector('#post');
+					// post.innerHTML = `<button onclick="update('${t}','${a}','${c}','${k}','${cat}')">UPDATE</button>`;
+
+					let but = document.createElement('button');
+					but.setAttribute("onclick",`update("${t}","${a}","${c}","${k}","${cat}")`);
+					but.appendChild(document.createTextNode(`UPDATE`));
+					document.querySelector("#post").appendChild(but);
+				}
+				else{console.log("nothing worked")}
+
+				// console.log("cat is: "+cat);
+			}, 1000);
+		}
+
+		function errData(data){
+			console.log("ERROR: "+data);
+		}
+
+
+		function update(title,article,catagory,allKey,catKey){
+			console.log('in update');
+			// console.log(`from update button: ${title}/${article}/${catagory}/${allKey}/${catKey}`);
+			console.log(`in update: art has "${art.value}" and tit has ${tit.value}`);
+
+			firebase.database().ref().child(`${catagory}/${catKey}`).update({ 
+				title: `${tit.value}`, 
+				article: `${art.value}` 
+			});
+			firebase.database().ref().child(`all/${allKey}`).update({ 
+				title: `${tit.value}`, 
+				article: `${art.value}` 
+			});
+
+			console.log('updated');
+
+			// document.querySelector('#edi').innerHTML = "";
+			// art.value = "";
+			// tit.value = "";
+
+			// OR
+
+			location.reload();
+		}
+
+<% include boilerplates/bottomBun.ejs%>

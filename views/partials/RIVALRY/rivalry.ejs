@@ -1,0 +1,28 @@
+<% include ../../boilerplates/top.ejs %>
+
+  <link rel="stylesheet" href="css/rivalry.css">
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+
+  <title>TIC TAC TOE</title>
+  <style>
+    .bkgrd {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <% include ../../boilerplates/nav.ejs %>
+
+  <div class="game"></div>
+  <!-- <div id="again" onclick="reset()">nnn</div> -->
+
+  <% include ../../boilerplates/modal-component.ejs %> 
+
+  <script type="text/javascript" src="js/rivalry.js"></script>
+  <script>
+    let game = document.querySelectorAll('.game');
+    Rivalry.start(game[0]);
+    Rivalry.start(game[1]);
+  </script>
+
+<% include ../../boilerplates/bottom.ejs %>

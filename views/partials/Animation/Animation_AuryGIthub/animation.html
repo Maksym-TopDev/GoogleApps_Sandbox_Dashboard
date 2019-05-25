@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			My animation	
+		</title	>
+		<script src="libraries/jquery-1.12.1.js"></script>
+		<script src="libraries/responsivevoice.js"></script>
+		<style type="text/css">
+			body{
+				height: 100%;
+				width: 98%;
+			}
+
+			#mainDiv{
+				height: 900px;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				align-items: center;
+				display: flex;
+				flex-wrap: wrap;
+				position: relative;
+				justify-content: space-around;
+				background-size: cover;
+				background: silver url("images/bg1.jpg") no-repeat fixed center;
+
+			}
+
+			#showBnt{
+				height: 150px;
+				width: 150px;
+				border-radius: 75px;
+				border: 8px  solid #BEDCF0;
+				background: #4679BD ; 
+				left: 50%;
+				position: absolute;
+				font-family: georgia;
+				font-size: 18px;
+				font-weight: bold; 
+				color: black;
+
+			}
+
+			#showBnt:hover{
+				opacity: 0.9;
+				box-shadow: 10px 10px 5px #888888;
+				color:  blue;
+				border-style: double;
+
+			}
+
+		</style>
+	</head>	
+	
+	<body>
+		
+		<div id="mainDiv">
+			<div>
+			<button  id="showBnt"  onclick="showDiv()" onmouseover="buttonAnimation()"  >
+				CodeBridgers are <br>THE BEST
+			</button>
+			</div>
+			
+		</div>
+
+
+	</body>
+	
+	<script type="text/javascript">
+		var arrayColor=["#009999","#808080","#ff9933","#ff9999","#004c99","white","#009999","#808080","#ff9933","#ff9999"];
+		var arrayPict=[];
+		var arrayName=["Aury","Joey","Ryan","Asher","Bianca","Bri","Dennis","Franklin","Waldo","Robert","Mark","Admiduo","Ivan","Raj","Shania","Mili","Mitch"];
+
+		var indexN=0;
+
+		var bntMove=0;
+		var createdDiv = false;
+
+		var showDivN	=1;
+		var remove= false
+
+		//filling my array with pics name
+		for(indexN=0;indexN<=arrayName.length-1;indexN=indexN+1){
+			arrayPict[indexN]= "url('images/image"+(indexN+1) +".jpg')";
+		}
+
+		changeBack();
+
+
+		//creating my divs
+		function createMultDivs() {
+			if (createdDiv===false){
+				for (indexN=1; indexN<=arrayPict.length;indexN=indexN+1){
+			        var myNewDiv = document.createElement("div");
+			        myNewDiv.id = "myDiv" + addZero(indexN,3);
+			        myNewDiv.style.height = "0";
+			        myNewDiv.style.width = "0";
+			        myNewDiv.style.border="none";
+
+			        if(indexN%2===0){
+			        	myNewDiv.style.borderRadius = "90px";
+			        }
+  
+			        myNewDiv.style.font="italic bold 22px/40px Georgia, serif"
+			        myNewDiv.style.backgroundSize="cover";
+			        myNewDiv.style.background = "silver "+ arrayPict[indexN-1] +" no-repeat center center";
+			        document.getElementById("mainDiv").appendChild(myNewDiv);
+			        hideElement(myNewDiv);
+
+			    } 
+			}  
+		    createdDiv=true;
+	    }
+	    
+	    
+	    function showDiv(){
+	    	var parent=document.getElementById("mainDiv");
+			if (showDivN<=arrayPict.length &&remove===false){
+	    		var myElement=document.getElementById("myDiv" + addZero(showDivN,3));
+	    		showElement(myElement,180,180,"3px  double #BEDCF0");
+	    		responsiveVoice.speak(arrayName[showDivN-1] ,"US English Female",{rate: 0.9});
+	    		myElement.style.innerHTML=arrayName[showDivN-1];
+	    		showDivN=showDivN+1;
+
+	    	}
+	    	else{ remove= true;
+	    		if (showDivN>0 && remove===true){
+	    			showDivN=showDivN-1;
+		    		var myElement=document.getElementById("myDiv" + addZero(showDivN,3));
+    				hideElement(myElement);
+    				myElement.style.display="none";
+
+	    		}
+	    		else{
+	    			remove= false;
+
+	    		}
+	    	}
+	    }
+
+	    // adding leading zero
+		function addZero(value,size){
+			var myValue=value.toString();
+			var k=myValue.length;
+			while (k< size ){
+				myValue="0"+ myValue;
+				k=myValue.length ;
+			}
+			return myValue;
+		}
+
+		// moves the buttom to a position depending a ramdom for 10 times 
+		function buttonAnimation(){
+			var myButton = document.getElementById("showBnt");
+			var ramTop=Math.abs(Math.floor((Math.random() * 100) - 20 ));
+			var ramleft=Math.abs(Math.floor((Math.random() * 100) -20 ));
+			//if (bntMove<10){
+			if (bntMove<5){
+				myButton.style.backgroundColor=arrayColor[bntMove];
+				Move(ramleft,ramTop);
+				hideElement(myButton);
+		
+	 			bntMove	=bntMove+1;
+				showElement(myButton,150,150,"8px  solid #BEDCF0");
+
+			}
+			else{
+				myButton.style.left="50%";
+				myButton.style.top="50%";	
+				myButton.style.backgroundColor="#4679BD";
+				createMultDivs();			
+			}	
+
+		}
+
+		//hide element
+		function hideElement(myElement){
+			myElement.style.height="0px";
+			myElement.style.width="0px";
+			myElement.style.border="none";
+		}
+
+		function hideElement2(myElement){
+			var height = 180;
+			var width = 180;
+			var rad = 90;
+			var id = setInterval(smaller, 2);
+
+			function smaller(){
+				myElement.style.border="none";
+				if(height > 0){
+					height=height-2;
+					rad=rad-1;
+
+					myElement.style.height = String(height) + "px";
+					myElement.style.width = String(height) + "px";
+					myElement.style.borderRadius = String(rad) + "px";
+				}
+
+				if (height ===0 ){
+					clearInterval(id);
+					myElement.style.border="none";
+				}
+			}
+		}
+
+		function showElement(myElement,myheight, mywidth, myborder){
+			var height = 0;
+			var width = 0;
+			var id = setInterval(bigger, 30);
+
+			var posTop = 0;
+			var posLeft = 0;
+			var id2 = setInterval(bigger, 30);
+
+			var rad= 0 ;
+			
+			function bigger(){
+				if(height <= myheight){
+					height=height+2;
+					myElement.style.height = height + 'px';
+					//myElement.style.borderRadius = string(height/2) + 'px';
+				}
+
+				if(width <= mywidth){
+					width=width+2;
+					myElement.style.width = width + 'px';
+				}
+
+				if (height >= myheight  && width >= mywidth){
+					clearInterval(id);
+					myElement.style.border=myborder;
+				}
+
+			}
+
+		}
+
+
+	function Move(top,left) {
+	    var elem = document.getElementById('showBnt');
+	    var posX = 0;
+	    var posY = 0;
+	    var id = setInterval(frame, 10);
+	    function frame(){
+	      if(posY !== top){
+	        posY=posY+2;
+	        elem.style.top = posY + '%';
+	      }
+	      if(posX !== left){
+	        posX++;
+	        elem.style.left = posX + '%';
+	      }
+	      if (posX >= left && posY >= top){
+	        clearInterval(id);
+	      }
+	    }
+	  }
+
+
+		function moveElement(myElement){
+
+			var posTop = 0;
+			var posLeft = 0;
+			var id2 = setInterval(changePos, 20);
+
+			function changePos(){
+				if(posTop <= 20){
+					posTop=posTop+1;
+					myElement.style.posTop = posTop + '%';
+				}
+
+				if(posLeft <= 20){
+					posLeft=posLeft+1;
+					myElement.style.posLeft = posLeft + '%';
+				}
+
+				if (posTop >= myTop  && posLeft >= myLeft){
+					clearInterval(id);
+					myElement.style.border=myborder;
+				}
+
+			}	
+		}
+
+
+
+		function changeBack(){
+			var id = setInterval(change, 3000);
+			var myElement=document.getElementById("mainDiv");
+			var arraybg=[];
+			var opacity=false;
+			for(k=0;k<5;k=k+1){
+				arraybg[k]= "url('images/bg"+(k+1) +".jpg')";
+			}
+			k=0;
+			function change(){
+				myElement.style.transition="opacity 2s ease-in-out";
+				myElement.style.opacity="0";
+
+				if(k <= 6){			
+					myElement.style.backgroundSize="cover";		
+					myElement.style.background = "silver "+ arraybg[k]+" no-repeat center center";
+					k++;
+				}
+				else{
+					k=0;
+				}
+				myElement.style.opacity="1";
+				myElement.style.transition="none";
+
+			}
+		}
+
+
+	</script>
+
+</html>

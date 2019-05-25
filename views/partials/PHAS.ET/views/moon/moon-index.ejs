@@ -1,0 +1,9 @@
+<% include ./views/partials/moonboiler %>
+
+<% for (let pokemon of data) { %>
+<a href='/pokemon/<%= pokemon.id %>'>
+<li><%= pokemon.name %></li>
+</a>
+<% } %>
+
+<% include ./views/partials/end %>

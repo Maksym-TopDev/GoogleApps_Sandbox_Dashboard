@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+		
+		/*start parallax*/
+
+		.parallax {
+			background-image: url('images/bamboo.jpg');
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			position: relative;
+		}
+		#exp {
+			margin: 40% 25% 0% 25%;
+			padding-bottom: 0%;
+			height: 650px;
+			z-index: 22;
+			/*background-color: pink;*/
+		}
+		#pika {
+			background: 
+				url('images/pika.jpg');
+				background-repeat: no-repeat;
+				background-size: 100%;
+			width: 48%;
+			height: 39%;
+			position: absolute;
+			margin-top: 0%;
+			padding-bottom: 0%;
+			/*background-color: blue;	*/
+			left: -700px;
+			z-index: 33;
+		}
+		#dex {
+			background: 
+				url('images/dex1.jpg');
+				background-repeat: no-repeat;
+				background-size: 100%;
+			width: 48%;
+			height: 39%;
+			position: absolute;
+			margin-top: 0%;
+			padding-bottom: 0%;
+			/*background-color: blue;	*/
+			right: -700px;
+			z-index: 37;
+		}
+		section {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
+		.round {
+			border-radius: 50%;
+			margin: 15% 50% 0% 40%;
+		}
+		.hover {
+			height: 250px;
+			width: 250px;
+			margin-left: 50%;
+		}
+		.hover:hover {
+			height: 300px;
+			width: 300px;
+			/*background-color: blue;*/
+			position: relative;
+			right: 15%;
+			bottom: -300%;
+		}
+		/*end parallax*/
+		form {
+			margin-left: 63%;
+			margin-top: 250px;
+			position: absolute;
+		}
+		input {
+			color: white;
+			font-weight: bold;
+		}
+		th input {
+			position: absolute;
+			background-image: url('images/pika.jpg');
+			background-size: 70%;
+			background-attachment: fixed;
+			background-repeat: no-repeat;
+			/*position: relative;*/
+			right: 425px;
+			height: 160px;
+			width: 229px;
+			top: -110px;
+			border-radius: 5%;
+			font-size: 30pt;
+			padding-left: 10px;
+		}
+		.row1 input:hover {
+			background-color: lightblue;
+			color: blue;
+		}
+		.row1 input {
+			padding: 5px 18px 5px 0%;
+			margin: 15px 4px 1px 0%;
+			background-color: blue;
+		}
+		.row2 input:hover {
+			background-color: lightblue;
+			color: blue
+		}
+		.row2 input {
+			padding: 5px 18px 5px 0%;
+			margin: 2px 4px 1px 0%;
+			background-color: blue;
+		}
+		#td1 input:hover {
+			background-color: pink;
+			color: red
+		}
+		#td2 input:hover {
+			background-color: lightgreen;
+			color: green;
+		}
+		#td3 input:hover {
+			background-color: green;
+			color: lightgreen;
+		}
+		#td4 input:hover {
+			background-color: red;
+			color: orange;
+		}
+		.row3 input {
+			padding:;
+			margin-top: 18px;
+		}
+		.circle {
+			position: relative;
+			border-radius: 50%;
+			background-color: red;
+		}
+		.circle2 {
+			position: relative;
+			right: 17px;
+			border-radius: 50%;
+			background-color: green;
+		}
+		.circle3 {
+			position: relative;
+			right: -10px;
+			padding: 0px 10px;
+			border-radius: 30%;
+			background-color: lightgreen;
+			color: green;
+		}
+		.circle4 {
+			position: relative;
+			right: -35px;
+			padding: 0px 12px;
+			border-radius: 25%;
+			background-color: orange;
+			color: red;
+		}
+		.row4 input:hover {
+			background-color: red;
+			color: yellow;
+		}
+		.coma {
+			position: relative;
+			padding: 3px;
+			font-size: 10pt;
+			color: red;
+			top: 5px;
+			left: 7px;
+		}
+		.equal {
+			position: relative;
+			margin-top: 9px;
+			padding: 3px;
+			left: 133px;
+			border-radius: 50%;
+			color: red;
+			font-size: 12pt;
+			background-color: yellow;
+		}
+		.row5 input:hover {
+			background-color: yellow;
+			color: pink;
+		}
+		.row5 input{
+			margin-top: 28px; 
+			padding: 8px 16px 8px 16px;
+			border-radius: 10%;
+			background-color: orange;
+			font-size: 16pt;	
+			color: black;
+		}
+		.sq {
+			position: relative;
+			right: 10px;
+		}
+		.sq1 {
+			position: relative;
+			right: 85px;
+		}
+		
+	</style>
+</head>
+<body class="parallax">
+	<script type="text/javascript">
+		var scrollY = 0;
+		var distance = 20;
+		var speed = 24;
+		function autoScrollTo (el){
+			var currentY = window.pageYOffset;
+			var targetY = document.getElementById(el).offsetTop;
+			var bodyHeight = document.body.offsetHeight;
+			var yPros = currentY + window.innerHeight;
+			var animator = setTimeout ('autoScrollTo(\''+el+'\')',speed);
+			if (yPros > bodyHeight){
+				clearTimeout (animator);
+				appeared ('pika');
+				dex ('dex');
+			}
+			else {
+				if (currentY < targetY-distance){
+					scrollY = currentY+distance;
+					window.scroll(0, scrollY);
+				}
+				else {
+					clearTimeout (animator);
+				}
+			}
+		}
+		function appeared (el){
+			var elem = document.getElementById(el);
+			elem.style.transition = "left 2.0s linear 0s";
+			elem.style.left = "25%";
+		}
+		function dex (del){
+			var delem = document.getElementById(del);
+			delem.style.transition = "right 2.0s linear 3s";
+			delem.style.right = "25%";
+		}
+		function avg (){
+			var a = Calc.Input.value.toString();
+			a=a.split("+");
+			Calc.Input.value=eval(Calc.Input.value)/a.length;
+		}
+
+	</script>
+	<section>
+		<a class="round" href="#" onclick="return false;" onmousedown="autoScrollTo('pika');"><img class="hover" src="images/Pokeball.png"></a>
+		<div id="exp">
+			<div id="pika"></div>
+			<div id="dex">
+				<!-- <center> -->
+					<FORM NAME="Calc">
+						<TABLE>
+							<th colspan="5">
+								<INPUT placeholder="Calculate!" id="in" TYPE="text" NAME="Input" ></INPUT>
+							</th>
+							
+							<tr class="row1">
+								<td><INPUT TYPE="button" NAME="one"  VALUE=" 1 " OnClick="Calc.Input.value += ' 1 '"></INPUT></td>
+								<td><INPUT TYPE="button" NAME="two"  VALUE=" 2 " OnClick="Calc.Input.value += '  2  '"></INPUT></td>
+								<td><INPUT TYPE="button" NAME="three"  VALUE=" 3 " OnClick="Calc.Input.value += ' 3 '"></INPUT></td>
+								<td><INPUT TYPE="button" NAME="four"  VALUE=" 4 " OnClick="Calc.Input.value += ' 4 '"></INPUT></td>
+								<td><INPUT TYPE="button" NAME="five"  VALUE=" 5 " OnClick="Calc.Input.value += ' 5 '"></INPUT></td>
+							</tr>
+
+							<tr class="row2">
+								<td><INPUT TYPE="button" NAME="six"  VALUE=" 6 " OnClick="Calc.Input.value += ' 6 '"></INPUT></td>
+								<td><INPUT TYPE="button" NAME="seven"   VALUE=" 7 " OnClick="Calc.Input.value += ' 7 '"></INPUT></td>
+								<td><INPUT TYPE="button" NAME="eight"   VALUE=" 8 " OnCLick="Calc.Input.value += ' 8 '"></INPUT></td>
+								<td><INPUT TYPE="button" NAME="nine"   VALUE=" 9 " OnCLick="Calc.Input.value += ' 9 '"></INPUT></td>
+								<td><INPUT TYPE="button" NAME="zero"  VALUE=" 0 " OnClick="Calc.Input.value += ' 0 '"></INPUT></td>
+							</tr>
+
+							<tr class="row3">
+								<td id="td1"><INPUT class="circle" TYPE="button" NAME="plus"  VALUE=" + " OnClick="Calc.Input.value += ' + '"></INPUT></td>
+								<td id="td2"><INPUT class="circle2" TYPE="button" NAME="sub"  VALUE=" - " OnClick="Calc.Input.value += ' - '"></INPUT></td>
+								<td id="td3"><INPUT class="circle3" TYPE="button" NAME="mult"  VALUE=" x " OnClick="Calc.Input.value += ' * '"></INPUT></td>
+								<td id="td4"><INPUT class="circle4" TYPE="button" NAME="div"  VALUE=" / " OnClick="Calc.Input.value += ' / '"></INPUT></td>
+							</tr>
+
+							<tr class="row4">
+								<td><INPUT class="coma" TYPE="button" NAME="period"  VALUE=" , " OnClick="Calc.Input.value += ','"></INPUT></td>
+								<td><INPUT class="equal" TYPE="button" NAME="equal"  VALUE=" = " OnClick="Calc.Input.value = eval(Calc.Input.value)"></INPUT></td>
+							</tr>
+
+							<tr class="row5">
+								<td colspan="5"><INPUT class="sq" TYPE="button" NAME=""  VALUE=" CE  " OnClick="Calc.Input.value = ''"></INPUT></td>
+								<td colspan="5"><INPUT class="sq1" TYPE="button" NAME=""  VALUE=" AVG  " OnClick="avg ()"></INPUT></td>
+							</tr>
+							
+
+						</TABLE>
+					</FORM>
+				</center>
+			</div>
+		</div>
+	</section>
+
+
+</body>
+</html>

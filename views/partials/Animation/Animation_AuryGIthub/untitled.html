@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			My animation	
+		</title	>
+		<script src="libraries/jquery-1.12.1.js"></script>
+		<script src="libraries/responsivevoice.js"></script>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<style type="text/css">
+			body{
+				height: 100%;
+				width: 98%;
+			}
+
+			#mainDiv{
+				height: 900px;
+				width: 90%;
+				margin: 0;
+				padding: 0;
+				align-items: center;
+				display: flex;
+				flex-wrap: wrap;
+				position: relative;
+				justify-content: space-around;
+				background-size: cover;
+				background: silver url("images/mainbg.jpg") no-repeat fixed center;
+
+			}
+
+			#showBnt{
+				height: 120px;
+				width: 120px;
+				border-radius: 60px;
+				border: 8px  solid #BEDCF0;
+				background: #4679BD ; 
+				left: 50%;
+				position: absolute;
+
+			}
+
+			#showBnt:hover{
+				opacity: 0.9;
+				box-shadow: 10px 10px 5px #888888;
+
+			}
+
+		</style>
+	</head>	
+	
+	<body>
+		
+		<div id="mainDiv">
+			<div>
+			<button  id="showBnt"  onclick="showDiv()" onmouseover="buttonAnimation()"  >
+				...
+			</button>
+			</div>
+			
+		</div>
+		<audio  loop auto  id="alarmSound" >
+			<source src="media/alarm.mp3" type="audio/mpeg">
+		</audio>
+
+
+	</body>
+	
+	<script type="text/javascript">
+		var arrayColor=["#009999","#808080","#ff9933","#ff9999","#004c99","white","#009999","#808080","#ff9933","#ff9999"];
+		var arrayPict=[];
+		var arrayName=["Amaduo Kante","b","c","d","e","f",7,8,9,10,11,12,13];
+
+		var dimention=12;
+		var indexN=0;
+
+		var bntMove=0;
+		var createdDiv = false;
+
+		var showDivN	=1;
+
+		//filling my array with pics name
+		for(indexN=0;indexN<=12;indexN=indexN+1){
+			arrayPict[indexN]= "url('images/image"+(indexN+1) +".jpg')";
+		}
+
+		changeBack();
+
+		//creating my divs
+		function createMultDivs() {
+			if (createdDiv===false){
+				for (indexN=1; indexN<=arrayPict.length;indexN=indexN+1){
+			        var myNewDiv = document.createElement("div");
+			        myNewDiv.id = "myDiv" + addZero(indexN,3);
+			        myNewDiv.style.height = "0";
+			        myNewDiv.style.width = "0";
+			        myNewDiv.style.border="none";
+			        myNewDiv.style.borderRadius = "";
+			        myNewDiv.style.font="italic bold 22px/40px Georgia, serif"
+			        myNewDiv.style.backgroundSize="cover";
+			        myNewDiv.style.background = "silver "+ arrayPict[indexN-1] +" no-repeat center center";
+			        document.getElementById("mainDiv").appendChild(myNewDiv);
+			        hideElement(myNewDiv);
+
+			    } 
+			}  
+		    createdDiv=true;
+	    }
+	    
+	    function showDiv(){
+
+			var top=20;
+			var left=20;
+			if (showDivN<=arrayPict.length){
+	    		var myElement=document.getElementById("myDiv" + addZero(showDivN,3));
+	    		showElement(myElement,180,180,"3px  double #BEDCF0",true,top ,left);
+	    		if (showDivN%5===0){
+	    			top=top+200;
+	    			left=0;
+	    		}
+	    		else{
+	    			left=left+200;
+	    		}
+	    		responsiveVoice.speak("hey","UK English Female",{rate: 0.9});
+	    		showDivN=showDivN+1;
+
+	    	}
+
+
+
+	    }
+
+	    // adding leading zero
+		function addZero(value,size){
+			var myValue=value.toString();
+			var k=myValue.length;
+			while (k< size ){
+				myValue="0"+ myValue;
+				k=myValue.length ;
+			}
+			return myValue;
+		}
+
+		// moves the buttom to a position depending a ramdom for 10 times 
+		function buttonAnimation(){
+			var myButton = document.getElementById("showBnt");
+			var ramTop=Math.abs(Math.floor((Math.random() * 100) - 10 ));
+			var ramleft=Math.abs(Math.floor((Math.random() * 100) -10 ));
+			//if (bntMove<10){
+			if (bntMove<1){
+				myButton.style.backgroundColor=arrayColor[bntMove];
+				hideElement(myButton);
+		
+				myButton.style.left=ramleft + "%";
+				myButton.style.top=ramTop + "%";
+			
+	 			bntMove	=bntMove+1;
+				showElement(myButton,120,120,"8px  solid #BEDCF0",false,0,0);
+
+			}
+			else{
+				myButton.style.left="50%";
+				myButton.style.top="50%";	
+				myButton.style.backgroundColor="#4679BD";
+				createMultDivs();			
+			}	
+
+		}
+
+		//hide element
+		function hideElement(myElement){
+			myElement.style.height="0px";
+			myElement.style.width="0px";
+			myElement.style.border="none";
+		}
+
+		function hideElement2(myElement){
+			var height = 180;
+			var width = 180;
+			var id = setInterval(smaller, 1);
+
+			function smaller(){
+				myElement.style.border="none";
+				if(height > 0){
+					height=height-2;
+					//alert(height);
+
+					myElement.style.height = height + "px";
+					myElement.style.width = height + "px";
+					myElement.style.borderRadius = "0";
+				}
+
+				if (height ===0   && width ===0){
+					clearInterval(id);
+					myElement.style.border="none";
+				}
+			}
+		}
+
+		function showElement(myElement,myheight, mywidth, myborder,moveEle,myTop,myLeft){
+			var height = 0;
+			var width = 0;
+			var id = setInterval(bigger, 1);
+
+			var posTop = 0;
+			var posLeft = 0;
+			var id2 = setInterval(bigger, 1);
+			
+			function bigger(){
+				if(height <= myheight){
+					height=height+1;
+					myElement.style.height = height + 'px';
+				}
+
+				if(width <= mywidth){
+					width=width+1;
+					myElement.style.width = width + 'px';
+				}
+
+				if (height >= myheight  && width >= mywidth){
+					clearInterval(id);
+					myElement.style.border=myborder;
+				}
+
+			}
+
+			if (moveEle){
+				function changePos(myTop,myLeft){
+					if(posTop <= myTop){
+						posTop=posTop+1;
+						myElement.style.posTop = posTop + 'px';
+					}
+
+					if(posLeft <= myLeft){
+						posLeft=posLeft+1;
+						myElement.style.posLeft = posLeft + 'px';
+					}
+
+					if (posTop >= myTop  && posLeft >= myLeft){
+						clearInterval(id);
+						myElement.style.border=myborder;
+					}
+
+				}
+			}	
+		}
+
+		function changeBack(){
+			var id = setInterval(change, 3000);
+			var myElement=document.getElementById("mainDiv");
+			var arraybg=[];
+			var opacity=false;
+			for(k=0;k<=6;k=k+1){
+				arraybg[k]= "url('images/bg"+(k+1) +".jpg')";
+			}
+			k=0;
+			function change(){
+				myElement.style.transition="opacity 2s ease-in-out";
+				myElement.style.opacity="0";
+
+				if(k <= 6){					
+					myElement.style.background = "silver "+ arraybg[k]+" no-repeat center center";
+					k++;
+				}
+				else{
+					k=0;
+				}
+				myElement.style.opacity="1";
+				myElement.style.transition="none";
+
+
+			}
+		}
+
+
+	</script>
+
+</html>

@@ -1,0 +1,42 @@
+<% include boilerplates/topBun.ejs %>
+	<form method="POST" action="/edit"></form>
+	<div>
+		<input name="user" id="user" type="text" placeholder="user">
+		<input name="pass" id="pass" type="password" placeholder="password">
+		<input id="btn" type="submit" value="login">
+	</div>
+
+	<% include boilerplates/styleTop.ejs %>
+		firebase.auth().signOut().then(function() {
+			console.log('Signed Out');
+		}, function(error) {
+			console.error('Sign Out Error', error);
+		});
+
+		let btnLogin = document.querySelector('#btn');
+		btnLogin.addEventListener('click',function login(e){
+			console.log('login clicked');
+			// get email and password onclick
+			const email = document.querySelector('#user').value;
+			const pass = document.querySelector('#pass').value;
+			const auth = firebase.auth();
+
+			// sign in
+			const promise = auth.signInWithEmailAndPassword(email,pass);
+			promise.catch(e => console.log(e.message));
+
+			firebase.auth().onAuthStateChanged(firebaseUser => {
+				console.log(firebaseUser);
+				if(firebaseUser){
+					console.log("there is a user");
+					console.log(firebaseUser);
+					document.querySelector("body").appendChild(document.querySelector('form').submit());
+				}
+				else{
+					console.log('not logged in');
+					body.innerHTML = '<img src="images/c8a.png">';
+				}
+			});
+		});
+
+<% include boilerplates/bottomBun.ejs %>

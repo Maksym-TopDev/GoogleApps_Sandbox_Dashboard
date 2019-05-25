@@ -1,0 +1,44 @@
+<% include ../../boilerplates/top.ejs %>
+
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"> -->
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
+
+  <link rel="stylesheet" href="css/altz.css">
+
+  <title>ALTZ-082B</title>
+
+  <style>
+      /*APP ONLY*/
+      
+      .description {
+        position: absolute;
+        width: 20%;        
+      }
+
+      .altz {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+  </style>
+</head>
+<body>
+  <% include ../../boilerplates/nav.ejs %>
+
+  <div class="game">
+    
+  </div>
+  
+  <% include ../../boilerplates/modal-component.ejs %>
+
+  <script type="text/javascript" src="js/altz/altz.js"></script>
+  <script>
+    let game = document.querySelectorAll('.game');
+    Mystic8.start(game[0]);
+    Mystic8.start(game[1]);
+  </script>
+
+<% include ../../boilerplates/bottom.ejs %>

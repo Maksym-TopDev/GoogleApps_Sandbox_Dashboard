@@ -1,0 +1,17 @@
+	<hr>
+	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+	<script type="text/javascript">
+		let config = {
+		    apiKey: "AIzaSyBhe8-m9KZxkzLsw7bhERZksx3DD-L3P1Q",
+		    authDomain: "lestrut-c343d.firebaseapp.com",
+		    databaseURL: "https://lestrut-c343d.firebaseio.com",
+		    projectId: "lestrut-c343d",
+		    storageBucket: "",
+		    messagingSenderId: "868519901278"
+		}
+
+		let app = firebase.initializeApp(config);
+		let db = app.database();
+
+		let all = db.ref('all');  
+	
