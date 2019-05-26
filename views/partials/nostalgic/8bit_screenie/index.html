@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		* {
+			margin: 0 auto;	
+		}
+		body {
+			background-color: lightblue;
+			background-attachment: fixed;
+			background-size: cover;
+			/*position: fixed;*/
+			position: relative;
+			animation: night 20s ease-in 80s;
+			animation-fill-mode: forwards;
+		}
+		@keyframes night{
+			100% {background-color: darkblue}
+		}
+		.grass {
+			background-image: url('grass.png');
+			background-size: cover;			
+			background-repeat: no-repeat;
+			height: 160px;
+			transform: translate(0%,360%);
+
+			/*background-attachment: fixed;*/
+		}
+		#cloud {
+			background-image: url('cloud1.png');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 230px;
+			width: 230px;
+			margin-top: 40px;
+			transform: translate(-300%,0%);
+			position: absolute;
+
+		}
+		#clouda {
+			background-image: url('cloud1.png');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 280px;
+			width: 300px;
+			margin-top: 320px;
+			transform: translate(-250%,0%);
+			position: absolute;
+		}
+		#cloudb {
+			background-image: url('cloud1.png');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 250px;
+			width: 280px;
+			margin-top: 400px;
+			transform: translate(-200%,0%);
+			position: absolute;
+		}
+
+		#cloud2 {
+			background-image: url('cloud2.png');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 320px;
+			width: 380px;
+			margin-top: 220px;
+			transform: translate(50%,0%);
+			position: absolute;
+		}
+		#cloud2a {
+			background-image: url('cloud2.png');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 130px;
+			width: 180px;
+			margin-top: 180px;
+			transform: translate(-150%,0%);
+			position: absolute;
+		}
+		#cloud2b {
+			background-image: url('cloud2.png');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 290px;
+			width: 310px;
+			margin-top: 40px;
+			transform: translate(-50%,0%);
+			position: absolute;
+		}
+		
+		#mario {
+			background-image: url('mario.gif');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 70px;
+			width: 70px;
+			position: absolute;
+			margin-top: 440px;
+			margin-left: 80px;
+
+		}
+		#megaman {
+			background-image: url('megaman.gif');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 80px;
+			width: 80px;
+			position: absolute;
+			margin-top: 440px;
+			transform: translate(-250%,0%);
+		}
+		#mario1 {
+			background-image: url('mario.gif');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 40px;
+			width: 40px;
+			position: absolute;
+			margin-top: 600px;
+			margin-left: 80px;
+			transform: translate(1000%,0%);
+			transform: scale(-1,1);
+
+		}
+		#megaman1 {
+			background-image: url('megaman.gif');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 50px;
+			width: 50px;
+			position: absolute;
+			margin-top: 595px;
+			transform: translate(1000%,0%);
+			transform: scale(-1,1);
+		}
+		#tree {
+			background-image: url('tree.png');
+			/*background-size: cover;*/
+			background-size: 100%;
+			background-repeat: no-repeat;
+			/*background-color: blue;*/
+			height: 320px;
+			width: 300px;
+			position: absolute;
+			margin-top: 220px;
+		}
+		#pine1 {
+			background-image: url('pine.png');
+			
+			background-size: 100%;
+			background-repeat: no-repeat;
+			
+			height: 320px;
+			width: 220px;
+			position: absolute;
+			margin-top: 350px;
+			margin-left: 800px;
+		}
+		#pine2 {
+			background-image: url('pine.png');
+			
+			background-size: 100%;
+			background-repeat: no-repeat;
+			
+			height: 320px;
+			width: 250px;
+			position: absolute;
+			margin-top: 300px;
+			margin-left: 1030px;
+		}
+		#pine3 {
+			background-image: url('pine.png');
+			/*background-size: cover;*/
+			background-size: 100%;
+			background-repeat: no-repeat;
+			/*background-color: blue;*/
+			height: 320px;
+			width: 200px;
+			position: absolute;
+			margin-top: 360px;
+			margin-left: 1100px;
+		}
+		#pine4 {
+			background-image: url('pine.png');
+			/*background-size: cover;*/
+			background-size: 100%;
+			background-repeat: no-repeat;
+			/*background-color: blue;*/
+			height: 320px;
+			width: 250px;
+			position: absolute;
+			margin-top: 260px;
+			margin-left: 1190px;
+		}
+		#pine5 {
+			background-image: url('pine.png');
+			/*background-size: cover;*/
+			background-size: 100%;
+			background-repeat: no-repeat;
+			/*background-color: blue;*/
+			height: 320px;
+			width: 210px;
+			position: absolute;
+			margin-top: 330px;
+			margin-left: 1230px;
+		}
+		#mario2 {
+			background-image: url('mario.gif');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 600px;
+			width: 600px;
+			position: absolute;
+			margin-top: 80px;
+			transform: translate(-2050%,0%);
+
+		}
+		#megaman2 {
+			background-image: url('megaman.gif');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 600px;
+			width: 600px;
+			position: absolute;
+			margin-top: 120px;
+			transform: translate(-3550%,0%);
+		}
+		#sun {
+			background-image: url('sun.png');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 170px;
+			width: 170px;
+			transform: translate(200%, -100%);
+			position: absolute;
+		}
+		#moon {
+			background-image: url('moon.png');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 500px;
+			width: 500px;
+			transform: translate(180%, 300%);
+			position: absolute;
+		}
+		#haunter {
+			background-image: url('hunter.gif');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 170px;
+			width: 170px;
+			transform: translate(650%, 1500%);
+			position: absolute;
+		}
+		#gengar {
+			background-image: url('gengar.gif');
+			background-size: cover;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			height: 170px;
+			width: 170px;
+			transform: translate(50%, 70%);
+			position: absolute;
+			opacity: 0;
+			animation: gen 20s ease-in 100s;
+			animation-fill-mode: forwards;
+		}
+		@keyframes gen{
+			100% {opacity: 1;}
+		}
+		#charmil {
+			background-image: url('charman.gif');
+			/*background-size: cover;*/
+			background-size: 100%;
+			background-repeat: no-repeat;
+			/*background-color: blue;*/
+			height: 180px;
+			width: 150px;
+			position: absolute;
+			margin-top: 360px;
+			margin-left: 200px;
+		}
+		#fire {
+			background-image: url('fire.gif');
+			/*background-size: cover;*/
+			background-size: 100%;
+			background-repeat: no-repeat;
+			/*background-color: blue;*/
+			height: 100px;
+			width: 100px;
+			position: absolute;
+			margin-top: 410px;
+			margin-left: 150px;
+		}
+		#bomb {
+			background-image: url('bombman.gif');
+			/*background-size: cover;*/
+			background-size: 70%;
+			background-repeat: no-repeat;
+			/*background-color: blue;*/
+			height: 150px;
+			width: 150px;
+			position: absolute;
+			margin-top: 300px;
+			margin-left: 550px;
+		}
+		#vict {
+			background-image: url('bomberman.gif');
+			/*background-size: cover;*/
+			background-size: 100%;
+			background-repeat: no-repeat;
+			/*background-color: blue;*/
+			height: 100px;
+			width: 100px;
+			position: absolute;
+			margin-top: 380px;
+			margin-left: 600px;
+		}
+		#twist {
+			background-image: url('topman.gif');
+			/*background-size: cover;*/
+			background-size: 90%;
+			background-repeat: no-repeat;
+			/*background-color: blue;*/
+			height: 100px;
+			width: 100px;
+			position: absolute;
+			margin-top: 350px;
+			margin-left: 640px;
+		}
+		
+	</style>
+</head>
+<body onload="run()" id="sky">
+<!--<audio autoplay loop>
+		<source src="dustforce.ogg" type="audio/ogg">
+		<source src="dustforce.mp3" type="audio/mp3">
+	</audio> -->
+	<iframe width="0" height="0" src="https://www.youtube.com/embed/4fBQDzRvCTs?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
+
+	<div id="sun"></div>
+	<div id="moon"></div>
+	<div id="cloud"></div>
+	<div id="clouda"></div>
+	<div id="cloudb"></div>
+	<div id="cloud2"></div>
+	<div id="cloud2a"></div>
+	<div id="cloud2b"></div>
+	<div id="haunter""></div>
+
+	<div id="megaman1"></div>
+	<div id="mario1"></div>
+	<div class="grass"></div>
+
+	
+	
+	<div id="pine2"></div>
+	
+	<div id="tree"></div>
+	<div id="charmil"></div>
+	<div id="fire"></div>
+
+	<div id="bomb"></div>
+	<div id="twist"></div>
+	<div id="vict"></div>
+	
+
+	<div id="megaman"></div>
+	<div id="mario""></div>
+	
+	<div id="gengar"></div>
+	<div id="pine4"></div>
+	<div id="pine5"></div>
+	<div id="pine3"></div>
+
+	<div id="megaman2"></div>
+	<div id="mario2"></div>
+	
+	<!-- <button onclick="run()">cloud</button> -->
+	<script type="text/javascript">
+		function appear (el){
+			var elem = document.getElementById(el);
+			elem.style.transition = "backgroundColor 5.0s ease-in infinite";
+			elem.style.backgroundColor = "darkblue";
+		}
+		function run (uh){
+			var dek = document.getElementById('mario2');
+			var tek = document.getElementById('megaman2');
+			var ele = document.getElementById('mario');
+			var del = document.getElementById('megaman');
+			var ete = document.getElementById('mario1');
+			var tel = document.getElementById('megaman1');
+			var zet = document.getElementById('cloud');
+			var tet = document.getElementById('clouda');
+			var fet = document.getElementById('cloudb');
+			var cet = document.getElementById('cloud2');
+			var eet = document.getElementById('cloud2a');
+			var bet = document.getElementById('cloud2b');
+			var sun = document.getElementById('sun');
+			var moon = document.getElementById('moon');
+			var hunt = document.getElementById('haunter');
+
+			var ter = 0;
+
+			var pos = 0;
+			var pos1 = 0;
+			var pos2 = 0;
+			var pos3 = 0;
+			var pos4 = 0;
+			var pos5 = 0;
+
+			var posX = 0;
+			var posZ = 0;
+
+			var posA = 0;
+			var posB = 0;
+			var posC = 0;
+			var posD = 0;
+
+
+			var set = 0;
+			var rise = 0;
+			var id = setInterval(frame, 5);
+			function frame(){
+				if (pos4 == 40){
+					posC+=1;
+					dek.style.left = posC + 'px';
+
+					posD+=2;
+					tek.style.left = posD + 'px';
+					clearInterval(id);
+				}			
+				else {
+					pos+=0.2;
+					cet.style.left = pos + 'px';
+				
+					pos1+=0.3;
+					zet.style.left = pos1 + 'px';
+				
+					pos2+=0.1;
+					tet.style.left = pos2 + 'px';
+				
+					pos3+=0.4;
+					eet.style.left = pos3 + 'px';
+				
+					pos4+=0.2;
+					fet.style.left = pos4 + 'px';
+				
+					pos5+=0.1;
+					bet.style.left = pos5 + 'px';
+
+					posX+=3;
+					del.style.left = posX + 'px';
+
+					posZ+=2;
+					ele.style.left = posZ + 'px';
+
+					posA+=0.4;
+					tel.style.right = posA + 'px';
+
+					posB+=0.3;
+					ete.style.right = posB + 'px';
+
+					set+=0.1;
+					sun.style.top = set + 'px';
+
+					rise+=0.09;
+					moon.style.bottom = rise + 'px';
+
+					ter+=0.2;
+					hunt.style.bottom = ter + 'px';
+
+					posC+=7;
+					tek.style.left = posC + 'px';
+
+					posD+=5;
+					dek.style.left = posD + 'px';
+
+
+				}
+			}
+		}
+	</script>
+</body>
+</html>

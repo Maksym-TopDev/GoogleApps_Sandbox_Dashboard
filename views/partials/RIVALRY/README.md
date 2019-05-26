@@ -1,6 +1,6 @@
 # RIVALRY(Tic Tac Toe)
 
-![fight](assets/fight.jpg)
+![fight](media/rivalry/fight.jpg)
 
 "The very first move both you and your opponent declared determines who has won before the game has finished."
 
@@ -33,12 +33,12 @@ The objective is to get three in a row before your rival. All you need is your o
 
 ## READY?
 
-### [PLAY NOW](http://gardener-tapir-62070.bitballoon.com/)
+To play Rivalry, please visit [my portfolio project gallery](https://ivanalvarez.herokuapp.com/projects), click && locate the icon with the swords and enjoy.
+
+Or 
+
+Play it using my light weight express environment containing all my logic apps. Visit [/static_env](https://github.com/Alvarian/static_env) and follow my instructions there.
 
 ## Future Improvements
 
--Built in score system
-
--Reset/clear board button
-
--Volume options
+-Versus AI
