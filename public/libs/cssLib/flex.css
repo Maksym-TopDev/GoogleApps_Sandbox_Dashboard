@@ -15,12 +15,12 @@
 
 .arounded {
   display: flex;
-  justify-content: around;
+  justify-content: space-around;
 }
 
 .betweened {
   display: flex;
-  justify-content: between;
+  justify-content: space-between;
 }
 
 .gallery {

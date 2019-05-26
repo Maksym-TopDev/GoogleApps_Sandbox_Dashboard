@@ -73,8 +73,19 @@ function Duuh() {
     box.appendChild(aspect);
 
     let container = document.createElement('div');
-    container.setAttribute('class','container');
-    container.appendChild(box);  
+    container.setAttribute('class','article arounded container');
+    let title = document.createElement('h1');
+    title.setAttribute('class','riv');
+    title.innerText = 'ALTZ-082B';
+
+    container.appendChild(title);
+    container.appendChild(box); 
+
+    let timer = document.createElement('div');
+    timer.setAttribute('class','timer');
+    timer.innerText = '00:00';
+
+    container.appendChild(timer); 
 
     let altzBoard = document.createElement('div');
     altzBoard.setAttribute('class','altzBoard');
@@ -96,10 +107,6 @@ function Duuh() {
 
       altzBoard.appendChild(altzBoxes);
     })
-
-    let title = document.createElement('h1');
-    title.setAttribute('class','riv');
-    title.innerText = 'ALTZ-082B';
 
     box.appendChild(altzBoard);
 
