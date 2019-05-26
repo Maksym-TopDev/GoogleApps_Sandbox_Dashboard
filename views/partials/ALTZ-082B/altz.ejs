@@ -7,38 +7,16 @@
   <link rel="stylesheet" href="css/altz.css">
 
   <title>ALTZ-082B</title>
-
-  <style>
-      /*APP ONLY*/
-      
-      .description {
-        position: absolute;
-        width: 20%;        
-      }
-
-      .altz {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
-  </style>
 </head>
 <body>
   <% include ../../boilerplates/nav.ejs %>
 
-  <div class="game">
-    
-  </div>
-  
-  <% include ../../boilerplates/modal-component.ejs %>
+  <div class="game"></div>
 
   <script type="text/javascript" src="js/altz/altz.js"></script>
   <script>
-    let game = document.querySelectorAll('.game');
-    Mystic8.start(game[0]);
-    Mystic8.start(game[1]);
+    let game = document.querySelector('.game');
+    Mystic8.start(game);
   </script>
 
 <% include ../../boilerplates/bottom.ejs %>

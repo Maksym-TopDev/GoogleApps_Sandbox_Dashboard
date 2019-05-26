@@ -11,13 +11,10 @@
   <div class="game"></div>
   <!-- <div id="again" onclick="reset()">nnn</div> -->
 
-  <% include ../../boilerplates/modal-component.ejs %> 
-
   <script type="text/javascript" src="js/rivalry.js"></script>
   <script>
-    let game = document.querySelectorAll('.game');
-    Rivalry.start(game[0]);
-    Rivalry.start(game[1]);
+    let game = document.querySelector('.game');
+    Rivalry.start(game);
   </script>
 
 <% include ../../boilerplates/bottom.ejs %>

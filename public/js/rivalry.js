@@ -66,7 +66,7 @@ function Guuh() {
 
       div.appendChild(p);
       block.appendChild(div);
-    })
+    });
 
     track = document.createElement('div');
     track.setAttribute('id','track');
@@ -231,12 +231,11 @@ function Guuh() {
     .innerText+document.getElementById(`riv_${7}`).innerText;
 
     // OOO
-    let scoreO = document.querySelectorAll('.scoreO > div');
+    let scoreO = document.querySelector('.scoreO > div');
     if (col1 === "OOO" || col2 === "OOO" || col3 === "OOO" || row1 === "OOO" || row2 === "OOO" || row3 === "OOO" || diag1 === "OOO" || diag2 === "OOO"){
       track.innerText = "O WON!";
 
-      scoreO[0].innerText += "l";
-      scoreO[1].innerText += "l";
+      scoreO.innerText += "l";
       let mugen = document.querySelector('#mugen');
       mugen.style.display = 'block';
       inject.style.border = 'solid red 3px';
@@ -255,12 +254,11 @@ function Guuh() {
     }
 
     // XXX
-    let scoreX = document.querySelectorAll('.scoreX > div');
+    let scoreX = document.querySelector('.scoreX > div');
     if (col1 === "XXX" || col2 === "XXX" || col3 === "XXX" || row1 === "XXX" || row2 === "XXX" || row3 === "XXX" || diag1 === "XXX" || diag2 === "XXX"){
       track.innerText = "X WON!";
 
-      scoreX[0].innerText += "l";        
-      scoreX[1].innerText += "l";        
+      scoreX.innerText += "l";           
       let jin = document.querySelector('#jin');
       jin.style.display = 'block';
       inject.style.border = "solid blue 3px";
