@@ -1,12 +1,12 @@
 # RIVALRY(Tic Tac Toe)
 
-![fight](media/rivalry/fight.jpg)
+![fight](https://raw.githubusercontent.com/Alvarian/static_env/master/public/media/rivalry/fight.jpg)
 
 "The very first move both you and your opponent declared determines who has won before the game has finished."
 
 ### [View style sheet](https://github.com/Alvarian/static_env/blob/master/public/css/rivalry.css)
 
-### [View source script](https://github.com/Alvarian/static_env/blob/master/public/js/rivalry.js)
+### [View javascript](https://github.com/Alvarian/static_env/blob/master/public/js/rivalry.js)
 
 ## Sample Code Used
 
@@ -33,11 +33,11 @@ The objective is to get three in a row before your rival. All you need is your o
 
 ## READY?
 
-To play Rivalry, please visit [my portfolio project gallery](https://ivanalvarez.herokuapp.com/projects), click && locate the icon with the swords and enjoy.
+To play Rivalry, please visit [my portfolio project gallery](https://ivanalvarez.herokuapp.com/projects), click && locate the swords icon and enjoy.
 
 Or 
 
-Play it using my light weight express environment containing all my logic apps. Visit [/static_env](https://github.com/Alvarian/static_env) and follow my instructions there.
+Play it using my light weight express environment containing all my logic apps. Visit [/static_env](https://github.com/Alvarian/static_env) and follow my instructions to get started.
 
 ## Future Improvements
 
