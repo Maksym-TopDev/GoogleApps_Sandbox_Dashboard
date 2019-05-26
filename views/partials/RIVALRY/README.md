@@ -4,9 +4,9 @@
 
 "The very first move both you and your opponent declared determines who has won before the game has finished."
 
-## Technologies Used
+### [View style sheet](https://github.com/Alvarian/static_env/blob/master/public/css/rivalry.css)
 
-HTML, CSS, JAVSCRIPT, no frameworks used.
+### [View source script](https://github.com/Alvarian/static_env/blob/master/public/js/rivalry.js)
 
 ## Sample Code Used
 

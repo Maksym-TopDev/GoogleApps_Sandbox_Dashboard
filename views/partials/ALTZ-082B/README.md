@@ -1,7 +1,10 @@
 # ALTZ-082B (MYSTIC 8 PUZZLE)
 
-## Explanations of the technologies used
-15% HTML, 15% CSS, 70% Javascript(50% Vanilla, 20% jQuery)
+
+### [View style sheet](https://github.com/Alvarian/static_env/blob/master/public/css/altz.css)
+
+### [View source script](https://github.com/Alvarian/static_env/blob/master/public/js/precursor/altz.js)
+
 
 ## Sample Code
 
@@ -49,7 +52,7 @@ Since this game was purely logic, every chapter of the way, I had to resort to p
 functionality.
 
 ## Wireframe
-![My original idea](assets/wireframe.png)
+![My original idea](media/altz/wireframe.png)
 
 ## How-to-use instructions
 Instructions are second nature for the nostalgic at most. Order the elements from 1 to 8, left to right, up to down, with the empty element at the very end.
