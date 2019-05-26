@@ -50,7 +50,7 @@ With this function, onclick anywhere on the board will trigger a shuffle of your
 ## Wireframe
 ![My original idea](https://github.com/Alvarian/static_env/blob/master/public/media/altz/wireframe.png?raw=true)
 
-## How-to-use instructions
+## Instructions
 Order the elements from 1 to 8, left to right, up to down, with the empty element at the very end.
 Versus the real life puzzle, you are timed. Encrpyt the puzzle in time or face a surprise!
 
