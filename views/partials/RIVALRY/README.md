@@ -42,3 +42,5 @@ Play it using my light weight express environment containing all my logic apps. 
 ## Future Improvements
 
 -Versus AI
+
+## [RETURN TO INTRO](https://github.com/Alvarian/INTRO)
