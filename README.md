@@ -1,6 +1,7 @@
 # Static App env Setup
 
 1. Click the picture below and download node
+
 [![nodejs](https://github.com/Alvarian/static_env/blob/master/public/media/main/node.png?raw=true)](https://nodejs.org/en/)
 
 2. Fork this repo
