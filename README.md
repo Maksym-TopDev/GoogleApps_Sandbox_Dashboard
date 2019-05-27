@@ -7,19 +7,20 @@
 2. Fork this repo
 
 3. Choose the correct directory in terminal and clone the fork
+
 In that directory...
 
-``> npm init``
+	``> npm init``
 
 4. Globally install nodemon
 
-``> npm install -g nodemon``
+	``> npm install -g nodemon``
 
 5. Install packages and start the server
 
-``> npm install --save ejs express``
+	``> npm install --save ejs express``
 
-``> nodemon``
+	``> nodemon``
 
 6. Wait until you see 'listening on port 3000'
 
