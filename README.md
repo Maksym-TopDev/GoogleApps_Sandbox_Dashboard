@@ -8,8 +8,6 @@
 
 3. Choose the correct directory in terminal and clone the fork
 
-In that directory...
-
 	``> npm init``
 
 4. Globally install nodemon
