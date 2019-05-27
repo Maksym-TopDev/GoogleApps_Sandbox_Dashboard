@@ -18,6 +18,7 @@ In that directory...
 5. Install packages and start the server
 
 ``> npm install --save ejs express``
+
 ``> nodemon``
 
 6. Wait until you see 'listening on port 3000'
