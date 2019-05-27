@@ -3,7 +3,7 @@
 
 ### [View style sheet](https://github.com/Alvarian/static_env/blob/master/public/css/altz.css)
 
-### [View javascript](https://github.com/Alvarian/static_env/blob/master/public/js/precursor/altz.js)
+### [View javascript](https://github.com/Alvarian/static_env/blob/master/public/js/altz/altz.js)
 
 
 ## Sample Code
