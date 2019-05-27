@@ -13,6 +13,12 @@
   justify-content: center;
 }
 
+.belly {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
 .arounded {
   display: flex;
   justify-content: space-around;

@@ -105,7 +105,7 @@ function Guuh() {
     ticBoard.setAttribute('class','ticBoard');
 
     let background = document.createElement('div');
-    background.setAttribute('class','bkgrd article arounded');
+    background.setAttribute('class','bkgrd article centered');
 
     this.loopy(3, (i) => {
       let sideScores = document.createElement('div');
@@ -113,7 +113,7 @@ function Guuh() {
 
       let scoreX = document.createElement('div');
       scoreX.setAttribute('class','scoreX');
-      let h1X = document.createElement('h1');
+      let h1X = document.createElement('h3');
       h1X.innerText = "X";
       scoreX.appendChild(h1X);
       let ptX = document.createElement('div');
@@ -121,7 +121,7 @@ function Guuh() {
 
       let scoreO = document.createElement('div');
       scoreO.setAttribute('class','scoreO');
-      let h1O = document.createElement('h1');
+      let h1O = document.createElement('h3');
       h1O.innerText = "O";
       scoreO.appendChild(h1O);
       let ptO = document.createElement('div');
@@ -129,9 +129,7 @@ function Guuh() {
 
       let bottomScore = document.createElement('div');
       bottomScore.setAttribute('class','bottomScore');
-      bottomScore.style.display = 'flex';
-      bottomScore.style.justifyContent = 'space-around';
-
+ 
       if(i == 3){
         bottomScore.appendChild(scoreO);
         bottomScore.appendChild(scoreX);
@@ -231,11 +229,12 @@ function Guuh() {
     .innerText+document.getElementById(`riv_${7}`).innerText;
 
     // OOO
-    let scoreO = document.querySelector('.scoreO > div');
+    let scoreO = document.querySelectorAll('.scoreO > div');
     if (col1 === "OOO" || col2 === "OOO" || col3 === "OOO" || row1 === "OOO" || row2 === "OOO" || row3 === "OOO" || diag1 === "OOO" || diag2 === "OOO"){
       track.innerText = "O WON!";
 
-      scoreO.innerText += "l";
+      scoreO[0].innerText += "l";
+      scoreO[1].innerText += "l";
       let mugen = document.querySelector('#mugen');
       mugen.style.display = 'block';
       inject.style.border = 'solid red 3px';
@@ -254,11 +253,12 @@ function Guuh() {
     }
 
     // XXX
-    let scoreX = document.querySelector('.scoreX > div');
+    let scoreX = document.querySelectorAll('.scoreX > div');
     if (col1 === "XXX" || col2 === "XXX" || col3 === "XXX" || row1 === "XXX" || row2 === "XXX" || row3 === "XXX" || diag1 === "XXX" || diag2 === "XXX"){
       track.innerText = "X WON!";
 
-      scoreX.innerText += "l";           
+      scoreX[0].innerText += "l";
+      scoreX[1].innerText += "l";           
       let jin = document.querySelector('#jin');
       jin.style.display = 'block';
       inject.style.border = "solid blue 3px";

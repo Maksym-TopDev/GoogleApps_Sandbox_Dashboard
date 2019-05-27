@@ -72,20 +72,23 @@ function Duuh() {
     box.setAttribute('class','box');
     box.appendChild(aspect);
 
+    let timer = document.createElement('div');
+    timer.setAttribute('class','timer');
+    timer.innerText = '00:00';
+
+    let bomb = document.createElement('div');
+    bomb.setAttribute('class','bomb');
+    bomb.appendChild(box);
+    bomb.appendChild(timer);
+
     let container = document.createElement('div');
-    container.setAttribute('class','article arounded container');
+    container.setAttribute('class','article centered container');
     let title = document.createElement('h1');
     title.setAttribute('class','riv');
     title.innerText = 'ALTZ-082B';
 
     container.appendChild(title);
-    container.appendChild(box); 
-
-    let timer = document.createElement('div');
-    timer.setAttribute('class','timer');
-    timer.innerText = '00:00';
-
-    container.appendChild(timer); 
+    container.appendChild(bomb);  
 
     let altzBoard = document.createElement('div');
     altzBoard.setAttribute('class','altzBoard');
