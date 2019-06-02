@@ -173,5 +173,22 @@
     justify-content: 
     space-around;
   }
+  .scoreO, .scoreX {
+    font-size: 45px;
+  }
+}
+@media only screen and (max-height: 550px){
+  .bottomScore {
+    height: 90px;
+  }
+  .scoreO, .scoreX {
+    font-size: 35px;
+  }
+  .tack {
+    font-size: 35px;
+  }
+  .ticBoard {
+    margin: 0;
+  }
 }
 
