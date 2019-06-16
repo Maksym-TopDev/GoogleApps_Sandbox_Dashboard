@@ -1,14 +1,17 @@
+// GLOBAL VARIABLES vvv
+
 let divID = [0,7,2,3,4,5,6,1,8];
 let divPOS = [88,81,82,18,11,12,28,21,22];
 let fame, altzBoard, altzDesc, description;
-
+let width = 3;
+let only = true;
 
 // GLOBAL VARIABLES ^^^
 // ================
-// START KEY vvv
+// GAME CONTENT vvv
 
-function Duuh() {
-  this.getName = (e,ind) => {
+let Altz = new MysticTileGame(
+  (e,ind) => {
     console.log('Altz');
 
     let openers = document.querySelectorAll(".card");
@@ -25,20 +28,44 @@ function Duuh() {
         document.querySelector(`.modal_${el.id}`).style.display = "block";
       }
     }
-  }
-  this.loopy = (arr, func) => {
+  },
+  (el) => {
+    // if(document.querySelector('title').innerText == 'Portfolio'){
+    //   fame = document.createElement('div');
+    //   fame.setAttribute('class','altz');
+
+    //   description = document.querySelector('.description');
+
+    //   Altz.box();
+    //   console.log('portfolio');
+    // } else {
+    //   fame = document.querySelector('.altz');
+
+    //   description = document.createElement('div');
+    //   description.setAttribute('class','description');
+    //   Altz.loadMsg();
+    //   description.innerHTML = '';
+    //   description.appendChild(altzDesc);
+
+    //   Altz.box();
+    //   console.log('app');
+    // }
+    fame = el;
+    Altz.box();
+  },
+  (arr, func) => {
     for(let i = 0; i < arr.length; i++){
       func(i);
     }
-  }
-  this.loadMsg = () => {
-    let desc = [`Risk your memory!`,`Those who have disarmed this bomb (with their memory intact) describe the process as a catchy song, but dont let
+  },
+  () => {
+    let desc = [`Risk your memory!`,`Those who have disarmed Altz bomb (with their memory intact) describe the process as a catchy song, but dont let
             that fool you. That "song" is the noise that it generates as it charges. You have until the end of the noise until it goes off and scrambles
             your memory! To disarm the bomb, order the values from least to greatest, left to right, up to down, leaving the dud as the last place.`];
-    let warning = ['WARNING:','Be sure to have your routine recorded before attempting this explosive.'];
+    let warning = ['WARNING:','Be sure to have your routine recorded before attempting Altz explosive.'];
     altzDesc = document.createElement('div');
     altzDesc.setAttribute('class','altzDesc');
-    this.loopy(desc, (i) => {
+    Altz.loopy(desc, (i) => {
       if(desc[i] == desc[0]){
         let head = document.createElement('h2');
         head.innerText = `${desc[i]}`;
@@ -49,7 +76,7 @@ function Duuh() {
         altzDesc.appendChild(parts);      
       }
     });
-    this.loopy(warning, (i) => {
+    Altz.loopy(warning, (i) => {
       if(warning[i] == warning[0]){
         let head = document.createElement('h2');
         head.innerText = `${warning[i]}`;
@@ -60,8 +87,8 @@ function Duuh() {
         altzDesc.appendChild(parts);
       }
     });
-  }
-  this.box = () => {
+  },
+  () => {
     console.log('box1');
     document.querySelector('head').innerHTML += `<link href="https://fonts.googleapis.com/css?family=Orbitron|VT323&amp;subset=latin-ext,vietnamese" rel="stylesheet">`;
 
@@ -93,7 +120,7 @@ function Duuh() {
     let altzBoard = document.createElement('div');
     altzBoard.setAttribute('class','altzBoard');
 
-    this.loopy(divID, (i) => {
+    Altz.loopy(divID, (i) => {
       let altzBoxes = document.createElement('div');
       altzBoxes.setAttribute('id', `${divID[i]}`);
       altzBoxes.setAttribute('class', `altzBoxes ${i}`);
@@ -105,7 +132,7 @@ function Duuh() {
       altzBoxes.appendChild(clear);
 
       altzBoxes.addEventListener('click', () => {
-        this.shift(divPOS[i], divID[i], i);
+        Altz.shift(divPOS[i], divID[i], i);
       });
 
       altzBoard.appendChild(altzBoxes);
@@ -119,8 +146,8 @@ function Duuh() {
     // withTitle.appendChild(container);
 
     fame.appendChild(container);
-  }
-  this.showDesc = (name) => {
+  },
+  (name) => {
     let card = document.querySelector('.card');
     if(document.querySelector('title').innerText == 'Portfolio'){
       // console.log(name);
@@ -132,34 +159,8 @@ function Duuh() {
         description.appendChild(altzDesc);
       }
     }
-  }
-  this.start = (el) => {
-    // if(document.querySelector('title').innerText == 'Portfolio'){
-    //   fame = document.createElement('div');
-    //   fame.setAttribute('class','altz');
-
-    //   description = document.querySelector('.description');
-
-    //   this.box();
-    //   console.log('portfolio');
-    // } else {
-    //   fame = document.querySelector('.altz');
-
-    //   description = document.createElement('div');
-    //   description.setAttribute('class','description');
-    //   this.loadMsg();
-    //   description.innerHTML = '';
-    //   description.appendChild(altzDesc);
-
-    //   this.box();
-    //   console.log('app');
-    // }
-    fame = el;
-    this.box();
-  }
-  let width = 3;
-  let only = true;
-  this.shift = (pos, id, i) => {
+  },
+  (pos, id, i) => {
     console.log('shift', pos, id, i);
     let el = document.getElementById(id);
 
@@ -273,11 +274,11 @@ function Duuh() {
         if (duh.innerText==`0`){
           // alert("RIGHT");
 
-          this.moveRight(pos, el, i, right, duh);
+          Altz.moveRight(pos, el, i, right, duh);
         }
         else if (fuh.innerText==`0`){
           // alert("DOWN");
-          this.moveDown(pos, el, i, down, fuh);
+          Altz.moveDown(pos, el, i, down, fuh);
         }
     }
     else if (pos == divPOS[1]){
@@ -292,15 +293,15 @@ function Duuh() {
 
         if (guh.innerText==`0`){
           // alert("LEFT");
-          this.moveLeft(pos, el, i, left, guh);
+          Altz.moveLeft(pos, el, i, left, guh);
         }
         else if (duh.innerText==`0`){
           // alert("RIGHT");
-          this.moveRight(pos, el, i, right, duh);
+          Altz.moveRight(pos, el, i, right, duh);
         }
         else if (fuh.innerText==`0`){
           // alert("DOWN");
-          this.moveDown(pos, el, i, down, fuh);
+          Altz.moveDown(pos, el, i, down, fuh);
         }
     }
     else if (pos == divPOS[2]){
@@ -313,11 +314,11 @@ function Duuh() {
 
         if (guh.innerText==`0`){
           // alert("LEFT");
-          this.moveLeft(pos, el, i, left, guh);
+          Altz.moveLeft(pos, el, i, left, guh);
         }
         else if (fuh.innerText==`0`){
           // alert("DOWN");
-          this.moveDown(pos, el, i, down, fuh);
+          Altz.moveDown(pos, el, i, down, fuh);
         }
     }
 
@@ -334,16 +335,16 @@ function Duuh() {
 
         if (duh.innerHTML==`0`){
           // alert("RIGHT");
-          this.moveRight(pos, el, i, right, duh);
+          Altz.moveRight(pos, el, i, right, duh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          this.moveUp(pos, el, i, up, uh);
+          Altz.moveUp(pos, el, i, up, uh);
         }
 
         else if (fuh.innerHTML==`0`){
           // alert("DOWN");
-          this.moveDown(pos, el, i, down, fuh);
+          Altz.moveDown(pos, el, i, down, fuh);
         }
     }
     else if (pos == divPOS[4] ){
@@ -360,20 +361,20 @@ function Duuh() {
 
         if (guh.innerHTML==`0`){
           // alert("LEFT");
-          this.moveLeft(pos, el, i, left, guh);
+          Altz.moveLeft(pos, el, i, left, guh);
         }
         else if (duh.innerHTML==`0`){
           // alert("RIGHT");
-          this.moveRight(pos, el, i, right, duh);
+          Altz.moveRight(pos, el, i, right, duh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          this.moveUp(pos, el, i, up, uh);
+          Altz.moveUp(pos, el, i, up, uh);
         }
 
         else if (fuh.innerHTML==`0`){
           // alert("DOWN");
-          this.moveDown(pos, el, i, down, fuh);
+          Altz.moveDown(pos, el, i, down, fuh);
         }
     }
     else if (pos == divPOS[5]){
@@ -388,16 +389,16 @@ function Duuh() {
 
         if (guh.innerHTML==`0`){
           // alert("LEFT");
-          this.moveLeft(pos, el, i, left, guh);
+          Altz.moveLeft(pos, el, i, left, guh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          this.moveUp(pos, el, i, up, uh);
+          Altz.moveUp(pos, el, i, up, uh);
         }
 
         else if (fuh.innerHTML==`0`){
           // alert("DOWN");
-          this.moveDown(pos, el, i, down, fuh);
+          Altz.moveDown(pos, el, i, down, fuh);
         }
     }
 
@@ -412,11 +413,11 @@ function Duuh() {
 
          if (duh.innerHTML==`0`){
           // alert("RIGHT");
-          this.moveRight(pos, el, i, right, duh);
+          Altz.moveRight(pos, el, i, right, duh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          this.moveUp(pos, el, i, up, uh);
+          Altz.moveUp(pos, el, i, up, uh);
         }
     }
     else if (pos == divPOS[7] ){
@@ -432,15 +433,15 @@ function Duuh() {
 
         if (guh.innerHTML==`0`){
           // alert("LEFT");
-          this.moveLeft(pos, el, i, left, guh);
+          Altz.moveLeft(pos, el, i, left, guh);
         }
         else if (duh.innerHTML==`0`){
           // alert("RIGHT");
-          this.moveRight(pos, el, i, right, duh);
+          Altz.moveRight(pos, el, i, right, duh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          this.moveUp(pos, el, i, up, uh);
+          Altz.moveUp(pos, el, i, up, uh);
         }
     }
     else if (pos == divPOS[8]){
@@ -453,11 +454,11 @@ function Duuh() {
 
         if (guh.innerHTML==`0`){
           // alert("LEFT");
-          this.moveLeft(pos, el, i, left, guh);
+          Altz.moveLeft(pos, el, i, left, guh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          this.moveUp(pos, el, i, up, uh);
+          Altz.moveUp(pos, el, i, up, uh);
         }
       }
         // alert(document.getElementById('1'));
@@ -472,8 +473,8 @@ function Duuh() {
       riv.addEventListener('click', () => window.location.reload());
       // fame.innerHTML = '<img class="good" src="squidward.gif">';
     }
-  }
-  this.moveLeft = (pos, el, i, l, g) => {
+  },
+  (pos, el, i, l, g) => {
     el.innerText = l;
     el.id = l;
     el.setAttribute('onclick',`Mystic8.shift( ${ divPOS[i] }, ${ l }, ${i} )`)
@@ -487,9 +488,8 @@ function Duuh() {
     divID[i] = divID[i-1];
     divID[i-1] = plswrk;
     // alert(divID);
-  }
-
-  this.moveRight = (pos, el, i, r, d) => {
+  },
+  (pos, el, i, r, d) => {
     el.innerText = r;
     el.id = r;
     el.setAttribute('onclick',`Mystic8.shift( ${ divPOS[i] }, ${ r }, ${i} )`)
@@ -503,9 +503,8 @@ function Duuh() {
     divID[i] = divID[i+1];
     divID[i+1] = plswrk;
     // alert(divID);
-  }
-
-  this.moveUp = (pos, el, i, u, uh) => {
+  },
+  (pos, el, i, u, uh) => {
     el.innerText = u;
     el.id = u;
     el.setAttribute('onclick',`Mystic8.shift( ${ divPOS[i] }, ${ u }, ${i} )`)
@@ -519,9 +518,8 @@ function Duuh() {
     divID[i] = divID[i-width];
     divID[i-width] = plswrk;
     // alert(divID);
-  }
-
-  this.moveDown = (pos, el, i, d, f) => {
+  },
+  (pos, el, i, d, f) => {
     el.innerText = d;
     el.id = d;
     el.setAttribute('onclick',`Mystic8.shift( ${ divPOS[i] }, ${ d }, ${i} )`)
@@ -536,17 +534,10 @@ function Duuh() {
     divID[i+width] = plswrk;
     // alert(divID);
   }
-}
-let Mystic8 = new Duuh();
+)
 
-// END KEY ^^^
+// GAME CONTENT ^^^
 // ================
-// GAME CONTENT vvv
+// START KEY vvv
 
-
-
-// document.getElementById("mansion").volume = 0.5;
-
-
-
-
+Altz.start(document.querySelector('.game'));

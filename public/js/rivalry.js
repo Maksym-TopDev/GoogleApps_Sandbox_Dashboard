@@ -1,6 +1,13 @@
-function Guuh() {
-  let game, track, inject, ticDesc;
-  this.getName = (e,ind) => {
+// GLOBAL VARIABLES vvv
+
+let game, track, inject, ticDesc;
+
+// GLOBAL VARIABLES ^^^
+// ================
+// GAME CONTENT vvv
+
+let Rivalry = new TicTacToe(
+  (e,ind) => {
     console.log('Rivalry');
 
     let openers = document.querySelectorAll(".card");
@@ -17,8 +24,13 @@ function Guuh() {
           document.querySelector(`.modal_${el.id}`).style.display = "block";
         }
     }
-  }
-  this.loopy = (arr, func) => {
+  },
+  (el) => {
+    game = el;
+    Rivalry.box();
+    console.log('app');  
+  },
+  (arr, func) => {
     if(typeof arr == 'number'){
       console.log('number');
       for(let i = 1; i <= arr; i++){
@@ -29,12 +41,12 @@ function Guuh() {
         func(i);
       }
     }
-  }
-  this.loadMsg = () => {
+  },
+  () => {
     ticDesc = document.createElement('div');
     ticDesc.setAttribute('class','ticDesc');
     let desc = ['Tic Tac Toe','Mark three in a row and you win!'];
-    this.loopy(desc, (i) => {
+   Rivalryloopy(desc, (i) => {
       console.log('loop');
       if(desc[i] == desc[0]){
         // console.log(desc[i]);
@@ -48,8 +60,8 @@ function Guuh() {
         ticDesc.appendChild(parts);      
       }
     }); 
-  }
-  this.box = () => {
+  },
+  () => {
     // console.log('box0');
     document.querySelector('head').innerHTML += `<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">`;
     // game.innerHTML += `<iframe width="0" height="0" src="https://www.youtube.com/embed/CMD-0h9EOG0?rel=0&amp;autoplay=1&amp;start=0" frameborder="0" allowfullscreen></iframe>`;  
@@ -57,12 +69,12 @@ function Guuh() {
     let block = document.createElement('div');
     block.setAttribute('class', 'block');
      
-    this.loopy(9, (i) => {
+    Rivalry.loopy(9, (i) => {
       let div = document.createElement('div');
       let p = document.createElement('p');
       div.setAttribute('id',`riv_${i}`);
       p.setAttribute('class','clear');
-      div.addEventListener('click', () => this.turn(i));
+      div.addEventListener('click', () => Rivalry.turn(i));
 
       div.appendChild(p);
       block.appendChild(div);
@@ -107,7 +119,7 @@ function Guuh() {
     let background = document.createElement('div');
     background.setAttribute('class','bkgrd article centered');
 
-    this.loopy(3, (i) => {
+    Rivalry.loopy(3, (i) => {
       let sideScores = document.createElement('div');
       sideScores.setAttribute('class','sideScores');
 
@@ -169,8 +181,8 @@ function Guuh() {
     background.appendChild(clr);
 
     game.appendChild(background);      
-  }
-  this.showDesc = (name) => {
+  },
+  (name) => {
     let description = document.querySelector('.description');
     let card = document.querySelector('.card');
 
@@ -183,8 +195,8 @@ function Guuh() {
         description.appendChild(ticDesc);
       }
     }    
-  }
-  this.turn = (id) => {
+  },
+  (id) => {
     let togg = document.querySelector(`#riv_${id} > p`);
     if (track.innerText === "O's TURN!"){
       togg.innerText = 'O';
@@ -196,14 +208,9 @@ function Guuh() {
       togg.style.color = 'blue';
       track.innerText = "O's TURN!";
     }
-    this.btns();
-  }
-  this.start = (el) => {
-    game = el;
-    this.box();
-    console.log('app');  
-  }
-  this.btns = () => {
+    Rivalry.btns();
+  },
+  () => {
     console.log('win check');
 
     // column
@@ -276,5 +283,10 @@ function Guuh() {
       track.style.color = 'blue';
     }
   }
-}
-let Rivalry = new Guuh();
+);
+
+// GAME CONTENT ^^^
+// ================
+// START KEY vvv
+
+Rivalry.start(document.querySelector('.game'));
