@@ -23,6 +23,7 @@ goto end
 
 :vanilla
 start cmd
+start cmd /k "TIMEOUT /T 20 & start chrome "" "http://localhost:3000""
 echo vanilla clicked
 @ECHO OFF
 cmd /C "subl ."
