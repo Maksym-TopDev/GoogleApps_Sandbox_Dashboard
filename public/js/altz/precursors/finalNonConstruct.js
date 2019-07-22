@@ -1,17 +1,14 @@
-// GLOBAL VARIABLES vvv
-
 let divID = [0,7,2,3,4,5,6,1,8];
 let divPOS = [88,81,82,18,11,12,28,21,22];
 let fame, altzBoard, altzDesc, description;
-let width = 3;
-let only = true;
+
 
 // GLOBAL VARIABLES ^^^
 // ================
-// GAME CONTENT vvv
+// START KEY vvv
 
-let Altz = new TileGame(
-  (e,ind) => {
+function Duuh() {
+  this.getName = (e,ind) => {
     console.log('Altz');
 
     let openers = document.querySelectorAll(".card");
@@ -28,44 +25,20 @@ let Altz = new TileGame(
         document.querySelector(`.modal_${el.id}`).style.display = "block";
       }
     }
-  },
-  (el) => {
-    // if(document.querySelector('title').innerText == 'Portfolio'){
-    //   fame = document.createElement('div');
-    //   fame.setAttribute('class','altz');
-
-    //   description = document.querySelector('.description');
-
-    //   Altz.box();
-    //   console.log('portfolio');
-    // } else {
-    //   fame = document.querySelector('.altz');
-
-    //   description = document.createElement('div');
-    //   description.setAttribute('class','description');
-    //   Altz.loadMsg();
-    //   description.innerHTML = '';
-    //   description.appendChild(altzDesc);
-
-    //   Altz.box();
-    //   console.log('app');
-    // }
-    fame = el;
-    Altz.box();
-  },
-  (arr, func) => {
+  }
+  this.loopy = (arr, func) => {
     for(let i = 0; i < arr.length; i++){
       func(i);
     }
-  },
-  () => {
-    let desc = [`Risk your memory!`,`Those who have disarmed Altz bomb (with their memory intact) describe the process as a catchy song, but dont let
+  }
+  this.loadMsg = () => {
+    let desc = [`Risk your memory!`,`Those who have disarmed this bomb (with their memory intact) describe the process as a catchy song, but dont let
             that fool you. That "song" is the noise that it generates as it charges. You have until the end of the noise until it goes off and scrambles
             your memory! To disarm the bomb, order the values from least to greatest, left to right, up to down, leaving the dud as the last place.`];
-    let warning = ['WARNING:','Be sure to have your routine recorded before attempting Altz explosive.'];
+    let warning = ['WARNING:','Be sure to have your routine recorded before attempting this explosive.'];
     altzDesc = document.createElement('div');
     altzDesc.setAttribute('class','altzDesc');
-    Altz.loopy(desc, (i) => {
+    this.loopy(desc, (i) => {
       if(desc[i] == desc[0]){
         let head = document.createElement('h2');
         head.innerText = `${desc[i]}`;
@@ -76,7 +49,7 @@ let Altz = new TileGame(
         altzDesc.appendChild(parts);      
       }
     });
-    Altz.loopy(warning, (i) => {
+    this.loopy(warning, (i) => {
       if(warning[i] == warning[0]){
         let head = document.createElement('h2');
         head.innerText = `${warning[i]}`;
@@ -87,8 +60,8 @@ let Altz = new TileGame(
         altzDesc.appendChild(parts);
       }
     });
-  },
-  () => {
+  }
+  this.box = () => {
     console.log('box1');
     document.querySelector('head').innerHTML += `<link href="https://fonts.googleapis.com/css?family=Orbitron|VT323&amp;subset=latin-ext,vietnamese" rel="stylesheet">`;
 
@@ -99,28 +72,25 @@ let Altz = new TileGame(
     box.setAttribute('class','box');
     box.appendChild(aspect);
 
-    let timer = document.createElement('div');
-    timer.setAttribute('class','timer');
-    timer.innerText = '00:00';
-
-    let bomb = document.createElement('div');
-    bomb.setAttribute('class','bomb');
-    bomb.appendChild(box);
-    bomb.appendChild(timer);
-
     let container = document.createElement('div');
-    container.setAttribute('class','article centered container');
+    container.setAttribute('class','article arounded container');
     let title = document.createElement('h1');
     title.setAttribute('class','riv');
     title.innerText = 'ALTZ-082B';
 
     container.appendChild(title);
-    container.appendChild(bomb);  
+    container.appendChild(box); 
+
+    let timer = document.createElement('div');
+    timer.setAttribute('class','timer');
+    timer.innerText = '00:00';
+
+    container.appendChild(timer); 
 
     let altzBoard = document.createElement('div');
     altzBoard.setAttribute('class','altzBoard');
 
-    Altz.loopy(divID, (i) => {
+    this.loopy(divID, (i) => {
       let altzBoxes = document.createElement('div');
       altzBoxes.setAttribute('id', `${divID[i]}`);
       altzBoxes.setAttribute('class', `altzBoxes ${i}`);
@@ -132,7 +102,7 @@ let Altz = new TileGame(
       altzBoxes.appendChild(clear);
 
       altzBoxes.addEventListener('click', () => {
-        Altz.shift(divPOS[i], divID[i], i);
+        this.shift(divPOS[i], divID[i], i);
       });
 
       altzBoard.appendChild(altzBoxes);
@@ -146,8 +116,8 @@ let Altz = new TileGame(
     // withTitle.appendChild(container);
 
     fame.appendChild(container);
-  },
-  (name) => {
+  }
+  this.showDesc = (name) => {
     let card = document.querySelector('.card');
     if(document.querySelector('title').innerText == 'Portfolio'){
       // console.log(name);
@@ -159,8 +129,34 @@ let Altz = new TileGame(
         description.appendChild(altzDesc);
       }
     }
-  },
-  (pos, id, i) => {
+  }
+  this.start = (el) => {
+    // if(document.querySelector('title').innerText == 'Portfolio'){
+    //   fame = document.createElement('div');
+    //   fame.setAttribute('class','altz');
+
+    //   description = document.querySelector('.description');
+
+    //   this.box();
+    //   console.log('portfolio');
+    // } else {
+    //   fame = document.querySelector('.altz');
+
+    //   description = document.createElement('div');
+    //   description.setAttribute('class','description');
+    //   this.loadMsg();
+    //   description.innerHTML = '';
+    //   description.appendChild(altzDesc);
+
+    //   this.box();
+    //   console.log('app');
+    // }
+    fame = el;
+    this.box();
+  }
+  let width = 3;
+  let only = true;
+  this.shift = (pos, id, i) => {
     console.log('shift', pos, id, i);
     let el = document.getElementById(id);
 
@@ -274,11 +270,11 @@ let Altz = new TileGame(
         if (duh.innerText==`0`){
           // alert("RIGHT");
 
-          Altz.moveRight(pos, el, i, right, duh);
+          this.moveRight(pos, el, i, right, duh);
         }
         else if (fuh.innerText==`0`){
           // alert("DOWN");
-          Altz.moveDown(pos, el, i, down, fuh);
+          this.moveDown(pos, el, i, down, fuh);
         }
     }
     else if (pos == divPOS[1]){
@@ -293,15 +289,15 @@ let Altz = new TileGame(
 
         if (guh.innerText==`0`){
           // alert("LEFT");
-          Altz.moveLeft(pos, el, i, left, guh);
+          this.moveLeft(pos, el, i, left, guh);
         }
         else if (duh.innerText==`0`){
           // alert("RIGHT");
-          Altz.moveRight(pos, el, i, right, duh);
+          this.moveRight(pos, el, i, right, duh);
         }
         else if (fuh.innerText==`0`){
           // alert("DOWN");
-          Altz.moveDown(pos, el, i, down, fuh);
+          this.moveDown(pos, el, i, down, fuh);
         }
     }
     else if (pos == divPOS[2]){
@@ -314,11 +310,11 @@ let Altz = new TileGame(
 
         if (guh.innerText==`0`){
           // alert("LEFT");
-          Altz.moveLeft(pos, el, i, left, guh);
+          this.moveLeft(pos, el, i, left, guh);
         }
         else if (fuh.innerText==`0`){
           // alert("DOWN");
-          Altz.moveDown(pos, el, i, down, fuh);
+          this.moveDown(pos, el, i, down, fuh);
         }
     }
 
@@ -335,16 +331,16 @@ let Altz = new TileGame(
 
         if (duh.innerHTML==`0`){
           // alert("RIGHT");
-          Altz.moveRight(pos, el, i, right, duh);
+          this.moveRight(pos, el, i, right, duh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          Altz.moveUp(pos, el, i, up, uh);
+          this.moveUp(pos, el, i, up, uh);
         }
 
         else if (fuh.innerHTML==`0`){
           // alert("DOWN");
-          Altz.moveDown(pos, el, i, down, fuh);
+          this.moveDown(pos, el, i, down, fuh);
         }
     }
     else if (pos == divPOS[4] ){
@@ -361,20 +357,20 @@ let Altz = new TileGame(
 
         if (guh.innerHTML==`0`){
           // alert("LEFT");
-          Altz.moveLeft(pos, el, i, left, guh);
+          this.moveLeft(pos, el, i, left, guh);
         }
         else if (duh.innerHTML==`0`){
           // alert("RIGHT");
-          Altz.moveRight(pos, el, i, right, duh);
+          this.moveRight(pos, el, i, right, duh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          Altz.moveUp(pos, el, i, up, uh);
+          this.moveUp(pos, el, i, up, uh);
         }
 
         else if (fuh.innerHTML==`0`){
           // alert("DOWN");
-          Altz.moveDown(pos, el, i, down, fuh);
+          this.moveDown(pos, el, i, down, fuh);
         }
     }
     else if (pos == divPOS[5]){
@@ -389,16 +385,16 @@ let Altz = new TileGame(
 
         if (guh.innerHTML==`0`){
           // alert("LEFT");
-          Altz.moveLeft(pos, el, i, left, guh);
+          this.moveLeft(pos, el, i, left, guh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          Altz.moveUp(pos, el, i, up, uh);
+          this.moveUp(pos, el, i, up, uh);
         }
 
         else if (fuh.innerHTML==`0`){
           // alert("DOWN");
-          Altz.moveDown(pos, el, i, down, fuh);
+          this.moveDown(pos, el, i, down, fuh);
         }
     }
 
@@ -413,11 +409,11 @@ let Altz = new TileGame(
 
          if (duh.innerHTML==`0`){
           // alert("RIGHT");
-          Altz.moveRight(pos, el, i, right, duh);
+          this.moveRight(pos, el, i, right, duh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          Altz.moveUp(pos, el, i, up, uh);
+          this.moveUp(pos, el, i, up, uh);
         }
     }
     else if (pos == divPOS[7] ){
@@ -433,15 +429,15 @@ let Altz = new TileGame(
 
         if (guh.innerHTML==`0`){
           // alert("LEFT");
-          Altz.moveLeft(pos, el, i, left, guh);
+          this.moveLeft(pos, el, i, left, guh);
         }
         else if (duh.innerHTML==`0`){
           // alert("RIGHT");
-          Altz.moveRight(pos, el, i, right, duh);
+          this.moveRight(pos, el, i, right, duh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          Altz.moveUp(pos, el, i, up, uh);
+          this.moveUp(pos, el, i, up, uh);
         }
     }
     else if (pos == divPOS[8]){
@@ -454,11 +450,11 @@ let Altz = new TileGame(
 
         if (guh.innerHTML==`0`){
           // alert("LEFT");
-          Altz.moveLeft(pos, el, i, left, guh);
+          this.moveLeft(pos, el, i, left, guh);
         }
         else if (uh.innerHTML==`0`){
           // alert("UP");
-          Altz.moveUp(pos, el, i, up, uh);
+          this.moveUp(pos, el, i, up, uh);
         }
       }
         // alert(document.getElementById('1'));
@@ -473,8 +469,8 @@ let Altz = new TileGame(
       riv.addEventListener('click', () => window.location.reload());
       // fame.innerHTML = '<img class="good" src="squidward.gif">';
     }
-  },
-  (pos, el, i, l, g) => {
+  }
+  this.moveLeft = (pos, el, i, l, g) => {
     el.innerText = l;
     el.id = l;
     el.setAttribute('onclick',`Mystic8.shift( ${ divPOS[i] }, ${ l }, ${i} )`)
@@ -488,8 +484,9 @@ let Altz = new TileGame(
     divID[i] = divID[i-1];
     divID[i-1] = plswrk;
     // alert(divID);
-  },
-  (pos, el, i, r, d) => {
+  }
+
+  this.moveRight = (pos, el, i, r, d) => {
     el.innerText = r;
     el.id = r;
     el.setAttribute('onclick',`Mystic8.shift( ${ divPOS[i] }, ${ r }, ${i} )`)
@@ -503,8 +500,9 @@ let Altz = new TileGame(
     divID[i] = divID[i+1];
     divID[i+1] = plswrk;
     // alert(divID);
-  },
-  (pos, el, i, u, uh) => {
+  }
+
+  this.moveUp = (pos, el, i, u, uh) => {
     el.innerText = u;
     el.id = u;
     el.setAttribute('onclick',`Mystic8.shift( ${ divPOS[i] }, ${ u }, ${i} )`)
@@ -518,8 +516,9 @@ let Altz = new TileGame(
     divID[i] = divID[i-width];
     divID[i-width] = plswrk;
     // alert(divID);
-  },
-  (pos, el, i, d, f) => {
+  }
+
+  this.moveDown = (pos, el, i, d, f) => {
     el.innerText = d;
     el.id = d;
     el.setAttribute('onclick',`Mystic8.shift( ${ divPOS[i] }, ${ d }, ${i} )`)
@@ -534,10 +533,16 @@ let Altz = new TileGame(
     divID[i+width] = plswrk;
     // alert(divID);
   }
-)
+}
+let Mystic8 = new Duuh();
 
-// GAME CONTENT ^^^
+// END KEY ^^^
 // ================
-// START KEY vvv
+// GAME CONTENT vvv
 
-Altz.start(document.querySelector('.game'));
+
+
+// document.getElementById("mansion").volume = 0.5;
+
+
+

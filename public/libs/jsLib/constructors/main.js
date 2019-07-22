@@ -9,7 +9,7 @@ class gameShell {
   }
 }
 
-class MysticTileGame extends gameShell {
+class TileGame extends gameShell {
   constructor(getName, start, loopy, loadMsg, box, showDesc, shift, moveLeft, moveRight, moveUp, moveDown){
     super(getName, start, loopy, loadMsg, box, showDesc);
     this.shift = shift;
