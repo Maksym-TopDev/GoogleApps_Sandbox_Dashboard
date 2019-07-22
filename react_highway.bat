@@ -5,6 +5,8 @@ cls
 echo -templates
 echo or
 echo -weather
+echo or
+echo -vanilla
 echo.
 set /p STATIC= Which server to work on?:
 goto %STATIC%
@@ -17,6 +19,14 @@ echo templates clicked
 @ECHO OFF
 cmd /C "subl ."
 cmd /C "npm start"
+goto end
+
+:vanilla
+start cmd
+echo vanilla clicked
+@ECHO OFF
+cmd /C "subl ."
+cmd /C "nodemon"
 goto end
 
 :weather
