@@ -22,7 +22,7 @@ cmd /C "npm start"
 goto end
 
 :vanilla
-start cmd /k "TIMEOUT /T 20 & start chrome "" "http://localhost:3000""
+start cmd /k "TIMEOUT /T 20 & start chrome "" "http://localhost:5000""
 echo vanilla clicked
 @ECHO OFF
 cmd /C "subl ."
@@ -31,8 +31,17 @@ goto end
 
 :weather
 start cmd
-cd ".\client_views\react\production\weather"
+cd ".\client_views\react\production\weather-closet"
 echo weather clicked
+@ECHO OFF
+cmd /C "subl ."
+cmd /C "npm start"
+goto end
+
+:lovemee
+start cmd
+cd ".\client_views\react\production\lovemee"
+echo lovemee clicked
 @ECHO OFF
 cmd /C "subl ."
 cmd /C "npm start"
