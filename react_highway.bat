@@ -12,7 +12,7 @@ set /p STATIC= Which server to work on?:
 goto %STATIC%
 
 :templates
-start cmd /k "nodemon"
+start cmd /k "nodemon & goto end"
 start cmd
 cd ".\client_views\react\templates"
 echo templates clicked
