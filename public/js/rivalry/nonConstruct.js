@@ -1,4 +1,4 @@
-function Guuh() {
+function LoadRivalry(){
   let game, track, inject, ticDesc;
   this.getName = (e,ind) => {
     console.log('Rivalry');
@@ -8,13 +8,13 @@ function Guuh() {
     for(let opn of openers){
       // console.log(el);
         if(el === opn) {
-          modal = document.querySelector(`.modal_${el.id}`);
+          modal =$`.modal_${el.id}`);
           
           // INPUT GAME CONTAINER vvv
-          document.querySelector(`.game_${ind}`).appendChild(game);
+          $(`.game_${ind}`).appendChild(game);
           // INPUT GAME CONTAINER ^^^
 
-          document.querySelector(`.modal_${el.id}`).style.display = "block";
+          $(`.modal_${el.id}`).style.display = "block";
         }
     }
   }
@@ -31,19 +31,19 @@ function Guuh() {
     }
   }
   this.loadMsg = () => {
-    ticDesc = document.createElement('div');
+    ticDesc = $c('div');
     ticDesc.setAttribute('class','ticDesc');
     let desc = ['Tic Tac Toe','Mark three in a row and you win!'];
     this.loopy(desc, (i) => {
       console.log('loop');
       if(desc[i] == desc[0]){
         // console.log(desc[i]);
-        let head = document.createElement('h2');
+        let head = $c('h2');
         head.innerText = `${desc[i]}`;
         ticDesc.appendChild(head);
       } else {
         // console.log(desc[i]);
-        let parts = document.createElement('p');
+        let parts = $c('p');
         parts.innerText = `${desc[i]}`;
         ticDesc.appendChild(parts);      
       }
@@ -51,15 +51,15 @@ function Guuh() {
   }
   this.box = () => {
     // console.log('box0');
-    document.querySelector('head').innerHTML += `<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">`;
+    $('head').innerHTML += `<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">`;
     // game.innerHTML += `<iframe width="0" height="0" src="https://www.youtube.com/embed/CMD-0h9EOG0?rel=0&amp;autoplay=1&amp;start=0" frameborder="0" allowfullscreen></iframe>`;  
 
-    let block = document.createElement('div');
+    let block = $c('div');
     block.setAttribute('class', 'block');
      
     this.loopy(9, (i) => {
-      let div = document.createElement('div');
-      let p = document.createElement('p');
+      let div = $c('div');
+      let p = $c('p');
       div.setAttribute('id',`riv_${i}`);
       p.setAttribute('class','clear');
       div.addEventListener('click', () => this.turn(i));
@@ -68,24 +68,24 @@ function Guuh() {
       block.appendChild(div);
     });
 
-    track = document.createElement('div');
+    track = $c('div');
     track.setAttribute('id','track');
     track.innerText = "X's TURN!";
 
-    let aspect = document.createElement('div');
+    let aspect = $c('div');
     aspect.setAttribute('class','aspect');
 
-    let ticTitle = document.createElement('div');
+    let ticTitle = $c('div');
     ticTitle.setAttribute('class','ticTitle');
     ticTitle.innerText = "RIVALRY";
 
-    inject = document.createElement('div');
+    inject = $c('div');
     inject.setAttribute('class','inject');
 
-    let jin = document.createElement('img');
+    let jin = $c('img');
     jin.setAttribute('id','jin');
     jin.src = 'https://a.wattpad.com/cover/65270851-352-k374438.jpg';
-    let mugen = document.createElement('img');
+    let mugen = $c('img');
     mugen.setAttribute('id','mugen');
     mugen.src = 'https://vignette.wikia.nocookie.net/vsbattles/images/3/3c/Mugen.jpg/revision/latest?cb=20150824214045';
 
@@ -94,40 +94,40 @@ function Guuh() {
     inject.appendChild(aspect);
     inject.appendChild(block);
 
-    let ticBox = document.createElement('div');
+    let ticBox = $c('div');
     // ticBox.appendChild(ticTitle);
     ticBox.setAttribute('class','ticBox');
     ticBox.appendChild(inject);
     ticBox.appendChild(track);
     // ticBox.appendChild(clr);
 
-    let ticBoard = document.createElement('div');
+    let ticBoard = $c('div');
     ticBoard.setAttribute('class','ticBoard');
 
-    let background = document.createElement('div');
+    let background = $c('div');
     background.setAttribute('class','bkgrd article centered');
 
     this.loopy(3, (i) => {
-      let sideScores = document.createElement('div');
+      let sideScores = $c('div');
       sideScores.setAttribute('class','sideScores');
 
-      let scoreX = document.createElement('div');
+      let scoreX = $c('div');
       scoreX.setAttribute('class','scoreX');
-      let h1X = document.createElement('h3');
+      let h1X = $c('h3');
       h1X.innerText = "X";
       scoreX.appendChild(h1X);
-      let ptX = document.createElement('div');
+      let ptX = $c('div');
       scoreX.appendChild(ptX);
 
-      let scoreO = document.createElement('div');
+      let scoreO = $c('div');
       scoreO.setAttribute('class','scoreO');
-      let h1O = document.createElement('h3');
+      let h1O = $c('h3');
       h1O.innerText = "O";
       scoreO.appendChild(h1O);
-      let ptO = document.createElement('div');
+      let ptO = $c('div');
       scoreO.appendChild(ptO);
 
-      let bottomScore = document.createElement('div');
+      let bottomScore = $c('div');
       bottomScore.setAttribute('class','bottomScore');
  
       if(i == 3){
@@ -150,13 +150,13 @@ function Guuh() {
       }
     });
 
-    let clr = document.createElement('h2');
-    let allToClr = document.getElementsByClassName('clear');
+    let clr = $c('h2');
+    let allToClr = $all('clear');
     clr.setAttribute('class','sword');
     clr.innerText = "Rematch?";
     clr.addEventListener('click', () => {
-      let m = document.querySelector('#mugen');
-      let j = document.querySelector('#jin');
+      let m = $('#mugen');
+      let j = $('#jin');
       console.log(allToClr[0]);
       for(let i of allToClr){
         // console.log(i);
@@ -171,10 +171,10 @@ function Guuh() {
     game.appendChild(background);      
   }
   this.showDesc = (name) => {
-    let description = document.querySelector('.description');
-    let card = document.querySelector('.card');
+    let description = $('.description');
+    let card = $('.card');
 
-    if(document.querySelector('title').innerText == 'Portfolio'){
+    if($('title').innerText == 'Portfolio'){
       // console.log(name);
       if(name == 'Rivalry'){ 
         console.log('carded');         
@@ -185,7 +185,7 @@ function Guuh() {
     }    
   }
   this.turn = (id) => {
-    let togg = document.querySelector(`#riv_${id} > p`);
+    let togg = $(`#riv_${id} > p`);
     if (track.innerText === "O's TURN!"){
       togg.innerText = 'O';
       togg.style.color = 'red';
@@ -198,8 +198,8 @@ function Guuh() {
     }
     this.btns();
   }
-  this.start = (el) => {
-    game = el;
+  this.start = () => {
+    game = $c('div');
     this.box();
     console.log('app');  
   }
@@ -207,26 +207,26 @@ function Guuh() {
     console.log('win check');
 
     // column
-    let col1 = document.getElementById(`riv_${1}`).innerText+document.getElementById(`riv_${4}`)
-    .innerText+document.getElementById(`riv_${7}`).innerText;
-    let col2 = document.getElementById(`riv_${2}`).innerText+document.getElementById(`riv_${5}`)
-    .innerText+document.getElementById(`riv_${8}`).innerText;
-    let col3 = document.getElementById(`riv_${3}`).innerText+document.getElementById(`riv_${6}`)
-    .innerText+document.getElementById(`riv_${9}`).innerText;
+    let col1 = $(`#riv_${1}`).innerText+$(`#riv_${4}`)
+    .innerText+$(`#riv_${7}`).innerText;
+    let col2 = $(`#riv_${2}`).innerText+$(`#riv_${5}`)
+    .innerText+$(`#riv_${8}`).innerText;
+    let col3 = $(`#riv_${3}`).innerText+$(`#riv_${6}`)
+    .innerText+$(`#riv_${9}`).innerText;
 
     // row
-    let row1 = document.getElementById(`riv_${1}`).innerText+document.getElementById(`riv_${2}`)
-    .innerText+document.getElementById(`riv_${3}`).innerText;
-    let row2 = document.getElementById(`riv_${4}`).innerText+document.getElementById(`riv_${5}`)
-    .innerText+document.getElementById(`riv_${6}`).innerText;
-    let row3 = document.getElementById(`riv_${7}`).innerText+document.getElementById(`riv_${8}`)
-    .innerText+document.getElementById(`riv_${9}`).innerText;
+    let row1 = $(`#riv_${1}`).innerText+$(`#riv_${2}`)
+    .innerText+$(`#riv_${3}`).innerText;
+    let row2 = $(`#riv_${4}`).innerText+$(`#riv_${5}`)
+    .innerText+$(`#riv_${6}`).innerText;
+    let row3 = $(`#riv_${7}`).innerText+$(`#riv_${8}`)
+    .innerText+$(`#riv_${9}`).innerText;
 
     // diagnal
-    let diag1 = document.getElementById(`riv_${1}`).innerText+document.getElementById(`riv_${5}`)
-    .innerText+document.getElementById(`riv_${9}`).innerText;
-    let diag2 = document.getElementById(`riv_${3}`).innerText+document.getElementById(`riv_${5}`)
-    .innerText+document.getElementById(`riv_${7}`).innerText;
+    let diag1 = $(`#riv_${1}`).innerText+$(`#riv_${5}`)
+    .innerText+$(`#riv_${9}`).innerText;
+    let diag2 = $(`#riv_${3}`).innerText+$(`#riv_${5}`)
+    .innerText+$(`#riv_${7}`).innerText;
 
     // OOO
     let scoreO = document.querySelectorAll('.scoreO > div');
@@ -235,7 +235,7 @@ function Guuh() {
 
       scoreO[0].innerText += "l";
       scoreO[1].innerText += "l";
-      let mugen = document.querySelector('#mugen');
+      let mugen = $('#mugen');
       mugen.style.display = 'block';
       inject.style.border = 'solid red 3px';
       // inject.style.opacity = 0;
@@ -259,7 +259,7 @@ function Guuh() {
 
       scoreX[0].innerText += "l";
       scoreX[1].innerText += "l";           
-      let jin = document.querySelector('#jin');
+      let jin = $('#jin');
       jin.style.display = 'block';
       inject.style.border = "solid blue 3px";
       // inject.style.opacity = 0;
@@ -277,4 +277,10 @@ function Guuh() {
     }
   }
 }
-let Rivalry = new Guuh();
+function addRivalry(e){
+  console.log("addNums opened"); 
+
+  if (e.target.id === "add") LoadRivalry().start();
+}
+projectInitializer.push(addRivalry);
+console.log('loaded addRivalry');
