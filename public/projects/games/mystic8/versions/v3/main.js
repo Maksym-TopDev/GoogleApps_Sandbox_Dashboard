@@ -1,3 +1,5 @@
+import "./styles.css";
+
 let divID = [0,7,2,3,4,5,6,1,8];
 let divPOS = [88,81,82,18,11,12,28,21,22];
 let fame, altzBoard, altzDesc, description;
@@ -7,14 +9,13 @@ let fame, altzBoard, altzDesc, description;
 // ================
 // START KEY vvv
 
-function Duuh() {
+function Mystic8() {
   this.getName = (e,ind) => {
     console.log('Altz');
 
     let openers = document.querySelectorAll(".card");
     let el = e.currentTarget;
     for(let opn of openers){
-      // console.log(el);
       if(el === opn) {
         modal = document.querySelector(`.modal_${el.id}`);
 
@@ -534,7 +535,8 @@ function Duuh() {
     // alert(divID);
   }
 }
-let Mystic8 = new Duuh();
+
+Window.games.push(new Mystic8().start);
 
 // END KEY ^^^
 // ================

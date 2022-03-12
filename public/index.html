@@ -7,16 +7,22 @@
   <title>Document</title>
 </head>
 <body>
-
   <div class="centered belly gloria">
     <h1>Welcome!</h1>
     <p>Please use the menu above to navigate through my apps</p>
     <p>Enjoy!</p>
-		<div class="article" style="width: 50%">
-
-      apps
-
-		</div>
+		<div id="article" style="width: 50%"></div>
 	</div>
+
+  <script>
+    Window.games = [];
+  </script>
+  <script type="application/javascript" src="/dist/mystic8_v3.bundle.js"></script>
+  <script>
+    console.log(document.getElementById("article"))
+    Window.games.forEach(game => {
+      game(document.getElementById("article"))
+    });
+  </script>
 </body>
 </html>

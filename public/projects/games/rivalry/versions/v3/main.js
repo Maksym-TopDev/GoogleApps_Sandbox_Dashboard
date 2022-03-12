@@ -1,8 +1,6 @@
-// LOAD THIS IN HTML
-{/* <link rel="stylesheet" href="css/rivalry.css">
-<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet"> */}
+import './styles.css';
 
-function LoadRivalry(){
+function Rivalry() {
   let game, track, inject, ticDesc;
   this.getName = (e,ind) => {
     console.log('Rivalry');
@@ -12,19 +10,18 @@ function LoadRivalry(){
     for(let opn of openers){
       // console.log(el);
         if(el === opn) {
-          modal =$`.modal_${el.id}`);
+          modal = document.querySelector(`.modal_${el.id}`);
           
           // INPUT GAME CONTAINER vvv
-          $(`.game_${ind}`).appendChild(game);
+          document.querySelector(`.game_${ind}`).appendChild(game);
           // INPUT GAME CONTAINER ^^^
 
-          $(`.modal_${el.id}`).style.display = "block";
+          document.querySelector(`.modal_${el.id}`).style.display = "block";
         }
     }
   }
   this.loopy = (arr, func) => {
     if(typeof arr == 'number'){
-      console.log('number');
       for(let i = 1; i <= arr; i++){
         func(i);
       }      
@@ -35,35 +32,34 @@ function LoadRivalry(){
     }
   }
   this.loadMsg = () => {
-    ticDesc = $c('div');
+    ticDesc = document.createElement('div');
     ticDesc.setAttribute('class','ticDesc');
     let desc = ['Tic Tac Toe','Mark three in a row and you win!'];
     this.loopy(desc, (i) => {
-      console.log('loop');
       if(desc[i] == desc[0]){
         // console.log(desc[i]);
-        let head = $c('h2');
+        let head = document.createElement('h2');
         head.innerText = `${desc[i]}`;
         ticDesc.appendChild(head);
       } else {
         // console.log(desc[i]);
-        let parts = $c('p');
+        let parts = document.createElement('p');
         parts.innerText = `${desc[i]}`;
         ticDesc.appendChild(parts);      
       }
-    }); 
+    });
   }
   this.box = () => {
-    // console.log('box0');
-    $('head').innerHTML += `<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">`;
+    if (game.children.length === 3) return;
+    document.querySelector('head').innerHTML += `<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">`;
     // game.innerHTML += `<iframe width="0" height="0" src="https://www.youtube.com/embed/CMD-0h9EOG0?rel=0&amp;autoplay=1&amp;start=0" frameborder="0" allowfullscreen></iframe>`;  
 
-    let block = $c('div');
+    let block = document.createElement('div');
     block.setAttribute('class', 'block');
      
     this.loopy(9, (i) => {
-      let div = $c('div');
-      let p = $c('p');
+      let div = document.createElement('div');
+      let p = document.createElement('p');
       div.setAttribute('id',`riv_${i}`);
       p.setAttribute('class','clear');
       div.addEventListener('click', () => this.turn(i));
@@ -72,24 +68,24 @@ function LoadRivalry(){
       block.appendChild(div);
     });
 
-    track = $c('div');
+    track = document.createElement('div');
     track.setAttribute('id','track');
     track.innerText = "X's TURN!";
 
-    let aspect = $c('div');
+    let aspect = document.createElement('div');
     aspect.setAttribute('class','aspect');
 
-    let ticTitle = $c('div');
+    let ticTitle = document.createElement('div');
     ticTitle.setAttribute('class','ticTitle');
     ticTitle.innerText = "RIVALRY";
 
-    inject = $c('div');
+    inject = document.createElement('div');
     inject.setAttribute('class','inject');
 
-    let jin = $c('img');
+    let jin = document.createElement('img');
     jin.setAttribute('id','jin');
     jin.src = 'https://a.wattpad.com/cover/65270851-352-k374438.jpg';
-    let mugen = $c('img');
+    let mugen = document.createElement('img');
     mugen.setAttribute('id','mugen');
     mugen.src = 'https://vignette.wikia.nocookie.net/vsbattles/images/3/3c/Mugen.jpg/revision/latest?cb=20150824214045';
 
@@ -98,40 +94,40 @@ function LoadRivalry(){
     inject.appendChild(aspect);
     inject.appendChild(block);
 
-    let ticBox = $c('div');
+    let ticBox = document.createElement('div');
     // ticBox.appendChild(ticTitle);
     ticBox.setAttribute('class','ticBox');
     ticBox.appendChild(inject);
     ticBox.appendChild(track);
     // ticBox.appendChild(clr);
 
-    let ticBoard = $c('div');
+    let ticBoard = document.createElement('div');
     ticBoard.setAttribute('class','ticBoard');
 
-    let background = $c('div');
+    let background = document.createElement('div');
     background.setAttribute('class','bkgrd article centered');
 
     this.loopy(3, (i) => {
-      let sideScores = $c('div');
+      let sideScores = document.createElement('div');
       sideScores.setAttribute('class','sideScores');
 
-      let scoreX = $c('div');
+      let scoreX = document.createElement('div');
       scoreX.setAttribute('class','scoreX');
-      let h1X = $c('h3');
+      let h1X = document.createElement('h3');
       h1X.innerText = "X";
       scoreX.appendChild(h1X);
-      let ptX = $c('div');
+      let ptX = document.createElement('div');
       scoreX.appendChild(ptX);
 
-      let scoreO = $c('div');
+      let scoreO = document.createElement('div');
       scoreO.setAttribute('class','scoreO');
-      let h1O = $c('h3');
+      let h1O = document.createElement('h3');
       h1O.innerText = "O";
       scoreO.appendChild(h1O);
-      let ptO = $c('div');
+      let ptO = document.createElement('div');
       scoreO.appendChild(ptO);
 
-      let bottomScore = $c('div');
+      let bottomScore = document.createElement('div');
       bottomScore.setAttribute('class','bottomScore');
  
       if(i == 3){
@@ -154,14 +150,14 @@ function LoadRivalry(){
       }
     });
 
-    let clr = $c('h2');
-    let allToClr = $all('clear');
+    let clr = document.createElement('h2');
+    let allToClr = document.getElementsByClassName('clear');
     clr.setAttribute('class','sword');
     clr.innerText = "Rematch?";
     clr.addEventListener('click', () => {
-      let m = $('#mugen');
-      let j = $('#jin');
-      console.log(allToClr[0]);
+      let m = document.querySelector('#mugen');
+      let j = document.querySelector('#jin');
+
       for(let i of allToClr){
         // console.log(i);
         i.innerText = " ";
@@ -175,13 +171,12 @@ function LoadRivalry(){
     game.appendChild(background);      
   }
   this.showDesc = (name) => {
-    let description = $('.description');
-    let card = $('.card');
+    let description = document.querySelector('.description');
+    let card = document.querySelector('.card');
 
-    if($('title').innerText == 'Portfolio'){
+    if(document.querySelector('title').innerText == 'Portfolio'){
       // console.log(name);
-      if(name == 'Rivalry'){ 
-        console.log('carded');         
+      if(name == 'Rivalry'){        
         Rivalry.loadMsg();   
         description.innerHTML = '';
         description.appendChild(ticDesc);
@@ -189,7 +184,7 @@ function LoadRivalry(){
     }    
   }
   this.turn = (id) => {
-    let togg = $(`#riv_${id} > p`);
+    let togg = document.querySelector(`#riv_${id} > p`);
     if (track.innerText === "O's TURN!"){
       togg.innerText = 'O';
       togg.style.color = 'red';
@@ -202,35 +197,32 @@ function LoadRivalry(){
     }
     this.btns();
   }
-  this.start = () => {
-    game = $c('div');
-    this.box();
-    console.log('app');  
+  this.start = (el) => {
+    game = el;
+    this.box();  
   }
   this.btns = () => {
-    console.log('win check');
-
     // column
-    let col1 = $(`#riv_${1}`).innerText+$(`#riv_${4}`)
-    .innerText+$(`#riv_${7}`).innerText;
-    let col2 = $(`#riv_${2}`).innerText+$(`#riv_${5}`)
-    .innerText+$(`#riv_${8}`).innerText;
-    let col3 = $(`#riv_${3}`).innerText+$(`#riv_${6}`)
-    .innerText+$(`#riv_${9}`).innerText;
+    let col1 = document.getElementById(`riv_${1}`).innerText+document.getElementById(`riv_${4}`)
+    .innerText+document.getElementById(`riv_${7}`).innerText;
+    let col2 = document.getElementById(`riv_${2}`).innerText+document.getElementById(`riv_${5}`)
+    .innerText+document.getElementById(`riv_${8}`).innerText;
+    let col3 = document.getElementById(`riv_${3}`).innerText+document.getElementById(`riv_${6}`)
+    .innerText+document.getElementById(`riv_${9}`).innerText;
 
     // row
-    let row1 = $(`#riv_${1}`).innerText+$(`#riv_${2}`)
-    .innerText+$(`#riv_${3}`).innerText;
-    let row2 = $(`#riv_${4}`).innerText+$(`#riv_${5}`)
-    .innerText+$(`#riv_${6}`).innerText;
-    let row3 = $(`#riv_${7}`).innerText+$(`#riv_${8}`)
-    .innerText+$(`#riv_${9}`).innerText;
+    let row1 = document.getElementById(`riv_${1}`).innerText+document.getElementById(`riv_${2}`)
+    .innerText+document.getElementById(`riv_${3}`).innerText;
+    let row2 = document.getElementById(`riv_${4}`).innerText+document.getElementById(`riv_${5}`)
+    .innerText+document.getElementById(`riv_${6}`).innerText;
+    let row3 = document.getElementById(`riv_${7}`).innerText+document.getElementById(`riv_${8}`)
+    .innerText+document.getElementById(`riv_${9}`).innerText;
 
     // diagnal
-    let diag1 = $(`#riv_${1}`).innerText+$(`#riv_${5}`)
-    .innerText+$(`#riv_${9}`).innerText;
-    let diag2 = $(`#riv_${3}`).innerText+$(`#riv_${5}`)
-    .innerText+$(`#riv_${7}`).innerText;
+    let diag1 = document.getElementById(`riv_${1}`).innerText+document.getElementById(`riv_${5}`)
+    .innerText+document.getElementById(`riv_${9}`).innerText;
+    let diag2 = document.getElementById(`riv_${3}`).innerText+document.getElementById(`riv_${5}`)
+    .innerText+document.getElementById(`riv_${7}`).innerText;
 
     // OOO
     let scoreO = document.querySelectorAll('.scoreO > div');
@@ -239,7 +231,7 @@ function LoadRivalry(){
 
       scoreO[0].innerText += "l";
       scoreO[1].innerText += "l";
-      let mugen = $('#mugen');
+      let mugen = document.querySelector('#mugen');
       mugen.style.display = 'block';
       inject.style.border = 'solid red 3px';
       // inject.style.opacity = 0;
@@ -248,7 +240,6 @@ function LoadRivalry(){
         if (count >= 1){
           clearInterval(incOp);
         } else {
-          console.log('add');
           count += 0.02;
           mugen.style.opacity = count;
         }
@@ -263,7 +254,7 @@ function LoadRivalry(){
 
       scoreX[0].innerText += "l";
       scoreX[1].innerText += "l";           
-      let jin = $('#jin');
+      let jin = document.querySelector('#jin');
       jin.style.display = 'block';
       inject.style.border = "solid blue 3px";
       // inject.style.opacity = 0;
@@ -272,7 +263,6 @@ function LoadRivalry(){
         if (count >= 1){
           clearInterval(incOp);
         } else {
-          console.log('add');
           count += 0.02;
           jin.style.opacity = count;
         }
@@ -281,10 +271,5 @@ function LoadRivalry(){
     }
   }
 }
-function addRivalry(e){
-  console.log("addNums opened"); 
 
-  if (e.target.id === "add") LoadRivalry().start();
-}
-projectInitializer.push(addRivalry);
-console.log('loaded addRivalry');
+Window.games.push(new Rivalry().start);
