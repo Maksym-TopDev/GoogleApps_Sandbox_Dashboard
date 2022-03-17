@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<h1>Hi</h1><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -16,13 +16,10 @@
 
   <script>
     Window.games = [];
+    const { lengthInUtf8Bytes } = Window.utils
   </script>
-  <script type="application/javascript" src="/dist/mystic8_v3.bundle.js"></script>
-  <script>
-    console.log(document.getElementById("article"))
-    Window.games.forEach(game => {
-      game(document.getElementById("article"))
-    });
-  </script>
+  <script type="application/javascript" src="../dist/utils.bundle.js"></script>
+
+  <%- body %>
 </body>
 </html>
