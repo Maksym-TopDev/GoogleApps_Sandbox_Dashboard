@@ -8,17 +8,26 @@ function lengthInUtf8Bytes(str) {
   return str.length + (m ? m.length : 0);
 }
 
-function encryptAndPushCode(unpushedBundledCode, securityKey) {
-  fetch(unpushedBundledCode)
-    .then(res => res.text())
-    .then(bundleContent => {
-      const encryptedData = AES.encrypt(bundleContent, securityKey).toString();
-      
-      const blob = new Blob([encryptedData], {type: "text/plain;charset=utf-8"});
-      saveAs(blob, "s.txt");
+async function encryptAndPushCode(bundlePath, securityKey) {
+  try {
+    const bundle = await fetch(bundlePath)
+    const response = await bundle.text();
+    const encryptedData = AES.encrypt(response, "heymanNiceshot").toString();
+    let payload = {};
+    payload.data = encryptedData;
+    console.log(payload)
+    await fetch("/update-bucket", {
+      method:"POST", 
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: 'same-origin', // include, *same-origin, omit
+      body: JSON.stringify(payload)
     });
+  } catch (err) {
+    console.log("update failed:", err)
+  }
 }
-
 
 Window.utils = {
   lengthInUtf8Bytes,
