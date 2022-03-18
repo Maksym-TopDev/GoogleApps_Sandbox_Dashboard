@@ -272,4 +272,4 @@ function Rivalry() {
   }
 }
 
-Window.games.push(new Rivalry().start);
+Window.games["Rivalry"] = new Rivalry().start;

@@ -11,14 +11,19 @@
     <h1>Welcome!</h1>
     <p>Please use the menu above to navigate through my apps</p>
     <p>Enjoy!</p>
-		<div id="article" style="width: 50%"></div>
+		<main id="article" style="width: 50%"></main>
 	</div>
+  <script type="application/javascript" src="../dist/utils.bundle.js"></script>
 
   <script>
-    Window.games = [];
-    const { lengthInUtf8Bytes } = Window.utils
+    Window.games = {};
+    let article = document.getElementById("article");
+    
+    const { 
+      lengthInUtf8Bytes,
+      encryptAndPushCode
+    } = Window.utils;
   </script>
-  <script type="application/javascript" src="../dist/utils.bundle.js"></script>
 
   <%- body %>
 </body>

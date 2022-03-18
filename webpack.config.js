@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports ={
-  mode: "none",
+  mode: "production",
   entry: {
     mystic8_v3: "./public/projects/games/mystic8/versions/v3/main.js",
     mystic8_v2: "./public/projects/games/mystic8/versions/v2/main.js",

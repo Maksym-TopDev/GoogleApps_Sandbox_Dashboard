@@ -1,7 +1,16 @@
-<script type="application/javascript" src="../dist/mystic8_v3.bundle.js"></script>
-<script>
-  console.log(document.getElementById("article"))
-  Window.games.forEach(game => {
-    game(document.getElementById("article"))
-  });
-</script>
+<div class="slide">
+  <% work.forEach(function(bundle) { %>
+    <% if (bundle.version == 'v3') { %>
+      <div class="container">
+        <div id="<%= bundle.name %>_app"></div>
+
+        <button onclick="encryptAndPushCode('<%= bundle.path %>', 'heymanNiceshot')">Encrypt</button>
+
+        <script type="application/javascript" src="<%= bundle.path %>"></script>
+        <script>
+          Window.games["<%= bundle.name %>"](document.getElementById("<%= bundle.name %>_app"));
+        </script>
+      </div>
+    <% } %>
+  <% }); %>
+</div>

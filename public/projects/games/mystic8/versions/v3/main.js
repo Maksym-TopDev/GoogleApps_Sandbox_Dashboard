@@ -536,7 +536,7 @@ function Mystic8() {
   }
 }
 
-Window.games.push(new Mystic8().start);
+Window.games["Mystic8"] = new Mystic8().start;
 
 // END KEY ^^^
 // ================
