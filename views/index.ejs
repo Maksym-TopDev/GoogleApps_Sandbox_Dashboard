@@ -4,7 +4,7 @@
       <div class="container">
         <div id="<%= bundle.name %>_app"></div>
 
-        <button onclick="encryptAndPushCode('<%= bundle.path %>', 'heymanNiceshot')">Encrypt</button>
+        <button onclick="encryptAndPushCode('<%= bundle.path %>', '<%= bundle.name %>', '<%= bundle.version %>')">Encrypt</button>
 
         <script type="application/javascript" src="<%= bundle.path %>"></script>
         <script>

@@ -1,5 +1,4 @@
-import { AES, enc } from "crypto-js";
-import { saveAs } from "file-saver";
+import { AES, lib } from "crypto-js";
 
 
 function lengthInUtf8Bytes(str) {
@@ -8,14 +7,17 @@ function lengthInUtf8Bytes(str) {
   return str.length + (m ? m.length : 0);
 }
 
-async function encryptAndPushCode(bundlePath, securityKey) {
+async function encryptAndPushCode(bundlePath, projectName, version) {
+  const secret = lib.WordArray.random(16).toString();
   try {
-    const bundle = await fetch(bundlePath)
+    const bundle = await fetch(bundlePath);
     const response = await bundle.text();
-    const encryptedData = AES.encrypt(response, "heymanNiceshot").toString();
-    let payload = {};
-    payload.data = encryptedData;
-    console.log(payload)
+    const encryptedData = AES.encrypt(response, secret).toString();
+    let payload = {
+      stream: encryptedData,
+      secret, projectName, version
+    };
+    
     await fetch("/update-bucket", {
       method:"POST", 
       headers: {

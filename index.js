@@ -26,9 +26,10 @@ app.get("/", function (req, res) {
   ]});
 });
 
+const { createOrUpdate } = require("./db/s3");
 app.post("/update-bucket", (req, res) => {
-  console.log(req.body)
-  
+  const { secret, stream, projectName, version} = req.body;
+  // createOrUpdate(stream, projectName, version)
   res.redirect("/")
 });
 
