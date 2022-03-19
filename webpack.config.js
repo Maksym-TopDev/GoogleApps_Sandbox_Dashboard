@@ -7,7 +7,7 @@ module.exports ={
     mystic8_v2: "./public/projects/games/mystic8/versions/v2/main.js",
     rivalry_v3: "./public/projects/games/rivalry/versions/v3/main.js",
     rivalry_v2: "./public/projects/games/rivalry/versions/v2/main.js",
-    utils: "./public/libs/main/utils.js"
+    modules: "./public/libs/src/modules.js"
   },
   output: {
     filename: "[name].bundle.js",

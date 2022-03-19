@@ -1,12 +1,6 @@
 import { AES, lib } from "crypto-js";
 
 
-function lengthInUtf8Bytes(str) {
-  // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
-  var m = encodeURIComponent(str).match(/%[89ABab]/g);
-  return str.length + (m ? m.length : 0);
-}
-
 async function encryptAndPushCode(bundlePath, projectName, version) {
   const secret = lib.WordArray.random(16).toString();
   try {
@@ -18,7 +12,7 @@ async function encryptAndPushCode(bundlePath, projectName, version) {
       secret, projectName, version
     };
     
-    await fetch("/update-bucket", {
+    await fetch("/update-data", {
       method:"POST", 
       headers: {
         "Content-Type": "application/json"
@@ -32,6 +26,5 @@ async function encryptAndPushCode(bundlePath, projectName, version) {
 }
 
 Window.utils = {
-  lengthInUtf8Bytes,
   encryptAndPushCode
 }

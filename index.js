@@ -12,12 +12,22 @@ const expressLayouts = require('express-ejs-layouts');
 
 app.use(expressLayouts);
 app.use("/dist", express.static(__dirname + '/dist'));
+app.use("/public", express.static(__dirname + '/public'));
 
 //setting view engine to ejs
 app.set("view engine", "ejs");
 
+const {   
+  getProjects,
+  updateProject,
+  createProject 
+} = require("./db/pg.js");
+
+
 //route for index page
-app.get("/", function (req, res) {
+app.get("/", async (req, res) => {
+  // const projects = await getProjects();
+  // console.log(projects)
   res.render("index", {work: [
     {name: 'Mystic8', version: 'v2', path: '/dist/mystic8_v2.bundle.js'},
     {name: 'Mystic8', version: 'v3', path: '/dist/mystic8_v3.bundle.js'},
@@ -26,9 +36,19 @@ app.get("/", function (req, res) {
   ]});
 });
 
-const { createOrUpdate } = require("./db/s3");
-app.post("/update-bucket", (req, res) => {
-  const { secret, stream, projectName, version} = req.body;
+const { createOrUpdate } = require("./db/s3.js");
+app.post("/create-project", (req, res) => {
+  const { s3, pg } = req.body;
+  console.log(s3, pg)
+  // createProject();
+  // createOrUpdate(stream, projectName, version)
+  res.redirect("/")
+});
+
+app.put("/update-project", (req, res) => {
+  const { s3, pg } = req.body;
+  console.log(s3, pg)
+  // createProject();
   // createOrUpdate(stream, projectName, version)
   res.redirect("/")
 });

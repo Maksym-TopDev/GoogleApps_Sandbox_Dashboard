@@ -4,8 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build:existing": "npx prisma && npx prisma init && npx prisma db pull",
-    "build:new": "npx prisma && npx prisma init && npx prisma migrate dev",
+    "build:existing": "npx prisma && npx prisma init && npx prisma db pull && npx prisma generate",
+    "build:new": "npx prisma && npx prisma init && npx prisma migrate dev && npx prisma generate",
     "start": "npm-run-all --parallel watch:modules watch:server",
     "watch:server": "npx nodemon index.js",
     "watch:modules": "webpack --watch"
