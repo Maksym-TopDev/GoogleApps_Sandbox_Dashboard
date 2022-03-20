@@ -1,0 +1,65 @@
+<div class="modal fade" id="createNewProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create Project</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form class="modal-body" id="create_app_container" method="POST" action="/create-project" enctype="multipart/form-data">
+        <!-- title -->
+        <div class="form-group">
+          <label for="createFormControlTitleInput">Title</label>
+          <input name="title" type="text" class="form-control" id="createFormControlTitleInput" placeholder="Lorem Ipsum" />
+        </div>
+
+        <!-- description -->
+        <div class="form-group">
+          <label for="createFormControlTextarea">Description</label>
+          <textarea name="description" class="form-control" id="createFormControlTextarea" rows="3" placeholder="Lorem ipsum dolor sit amet..."></textarea>
+        </div>
+
+        <!-- repository -->
+        <div class="form-group">
+          <label for="createFormControlRepoInput">Repository</label>
+          <input name="repository" type="text" class="form-control" id="createFormControlRepoInput" placeholder="github.com/loremipsum" />
+        </div>
+
+        <!-- selections -->
+          <!-- site -->
+          <!-- app -->
+          <!-- display -->
+        <div class="form-group">
+          <label for="inputProjectType">Project Type</label>
+          <select name="projectType" id="inputProjectType" class="form-control form-control-md" onchange="handleSelectChange(this, 'selectOutput')">
+            <option value="Site" selected>Site</option>
+            <option value="Application">Application</option>
+            <option value="Display" disabled>Display</option>
+          </select>
+          <!-- ^^^ -->
+          <!-- site -->
+          <!-- game stream *encrypt and load from path using func* -->
+          <!-- displays *load from files* -->
+          <div id="selectOutput" class="form-group">
+            Input URL: <input name="website" type="text" id="createFormWebUrlInput" placeholder="deployedUrl.com" />
+          </div>  
+        </div>
+
+        <!-- icon *load from files* -->
+        <div class="form-group">
+          <label for="createFormControlIconFile">Upload Icon</label>
+          <input name="icon" type="file" class="form-control" id="createFormControlIconFile" />
+        </div>
+
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" value="Save Project" />
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

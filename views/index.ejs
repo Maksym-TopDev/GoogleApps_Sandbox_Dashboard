@@ -1,14 +1,20 @@
 <div class="slide">
   <% work.forEach(function(bundle) { %>
     <% if (bundle.version == 'v3') { %>
-      <div class="container">
-        <div id="<%= bundle.name %>_app"></div>
-
-        <button onclick="encryptAndPushCode('<%= bundle.path %>', '<%= bundle.name %>', '<%= bundle.version %>')">Encrypt</button>
-
+      <div>
         <script type="application/javascript" src="<%= bundle.path %>"></script>
+
+        <!-- Button trigger modal -->
+        <button type="button" id="<%= bundle.name %>_btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProject">
+          Edit <%= bundle.name %>
+        </button>
+
         <script>
-          Window.games["<%= bundle.name %>"](document.getElementById("<%= bundle.name %>_app"));
+          document.getElementById('<%= bundle.name %>_btn').onclick = () => {
+            const appContainer = document.getElementById("update_app_container");
+            appContainer.innerHTML = "";
+            Window.games["<%= bundle.name %>"](appContainer);
+          };
         </script>
       </div>
     <% } %>

@@ -17,21 +17,22 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-async function createOrUpdate(stream, filename, version) {
-  const params = {
-    Bucket: BUCKET_NAME, // pass your bucket name
-    Key: `${filename}/bundles/${version}`,
-    Body: stream,
-    CacheControl: "max-age=0"
-  };
+async function createOrUpdate(payloads, filename, version, pgCb) {
+  console.log(payloads, filename, version)
+  // const params = {
+  //   Bucket: BUCKET_NAME, // pass your bucket name
+  //   Key: `${filename}/bundles/${version}`,
+  //   Body: stream,
+  //   CacheControl: "max-age=0"
+  // };
 
-  try {
-    const response = await s3.upload(params);
+  // try {
+  //   const response = await s3.upload(params);
 
-    console.log(`File uploaded successfully at ${response.Location}`);
-  } catch (err) {
-    console.log("S3 upload failed:", err);
-  }
+  //   console.log(`File uploaded successfully at ${response.Location}`);
+  // } catch (err) {
+  //   throw "S3 upload failed: "+err;
+  // }
 }
 
 module.exports = {createOrUpdate};
