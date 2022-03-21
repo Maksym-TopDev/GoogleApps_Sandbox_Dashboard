@@ -30,10 +30,10 @@ app.get("/", async (req, res) => {
   // const projects = await getProjects();
   // console.log(projects)
   res.render("index", {work: [
-    {name: 'Mystic8', version: 'v2', path: '/dist/mystic8_v2.bundle.js'},
-    {name: 'Mystic8', version: 'v3', path: '/dist/mystic8_v3.bundle.js'},
-    {name: 'Rivalry', version: 'v2', path: '/dist/rivalry_v2.bundle.js'},
-    {name: 'Rivalry', version: 'v3', path: '/dist/rivalry_v3.bundle.js'}
+    {name: 'Mystic8', version: 'v2'},
+    {name: 'Mystic8', version: 'v3'},
+    {name: 'Rivalry', version: 'v2'},
+    {name: 'Rivalry', version: 'v3'}
   ]});
 });
 
@@ -55,7 +55,7 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
         {type: "data", payload: stream},
         {type: "file", payload: icon}
       ], 
-      projectName, 
+      title, 
       version, 
       () => createProject(
         title,
@@ -77,7 +77,7 @@ app.put("/update-project", (req, res) => {
   const { s3, pg } = req.body;
   console.log(s3, pg)
   // createProject();
-  // createOrUpdate(stream, projectName, version)
+  // createOrUpdate(stream, title, version)
   res.redirect("/")
 });
 

@@ -4,14 +4,35 @@ function lengthInUtf8Bytes(str) {
   return str.length + (m ? m.length : 0);
 }
 
-function handleSelectChange(optionSelectorEvent, output) {
+function handleTitleChange(optionSelectorEvent, output, list) {
+  const container = document.getElementById(output);
+
+  if (optionSelectorEvent.checked) { 
+    container.innerHTML = `
+      <select name="title" id="createFormControlTitleInput" class="form-control form-control-md">
+        ${
+          list.map(project => {
+            return `<option value="${project}">${project}</option>`
+          }).join("\n")
+        }
+      </select>
+    `;
+  } else {
+    container.innerHTML = `
+      <input name="title" type="text" class="form-control" id="createFormControlTitleInput" placeholder="Lorem Ipsum" />
+    `;
+  }
+}
+
+function handleSelectChange(title, optionSelectorEvent, output) {
   const container = document.getElementById(output);
   container.innerHTML = "";
   
   function resetToFirstOrOutput(inputElement, option, inheritedValue) {
-    function getBaseNameOfPath(path) {
+    function getPathFromVersionAndName(path) {
       const partials = path.split("\\");
-      return partials[partials.length-1];
+      console.log(partials)
+      return `/dist/${title}/${partials[partials.length-1]}`;
     }
 
     const appInput = document.createElement("input");
@@ -27,7 +48,7 @@ function handleSelectChange(optionSelectorEvent, output) {
         container.innerHTML = `Input URL: <input type="text" name="webite" placeholder="deployedUrl.com" />`;
       } else {
         option.value = inheritedValue;
-        appInput.value = await encryptAndPushCode("/dist/"+getBaseNameOfPath(target.value));
+        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.name));
         container.innerHTML = "<p>&#9989; Encryption loaded </p>";
         container.appendChild(appInput);
       }
@@ -44,7 +65,7 @@ function handleSelectChange(optionSelectorEvent, output) {
         }
       } else {
         option.value = inheritedValue;
-        appInput.value = await encryptAndPushCode("/dist/"+getBaseNameOfPath(target.value));
+        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.name));
         container.innerHTML = "<p>&#9989; Encryption loaded </p>";
         container.appendChild(appInput);
       }
@@ -61,7 +82,7 @@ function handleSelectChange(optionSelectorEvent, output) {
         }
       } else {
         option.value = inheritedValue;
-        appInput.value = await encryptAndPushCode("/dist/"+getBaseNameOfPath(target.value));
+        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.name));
         container.innerHTML = "<p>&#9989; Encryption loaded </p>";
         container.appendChild(appInput);
       }
