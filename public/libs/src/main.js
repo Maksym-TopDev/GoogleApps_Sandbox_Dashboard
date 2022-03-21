@@ -27,12 +27,13 @@ function handleTitleChange(optionSelectorEvent, output, list) {
 function handleSelectChange(title, optionSelectorEvent, output) {
   const container = document.getElementById(output);
   container.innerHTML = "";
+  const titleName = document.getElementById(title).value;
   
   function resetToFirstOrOutput(inputElement, option, inheritedValue) {
     function getPathFromVersionAndName(path) {
       const partials = path.split("\\");
-      console.log(partials)
-      return `/dist/${title}/${partials[partials.length-1]}`;
+      
+      return `/dist/${titleName}/${partials[partials.length-1]}`;
     }
 
     const appInput = document.createElement("input");
@@ -48,7 +49,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
         container.innerHTML = `Input URL: <input type="text" name="webite" placeholder="deployedUrl.com" />`;
       } else {
         option.value = inheritedValue;
-        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.name));
+        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.value));
         container.innerHTML = "<p>&#9989; Encryption loaded </p>";
         container.appendChild(appInput);
       }
@@ -65,7 +66,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
         }
       } else {
         option.value = inheritedValue;
-        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.name));
+        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.value));
         container.innerHTML = "<p>&#9989; Encryption loaded </p>";
         container.appendChild(appInput);
       }
@@ -82,7 +83,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
         }
       } else {
         option.value = inheritedValue;
-        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.name));
+        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.value));
         container.innerHTML = "<p>&#9989; Encryption loaded </p>";
         container.appendChild(appInput);
       }
@@ -97,7 +98,6 @@ function handleSelectChange(title, optionSelectorEvent, output) {
 
       break;
     case "Application": 
-      const titleName = document.getElementById(title).value;
       if (!titleName || !confirm("Is title '"+titleName+"' a good name?")) {
         alert("Please select a title");
 
