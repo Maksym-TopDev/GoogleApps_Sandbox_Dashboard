@@ -41,7 +41,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
 
     inputElement.onclick = async function(event) {
       var target = event.target || event.srcElement;
-      console.log(target, "clicked.");
+      
       if (target.value.length == 0) {
         console.log("Suspect Cancel was hit, no files selected.");
         option.value = "Site";
@@ -56,7 +56,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
     
     inputElement.onchange = async function(event) {
       var target = event.target || event.srcElement;
-      console.log(target, "changed.");
+      
       if (target.value.length == 0) {
         console.log("Suspect Cancel was hit, no files selected.");
         if (numFiles == target.files.length) {
@@ -73,7 +73,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
     
     inputElement.onblur = async function(event) {
       var target = event.target || event.srcElement;
-      console.log(target, "changed.");
+      
       if (target.value.length == 0) {
         console.log("Suspect Cancel was hit, no files selected.");
         if (numFiles == target.files.length) {
@@ -97,6 +97,16 @@ function handleSelectChange(title, optionSelectorEvent, output) {
 
       break;
     case "Application": 
+      const titleName = document.getElementById(title).value;
+      if (!titleName || !confirm("Is title '"+titleName+"' a good name?")) {
+        alert("Please select a title");
+
+        optionSelectorEvent.value = "Site";
+        container.innerHTML = `Input URL: <input type="text" name="webite" placeholder="deployedUrl.com" />`;
+
+        return;
+      }
+
       const fileSelector = document.createElement('input');
       fileSelector.setAttribute('type', 'file');
       resetToFirstOrOutput(fileSelector, optionSelectorEvent, "Application");
