@@ -17,8 +17,8 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-async function createOrUpdate(payloads, filename, version, pgCb) {
-  console.log(payloads, filename, version)
+async function createOrUpdate(data, payloads, pgCb) {
+  console.log(data, payloads)
   // const params = {
   //   Bucket: BUCKET_NAME, // pass your bucket name
   //   Key: `${filename}/bundles/${version}`,

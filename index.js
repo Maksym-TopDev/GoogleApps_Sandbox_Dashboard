@@ -48,23 +48,23 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
     app
   } = req.body;
   
-  const { stream, secret } = JSON.parse(app);
+  const { stream, secret, version } = JSON.parse(app);
   const icon = req.file;
   try {  
     await createOrUpdate([
         {type: "data", payload: stream},
         {type: "file", payload: icon}
       ], 
-      title, 
-      version, 
-      () => createProject(
+      {
         title,
         description,
         repository,
         projectType,
         website,
         secret,
-      )
+        version
+      },
+      createProject
     );
   } catch (err) {
     console.log(err)
