@@ -32,7 +32,8 @@ async function createProject({
 	git_url, 
 	icon_file, 
 	secret_key, 
-	title 
+	title,
+  version
 }) {
   try {
     await prisma.projects.create({
@@ -44,7 +45,8 @@ async function createProject({
         git_url, 
         icon_file, 
         secret_key, 
-        title 
+        title,
+        version
       },
     })
   } catch(err) {
