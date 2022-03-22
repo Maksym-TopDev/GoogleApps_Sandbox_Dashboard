@@ -52,8 +52,8 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
   const icon = req.file;
   try {  
     await createOrUpdate([
-        {name: "logic", data: stream},
-        {name: "icon", data: icon.buffer}
+        {name: "logic", data: stream, type: "plain/text"},
+        {name: "icon", data: icon.buffer, type: icon.mimetype}
       ], 
       {
         title,

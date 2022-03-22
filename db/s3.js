@@ -5,7 +5,8 @@ const {
 	ACCESS_KEY_ID,
 	ACCESS_SECRET_KEY,
 	REGION_NAME,
-	BUCKET_NAME
+	BUCKET_NAME,
+  S3_ROOT_URL
 } = process.env;
 
 
@@ -17,8 +18,7 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-function createOrUpdate(fields, payloads, pgCb) {
-  console.log(fields, payloads)
+async function createOrUpdate(fields, payloads, pgCb) {
   const {
     title,
     description,
@@ -30,30 +30,39 @@ function createOrUpdate(fields, payloads, pgCb) {
   } = payloads;
 
   try {
+    let errMsg = [];
     fields.forEach(async field => {
-      const logicPath = field.name === "logic" && `${title}/${version}/${field.name}`;
+      const logicPath = field.name === "logic" && `${title}/${version}`;
       const iconPath = field.name === "icon" && `${title}/media/${field.name}`;
-console.log(logicPath || iconPath)
-      // const response = await s3.upload({
-      //   Bucket: BUCKET_NAME, // pass your bucket name
-      //   Key: logicPath || iconPath,
-      //   Body: field.data,
-      //   CacheControl: "max-age=0"
-      // });
+      
+      const response = await s3.upload({
+        Bucket: BUCKET_NAME, // pass your bucket name
+        Key: logicPath || iconPath,
+        Body: field.data,
+        ContentType: field.type,
+        CacheControl: "max-age=0"
+      });
 
-      // console.log(`File uploaded successfully at ${response.Location}`);
+      if (!response.location) {
+        errMsg.push(response)
+        return;
+      }
 
-      // await pgCb({
-      //   app_type: projectType, 
-      //   deployed_url: website, 
-      //   description, 
-      //   game_file: (logicPath) ? BUCKET_NAME+"/"+logicPath : null, 
-      //   git_url: repository, 
-      //   icon_file: (iconPath) ? BUCKET_NAME+"/"+iconPath : null, 
-      //   secret_key: secret, 
-      //   title,
-      //   version
-      // });
+      console.log(`File uploaded successfully at ${response}`);
+    });
+
+    if (errMsg.length) throw errMsg;
+
+    await pgCb({
+      app_type: projectType, 
+      deployed_url: website, 
+      description, 
+      game_file: (fields[0]?.data) ? `${S3_ROOT_URL}/${title}/${version}` : null, 
+      git_url: repository, 
+      icon_file: (fields[1]?.data) ? `${S3_ROOT_URL}/${title}/media/${field.name}` : null, 
+      secret_key: secret, 
+      title,
+      version
     });
   } catch (err) {
     throw "S3 upload failed: "+err;
