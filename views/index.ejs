@@ -2,7 +2,7 @@
   <% work.forEach(function(bundle) { %>
     <% if (bundle.version == 'v3') { %>
       <div>
-        <script type="application/javascript" src="/dist/<%= bundle.name %>/<%= bundle.version %>.bundle.js"></script>
+        <script type="application/javascript" src="/dist/projects/<%= bundle.name %>/<%= bundle.version %>.bundle.js"></script>
 
         <!-- Button trigger modal -->
         <button type="button" id="<%= bundle.name %>_btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProject">

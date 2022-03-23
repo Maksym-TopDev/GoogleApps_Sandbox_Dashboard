@@ -48,14 +48,18 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
     repository,
     projectType,
     website,
-    app
+    app,
+    secret,
+    version
   } = req.body;
   
-  const { stream, secret, version } = JSON.parse(app);
+  // const { stream, secret, version } = JSON.parse(app);
   const icon = req.file;
+  const project = zipDataIntoStream(app);
+
   try {  
     await createOrUpdate([
-        {name: "logic", data: zipDataIntoStream(stream), type: "plain/text"},
+        {name: "logic", data: project.buffer, type: project.mimetype},
         {name: "icon", data: icon.buffer, type: icon.mimetype}
       ], 
       {

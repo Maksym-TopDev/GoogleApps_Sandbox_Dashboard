@@ -1,5 +1,3 @@
-import { version } from "webpack";
-
 function lengthInUtf8Bytes(str) {
   // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
   var m = encodeURIComponent(str).match(/%[89ABab]/g);
@@ -35,27 +33,26 @@ function handleSelectChange(title, optionSelectorEvent, output) {
     function getPathFromVersionAndName(path) {
       const partials = path.split("\\");
       
-      return `/dist/${titleName}/${partials[partials.length-1]}`;
+      return `/dist/projects/${titleName}/${partials[partials.length-1]}`;
     }
 
     async function loadInputContainersFromFileSelection(pathOfGameFile) {
-      const { secret, stream, secret } = await encryptAndPushCode(getPathFromVersionAndName(pathOfGameFile));
+      const { secret, stream, version } = await encryptAndPushCode(getPathFromVersionAndName(pathOfGameFile));
 
       const secretInput = document.createElement("input");
-      secretInput.name = "app";
+      secretInput.name = "secret";
       secretInput.type = "hidden"; 
       secretInput.value = secret;
       container.appendChild(secretInput);
 
       const appInput = document.createElement("input");
       appInput.name = "app";
-      appInput.type = "file"; 
-      appInput.hidden = true; 
+      appInput.type = "hidden"; 
       appInput.value = stream;
       container.appendChild(appInput);
 
       const versionInput = document.createElement("input");
-      versionInput.name = "app";
+      versionInput.name = "version";
       versionInput.type = "hidden"; 
       versionInput.value = version;
       container.appendChild(versionInput);
