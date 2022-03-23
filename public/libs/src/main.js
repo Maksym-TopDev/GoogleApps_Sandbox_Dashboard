@@ -1,3 +1,5 @@
+import { version } from "webpack";
+
 function lengthInUtf8Bytes(str) {
   // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
   var m = encodeURIComponent(str).match(/%[89ABab]/g);
@@ -36,9 +38,31 @@ function handleSelectChange(title, optionSelectorEvent, output) {
       return `/dist/${titleName}/${partials[partials.length-1]}`;
     }
 
-    const appInput = document.createElement("input");
-    appInput.name = "app";
-    appInput.type = "hidden"; 
+    async function loadInputContainersFromFileSelection(pathOfGameFile) {
+      const { secret, stream, secret } = await encryptAndPushCode(getPathFromVersionAndName(pathOfGameFile));
+
+      const secretInput = document.createElement("input");
+      secretInput.name = "app";
+      secretInput.type = "hidden"; 
+      secretInput.value = secret;
+      container.appendChild(secretInput);
+
+      const appInput = document.createElement("input");
+      appInput.name = "app";
+      appInput.type = "file"; 
+      appInput.hidden = true; 
+      appInput.value = stream;
+      container.appendChild(appInput);
+
+      const versionInput = document.createElement("input");
+      versionInput.name = "app";
+      versionInput.type = "hidden"; 
+      versionInput.value = version;
+      container.appendChild(versionInput);
+
+      option.value = inheritedValue;
+      container.innerHTML = "<p>&#9989; Encryption loaded </p>";
+    }
 
     inputElement.onclick = async function(event) {
       var target = event.target || event.srcElement;
@@ -48,10 +72,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
         option.value = "Site";
         container.innerHTML = `Input URL: <input type="text" name="webite" placeholder="deployedUrl.com" />`;
       } else {
-        option.value = inheritedValue;
-        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.value));
-        container.innerHTML = "<p>&#9989; Encryption loaded </p>";
-        container.appendChild(appInput);
+        loadInputContainersFromFileSelection(target.value);
       }
     }
     
@@ -65,10 +86,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
           container.innerHTML = `Input URL: <input type="text" name="webite" placeholder="deployedUrl.com" />`;
         }
       } else {
-        option.value = inheritedValue;
-        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.value));
-        container.innerHTML = "<p>&#9989; Encryption loaded </p>";
-        container.appendChild(appInput);
+        loadInputContainersFromFileSelection(target.value);
       }
     }
     
@@ -82,10 +100,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
           container.innerHTML = `Input URL: <input type="text" name="webite" placeholder="deployedUrl.com" />`;
         }
       } else {
-        option.value = inheritedValue;
-        appInput.value = await encryptAndPushCode(getPathFromVersionAndName(target.value));
-        container.innerHTML = "<p>&#9989; Encryption loaded </p>";
-        container.appendChild(appInput);
+        loadInputContainersFromFileSelection(target.value);
       }
     }
 

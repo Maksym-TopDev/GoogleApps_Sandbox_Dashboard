@@ -12,12 +12,12 @@ async function encryptAndPushCode(bundlePath, secret = lib.WordArray.random(16).
     const response = await bundle.text();
     const encryptedData = AES.encrypt(response, secret).toString();
     let payload = {
-      stream: encryptedData,
+      stream: encryptedData, // zip and buffer
       secret,
       version: getVersion()
     };
     
-    return JSON.stringify(payload);
+    return payload;
   } catch (err) {
     console.log("update failed:", err)
   }
