@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const multer  = require('multer');
 const upload = multer({ dest: "" });
+const {
+  zipDataIntoStream
+} = require('./lib/main.js');
 
 // parse application/json
 app.use(bodyParser.json())
@@ -52,7 +55,7 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
   const icon = req.file;
   try {  
     await createOrUpdate([
-        {name: "logic", data: stream, type: "plain/text"},
+        {name: "logic", data: zipDataIntoStream(stream), type: "plain/text"},
         {name: "icon", data: icon.buffer, type: icon.mimetype}
       ], 
       {

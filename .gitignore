@@ -1,6 +1,6 @@
 dist
 .env
-prisma/schema.prisma
+prisma
 
 # OS X
 .DS_Store*
