@@ -39,6 +39,9 @@ function handleSelectChange(title, optionSelectorEvent, output) {
     async function loadInputContainersFromFileSelection(pathOfGameFile) {
       const { secret, stream, version } = await encryptAndPushCode(getPathFromVersionAndName(pathOfGameFile));
 
+      option.value = inheritedValue;
+      container.innerHTML = "<p>&#9989; Encryption loaded </p>";
+
       const secretInput = document.createElement("input");
       secretInput.name = "secret";
       secretInput.type = "hidden"; 
@@ -56,9 +59,6 @@ function handleSelectChange(title, optionSelectorEvent, output) {
       versionInput.type = "hidden"; 
       versionInput.value = version;
       container.appendChild(versionInput);
-
-      option.value = inheritedValue;
-      container.innerHTML = "<p>&#9989; Encryption loaded </p>";
     }
 
     inputElement.onclick = async function(event) {
