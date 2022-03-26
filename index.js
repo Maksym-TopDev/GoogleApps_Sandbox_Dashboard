@@ -52,13 +52,14 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
     secret,
     version
   } = req.body;
-  
-  const icon = req.file;
-  const project = await zipDataIntoStream(app);
-  
-  try {  
-    await createOrUpdate([
-        {name: "logic", data: project.buffer, type: project.mimetype},
+
+  try {
+    const icon = req.file;
+    const project = await zipDataIntoStream(app);
+    
+    createOrUpdate(
+      [
+        {name: "core", data: project.buffer, type: project.mimetype},
         {name: "icon", data: icon.buffer, type: icon.mimetype}
       ], 
       {
@@ -73,7 +74,7 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
       createProject
     );
   } catch (err) {
-    console.log(err)
+    console.log("Error at create proj:", err);
   } finally {
     res.redirect("/");
   }

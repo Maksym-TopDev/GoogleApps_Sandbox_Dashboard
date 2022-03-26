@@ -18,56 +18,55 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-async function createOrUpdate(fields, payloads, pgCb) {
-  console.log(fields)
-  // const {
-  //   title,
-  //   description,
-  //   repository,
-  //   projectType,
-  //   website,
-  //   secret,
-  //   version
-  // } = payloads;
-
-  // try {
-  //   let errMsg = [];
-  //   fields.forEach(async field => {
-  //     const logicPath = field.name === "logic" && `${title}/${version}`;
-  //     const iconPath = field.name === "icon" && `${title}/media/${field.name}`;
+async function createOrUpdate(files, fields, pgCb) {
+  const {
+    title,
+    description,
+    repository,
+    projectType,
+    website,
+    secret,
+    version
+  } = fields;
+  
+  try {
+    let errMsg = [];
+    files.forEach(async file => {
+      const corePath = file.name === "core" && `${title}/${version}`;
+      const iconPath = file.name === "icon" && `${title}/media/${file.name}`;
       
-  //     const response = await s3.upload({
-  //       Bucket: BUCKET_NAME, // pass your bucket name
-  //       Key: logicPath || iconPath,
-  //       Body: field.data,
-  //       ContentType: field.type,
-  //       CacheControl: "max-age=0"
-  //     });
+      const response = await s3.upload({
+        Bucket: BUCKET_NAME, // pass your bucket name
+        Key: corePath || iconPath,
+        Body: file.data,
+        ContentType: file.type,
+        CacheControl: "max-age=0"
+      });
+      console.log(response.service.config)
+      // if (!response.location) {
+      //   errMsg.push(response)
+      //   return;
+      // }
 
-  //     if (!response.location) {
-  //       errMsg.push(response)
-  //       return;
-  //     }
+      // console.log(`File uploaded successfully at ${response}`);
+    });
 
-  //     console.log(`File uploaded successfully at ${response}`);
-  //   });
+    if (errMsg.length) throw errMsg;
 
-  //   if (errMsg.length) throw errMsg;
-
-  //   await pgCb({
-  //     app_type: projectType, 
-  //     deployed_url: website, 
-  //     description, 
-  //     game_file: (fields[0]?.data) ? `${S3_ROOT_URL}/${title}/${version}` : null, 
-  //     git_url: repository, 
-  //     icon_file: (fields[1]?.data) ? `${S3_ROOT_URL}/${title}/media/${field.name}` : null, 
-  //     secret_key: secret, 
-  //     title,
-  //     version
-  //   });
-  // } catch (err) {
-  //   throw "S3 upload failed: "+err;
-  // }
+    // await pgCb({
+    //   app_type: projectType, 
+    //   deployed_url: website, 
+    //   description, 
+    //   game_file: (files[0]?.data) ? `${S3_ROOT_URL}/${title}/${version}` : null, 
+    //   git_url: repository, 
+    //   icon_file: (files[1]?.data) ? `${S3_ROOT_URL}/${title}/media/${files[1].name}` : null, 
+    //   secret_key: secret, 
+    //   title,
+    //   version
+    // });
+  } catch (err) {
+    throw "S3 upload failed: "+err;
+  }
 }
 
 module.exports = {createOrUpdate};
