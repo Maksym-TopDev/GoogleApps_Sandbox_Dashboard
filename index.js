@@ -57,7 +57,7 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
     const icon = req.file;
     const project = await zipDataIntoStream(app);
     
-    createOrUpdate(
+    await createOrUpdate(
       [
         {name: "core", data: project.buffer, type: project.mimetype},
         {name: "icon", data: icon.buffer, type: icon.mimetype}
