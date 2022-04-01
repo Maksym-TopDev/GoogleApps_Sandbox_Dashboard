@@ -36,23 +36,9 @@ function handleSelectChange(title, optionSelectorEvent, output) {
       return `/dist/projects/${titleName}/${partials[partials.length-1]}`;
     }
 
-    async function loadInputContainersFromFileSelection(pathOfGameFile) {
-      const { secret, stream, version } = await encryptAndPushCode(getPathFromVersionAndName(pathOfGameFile));
-
-      option.value = inheritedValue;
-      container.innerHTML = "<p>&#9989; Encryption loaded </p>";
-
-      const secretInput = document.createElement("input");
-      secretInput.name = "secret";
-      secretInput.type = "hidden"; 
-      secretInput.value = secret;
-      container.appendChild(secretInput);
-
-      const appInput = document.createElement("input");
-      appInput.name = "app";
-      appInput.type = "hidden"; 
-      appInput.value = stream;
-      container.appendChild(appInput);
+    function getVersionFromPath(pathOfGameFile) {
+      const partials = pathOfGameFile.split('/');
+      versionInput = partials[partials.length-1].split('.')[0];
 
       const versionInput = document.createElement("input");
       versionInput.name = "version";
@@ -60,6 +46,31 @@ function handleSelectChange(title, optionSelectorEvent, output) {
       versionInput.value = version;
       container.appendChild(versionInput);
     }
+
+    // async function loadInputContainersFromFileSelection(pathOfGameFile) {
+    //   const { secret, stream, version } = await encryptAndPushCode(getPathFromVersionAndName(pathOfGameFile));
+
+    //   option.value = inheritedValue;
+    //   container.innerHTML = "<p>&#9989; Encryption loaded </p>";
+
+    //   const secretInput = document.createElement("input");
+    //   secretInput.name = "secret";
+    //   secretInput.type = "hidden"; 
+    //   secretInput.value = secret;
+    //   container.appendChild(secretInput);
+
+    //   const appInput = document.createElement("input");
+    //   appInput.name = "app";
+    //   appInput.type = "hidden"; 
+    //   appInput.value = stream;
+    //   container.appendChild(appInput);
+
+    //   const versionInput = document.createElement("input");
+    //   versionInput.name = "version";
+    //   versionInput.type = "hidden"; 
+    //   versionInput.value = version;
+    //   container.appendChild(versionInput);
+    // }
 
     inputElement.onclick = async function(event) {
       var target = event.target || event.srcElement;
@@ -69,7 +80,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
         option.value = "Site";
         container.innerHTML = `Input URL: <input type="text" name="webite" placeholder="deployedUrl.com" />`;
       } else {
-        loadInputContainersFromFileSelection(target.value);
+        getVersionFromPath(target.value);
       }
     }
     
@@ -83,7 +94,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
           container.innerHTML = `Input URL: <input type="text" name="webite" placeholder="deployedUrl.com" />`;
         }
       } else {
-        loadInputContainersFromFileSelection(target.value);
+        getVersionFromPath(target.value);
       }
     }
     
@@ -97,7 +108,7 @@ function handleSelectChange(title, optionSelectorEvent, output) {
           container.innerHTML = `Input URL: <input type="text" name="webite" placeholder="deployedUrl.com" />`;
         }
       } else {
-        loadInputContainersFromFileSelection(target.value);
+        getVersionFromPath(target.value);
       }
     }
 

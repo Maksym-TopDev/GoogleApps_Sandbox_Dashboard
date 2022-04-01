@@ -5,15 +5,20 @@
         <script type="application/javascript" src="/dist/projects/<%= bundle.name %>/<%= bundle.version %>.bundle.js"></script>
 
         <!-- Button trigger modal -->
-        <button type="button" id="<%= bundle.name %>_btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProject">
+        <button type="button" id="<%= bundle.name %>_modal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProject">
           Edit <%= bundle.name %>
         </button>
-
+        <button type="button" id="<%= bundle.name %>_testPV1" class="btn btn-primary">TEST PV1</button>
+        
         <script>
-          document.getElementById('<%= bundle.name %>_btn').onclick = () => {
+          document.getElementById('<%= bundle.name %>_modal').onclick = () => {
             const appContainer = document.getElementById("update_app_container");
             appContainer.innerHTML = "";
             Window.games["<%= bundle.name %>"](appContainer);
+          };
+
+          document.getElementById('<%= bundle.name %>_testPV1').onclick = () => {
+            // extractZip()
           };
         </script>
       </div>

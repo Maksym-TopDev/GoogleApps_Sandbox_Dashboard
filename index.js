@@ -3,8 +3,10 @@ const bodyParser = require('body-parser');
 const app = express();
 const multer  = require('multer');
 const upload = multer({ dest: "" });
+const axios = require('axios');
 const {
-  zipDataIntoStream
+  zipDataIntoStream,
+  encryptAndPushCode
 } = require('./lib/main.js');
 
 // parse application/json
@@ -49,13 +51,17 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
     projectType,
     website,
     app,
-    secret,
     version
   } = req.body;
 
+  const { 
+    encryptedData, 
+    secret 
+  } = encryptAndPushCode(app);
+
   try {
     const icon = req.file;
-    const project = await zipDataIntoStream(app);
+    const project = await zipDataIntoStream(encryptedData);
     
     await createOrUpdate(
       [
