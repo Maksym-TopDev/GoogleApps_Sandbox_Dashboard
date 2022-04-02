@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const multer  = require('multer');
 const upload = multer({ dest: "" });
-const axios = require('axios');
 const {
   zipDataIntoStream,
   encryptAndPushCode
@@ -32,8 +31,8 @@ const {
 
 //route for index page
 app.get("/", async (req, res) => {
-  // const projects = await getProjects();
-  // console.log(projects)
+  const projects = await getProjects();
+  console.log(projects)
   res.render("index", {work: [
     {name: 'Mystic8', version: 'v2'},
     {name: 'Mystic8', version: 'v3'},
@@ -42,7 +41,7 @@ app.get("/", async (req, res) => {
   ]});
 });
 
-const { createOrUpdate } = require("./db/s3.js");
+const { createOrUpdate, getOneObject } = require("./db/s3.js");
 app.post("/create-project", upload.single('icon'), async (req, res) => {
   const { 
     title,
@@ -85,6 +84,14 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
     res.redirect("/");
   }
 });
+
+app.get('/test-unzip', (req, res) => {
+  const encryptedData = await getOneObject(req.query.keyName)
+  
+  // console.log(file_stream);
+
+  res.send({msg: "ok"})
+})
 
 app.put("/update-project", (req, res) => {
   const { s3, pg } = req.body;

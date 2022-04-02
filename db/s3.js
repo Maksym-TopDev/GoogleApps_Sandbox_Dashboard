@@ -1,4 +1,5 @@
 const aws = require("aws-sdk");
+const unzipper = require("unzipper");
 
 require("dotenv").config();
 const { 
@@ -8,7 +9,6 @@ const {
 	BUCKET_NAME,
   S3_ROOT_URL
 } = process.env;
-
 
 aws.config.update({
 	secretAccessKey: ACCESS_SECRET_KEY,
@@ -66,4 +66,23 @@ async function createOrUpdate(files, fields, pgCb) {
   if (!response) throw response;
 }
 
-module.exports = {createOrUpdate};
+function getOneObject(filename) {
+  return new Promise(function (resolve, reject) {
+    s3
+      .getObject({ Bucket: BUCKET_NAME, Key: filename })
+      .createReadStream()
+      .on("error", (e) => reject(`Error extracting file: `, e))
+      .pipe(unzipper.Parse())
+      .on("entry", async function (data) {
+        const unzippedBuff = await data.buffer()
+        const encryptedContent = await unzippedBuff.toString('utf8')
+
+        resolve(encryptedContent);
+      });
+  });
+}
+
+module.exports = {
+  createOrUpdate,
+  getOneObject
+};
