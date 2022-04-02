@@ -5,6 +5,7 @@ const multer  = require('multer');
 const upload = multer({ dest: "" });
 const {
   zipDataIntoStream,
+  getDecryptedData,
   encryptAndPushCode
 } = require('./lib/main.js');
 
@@ -24,6 +25,7 @@ app.set("view engine", "ejs");
 
 const {   
   getProjects,
+  getOneProject,
   updateProject,
   createProject 
 } = require("./db/pg.js");
@@ -32,16 +34,19 @@ const {
 //route for index page
 app.get("/", async (req, res) => {
   const projects = await getProjects();
-  console.log(projects)
-  res.render("index", {work: [
-    {name: 'Mystic8', version: 'v2'},
-    {name: 'Mystic8', version: 'v3'},
-    {name: 'Rivalry', version: 'v2'},
-    {name: 'Rivalry', version: 'v3'}
-  ]});
+  
+  res.render("index", {projects});
 });
 
-const { createOrUpdate, getOneObject } = require("./db/s3.js");
+const { createOrUpdate, getOneAndUnzip } = require("./db/s3.js");
+app.get("/unzip-decrypt", async (req, res) => {
+  const encryption = await getOneAndUnzip(req.query.keyName);
+  const secret = await (await getOneProject(req.query.id)).secret_key;
+
+  const decryption = getDecryptedData(encryption, secret);
+  res.send(decryption);
+});
+
 app.post("/create-project", upload.single('icon'), async (req, res) => {
   const { 
     title,
@@ -84,14 +89,6 @@ app.post("/create-project", upload.single('icon'), async (req, res) => {
     res.redirect("/");
   }
 });
-
-app.get('/test-unzip', (req, res) => {
-  const encryptedData = await getOneObject(req.query.keyName)
-  
-  // console.log(file_stream);
-
-  res.send({msg: "ok"})
-})
 
 app.put("/update-project", (req, res) => {
   const { s3, pg } = req.body;

@@ -66,15 +66,15 @@ async function createOrUpdate(files, fields, pgCb) {
   if (!response) throw response;
 }
 
-function getOneObject(filename) {
+function getOneAndUnzip(keyName) {
   return new Promise(function (resolve, reject) {
     s3
-      .getObject({ Bucket: BUCKET_NAME, Key: filename })
+      .getObject({ Bucket: BUCKET_NAME, Key: keyName })
       .createReadStream()
       .on("error", (e) => reject(`Error extracting file: `, e))
       .pipe(unzipper.Parse())
       .on("entry", async function (data) {
-        const unzippedBuff = await data.buffer()
+        const unzippedBuff = await data.buffer();
         const encryptedContent = await unzippedBuff.toString('utf8')
 
         resolve(encryptedContent);
@@ -84,5 +84,5 @@ function getOneObject(filename) {
 
 module.exports = {
   createOrUpdate,
-  getOneObject
+  getOneAndUnzip
 };

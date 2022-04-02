@@ -1,30 +1,28 @@
 <div class="slide">
-  <% work.forEach(function(bundle) { %>
+  <% projects.forEach(function(bundle) { %>
     <% if (bundle.version == 'v3') { %>
       <div>
-        <script type="application/javascript" src="/dist/projects/<%= bundle.name %>/<%= bundle.version %>.bundle.js"></script>
+        <script type="application/javascript" src="/dist/projects/<%= bundle.title %>/<%= bundle.version %>.bundle.js"></script>
 
         <!-- Button trigger modal -->
-        <button type="button" id="<%= bundle.name %>_modal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProject">
-          Edit <%= bundle.name %>
+        <button type="button" id="<%= bundle.title %>_update" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProject">Edit <%= bundle.title %>
         </button>
-        <button type="button" id="<%= bundle.name %>_testPV1" class="btn btn-primary">TEST PV1</button>
+        <button type="button" id="<%= bundle.title %>_test" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#testProject">Test</button>
         
         <script>
-          document.getElementById('<%= bundle.name %>_modal').onclick = () => {
-            const appContainer = document.getElementById("update_app_container");
+          document.getElementById('<%= bundle.title %>_test').onclick = () => {
+            const appContainer = document.getElementById("test_app_container");
             appContainer.innerHTML = "";
-            Window.games["<%= bundle.name %>"](appContainer);
-          };
-          
-          document.getElementById('<%= bundle.name %>_testPV1').onclick = () => {
-            // extractZip()
-            const { name, version } = <%- JSON.stringify(bundle) %>;
-            fetch(`/test-unzip?keyName=${name}/${version}`)
-              .then(res => res.json)
-              .then(res => console.log(res))
-              .catch(err => console.log(err))
-          };
+
+            fetch('/unzip-decrypt?id=<%= bundle.id %>&keyName=<%= bundle.title %>/<%= bundle.version %>')
+              .then(res => res.text())
+              .then(res => {
+                eval(res);
+
+                Window.games["<%= bundle.title %>"](appContainer);
+              })
+              .catch(error => console.log(error));
+          }
         </script>
       </div>
     <% } %>
@@ -34,3 +32,4 @@
 <!-- Modals -->
 <%- include('partials/createForm') %>
 <%- include('partials/updateForm') %>
+<%- include('partials/testModal') %>

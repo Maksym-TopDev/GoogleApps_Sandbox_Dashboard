@@ -14,6 +14,20 @@ async function getProjects() {
   }
 }
 
+async function getOneProject(id) {
+  try {
+    const project = await prisma.projects.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    return project;
+  } catch(err) {
+    console.log("Failed to get project:", err);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
 async function updateProject() {
   try {
 
@@ -58,6 +72,7 @@ async function createProject({
 
 module.exports = {
   getProjects,
+  getOneProject,
   updateProject,
   createProject
 };
