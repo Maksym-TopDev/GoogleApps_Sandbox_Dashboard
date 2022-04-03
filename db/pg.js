@@ -18,8 +18,8 @@ async function getOneProject(title, version) {
   try {
     const project = await prisma.projects.findMany({
       where: { 
-          title: title,
-          version: version 
+        title: title,
+        version: version 
       },
     });
     
@@ -31,9 +31,14 @@ async function getOneProject(title, version) {
   }
 }
 
-async function updateProject() {
+async function updateProject(id, data) {
   try {
-
+    await prisma.projects.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: data, // object
+    });
   } catch(err) {
     console.log("Failed to update project:", err);
   } finally {
@@ -42,12 +47,12 @@ async function updateProject() {
 }
 
 async function createProject({
-  app_type, 
-	deployed_url, 
+  projectType, 
+	repository, 
 	description, 
-	game_file, 
-	git_url, 
-	icon_file, 
+	app, 
+	website, 
+	icon, 
 	secret_key, 
 	title,
   version
@@ -55,17 +60,17 @@ async function createProject({
   try {
     await prisma.projects.create({
       data: {
-        app_type, 
-        deployed_url, 
+        projectType, 
+        repository, 
         description, 
-        game_file, 
-        git_url, 
-        icon_file, 
+        app, 
+        website, 
+        icon, 
         secret_key, 
         title,
         version
       },
-    })
+    });
   } catch(err) {
     console.log("Failed to create project:", err);
   } finally {

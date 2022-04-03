@@ -32,7 +32,7 @@ async function createOrUpdate(files, fields, pgCb) {
   let errMsg = [];
   files.forEach(file => {
     const corePath = file.name === "core" && `${title}/${version}`;
-    const iconPath = file.name === "icon" && `${title}/media/${file.name}`;
+    const iconPath = file.name === "icon" && `${title}/${file.name}`;
     
     s3.upload({
       Bucket: BUCKET_NAME, // pass your bucket name
@@ -53,12 +53,12 @@ async function createOrUpdate(files, fields, pgCb) {
   if (errMsg.length) throw errMsg;
 
   const response = await pgCb({
-    app_type: projectType, 
-    deployed_url: website, 
+    projectType, 
+    website, 
     description, 
-    game_file: (files[0]?.data) ? `${S3_ROOT_URL}/${title}/${version}` : null, 
-    git_url: repository, 
-    icon_file: (files[1]?.data) ? `${S3_ROOT_URL}/${title}/${files[1].name}` : null, 
+    app: (files[0]?.data) ? `${S3_ROOT_URL}/${title}/${version}` : null, 
+    repository, 
+    icon: (files[1]?.data) ? `${S3_ROOT_URL}/${title}/${files[1].name}` : null, 
     secret_key: secret, 
     title,
     version

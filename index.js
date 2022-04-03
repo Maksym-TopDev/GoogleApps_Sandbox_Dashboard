@@ -7,7 +7,8 @@ const upload = multer({ dest: "" });
 const {
   zipDataIntoStream,
   getDecryptedData,
-  encryptAndPushCode
+  encryptAndPushCode,
+  determineAndGetChanges
 } = require('./lib/main.js');
 
 // parse application/json
@@ -59,14 +60,32 @@ app.get("/", async (req, res) => {
   res.render("index", {work});
 });
 
+app.get("/get-project", async (req, res) => {
+  try {
+    const { title, version } = req.query;
+    const project = await getOneProject(title, version);
+
+    res.json(project);
+  } catch(err) {
+    console.log(err);
+
+    res.redirect("/");
+  }
+});
+
 const { createOrUpdate, getOneAndUnzip } = require("./db/s3.js");
 app.get("/unzip-decrypt", async (req, res) => {
   const { title, version, keyName } = req.query;
-  const encryption = await getOneAndUnzip(keyName);
-  const secret = await (await getOneProject(title, version)).secret_key;
-  
-  const decryption = getDecryptedData(encryption, secret);
-  res.send(decryption);
+  try {
+    const encryption = await getOneAndUnzip(keyName);
+    const secret = await (await getOneProject(title, version)).secret_key;
+    const decryption = getDecryptedData(encryption, secret);
+    res.send(decryption);
+  } catch (err) {
+    console.log(err);
+
+    res.redirect("/");
+  }
 });
 
 app.post("/create-project", upload.fields([
@@ -115,12 +134,23 @@ app.post("/create-project", upload.fields([
   }
 });
 
-app.put("/update-project", (req, res) => {
-  const { s3, pg } = req.body;
-  console.log(s3, pg)
-  // createProject();
-  // createOrUpdate(stream, title, version)
-  res.redirect("/")
+app.post("/update-project", upload.fields([
+  { name: 'icon', maxCount: 1 }, 
+  { name: 'app', maxCount: 1 }
+]), async (req, res) => {
+  const projectId = req.body.id;
+  const {
+    filesExist, acceptedFields
+  } = determineAndGetChanges(req.files, req.body);
+console.log(filesExist, acceptedFields, projectId)
+  try {
+    // if (filesExist) await createOrUpdate(arrayOfFiles, acceptedFields, updateProject);
+    // else await updateProject(acceptedFields);
+  } catch (err) {
+    console.log(err)
+  } finally {
+    res.redirect("/");
+  }
 });
 
 const PORT = process.env.PORT || 8080; 

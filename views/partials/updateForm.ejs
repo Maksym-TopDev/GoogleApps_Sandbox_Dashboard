@@ -7,23 +7,51 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form class="modal-body" id="update_app_container">
+      <form class="modal-body" id="update_app_container" method="POST" action="/update-project" enctype="multipart/form-data">
         <!-- title -->
+        <div class="form-group">
+          <label for="updateFormControlTitleInput">Title</label>
+
+          <div id="selectTitleOutput" class="form-group">
+            <input name="title" type="text" class="form-control" id="updateFormControlTitleInput" placeholder="Lorem Ipsum" />
+          </div>  
+        </div>
 
         <!-- description -->
+        <div class="form-group">
+          <label for="updateFormControlTextarea">Description</label>
+          <textarea name="description" class="form-control" id="updateFormControlTextarea" rows="3" placeholder="Lorem ipsum dolor sit amet..."></textarea>
+        </div>
 
         <!-- repository -->
+        <div class="form-group">
+          <label for="updateFormControlRepoInput">Repository</label>
+          <input name="repository" type="text" class="form-control" id="updateFormControlRepoInput" placeholder="github.com/loremipsum" />
+        </div>
 
         <!-- game stream *encrypt using db secret, and load from path using func*(hidden) || deployed url || list of images -->
+        <div class="form-group">
+          <label for="inputProjectType">Project Type</label>
+          <div id="updateInputProjectType" class="form-group">
+            Input URL: <input name="website" type="text" id="updateFormWebUrlInput" placeholder="deployedUrl.com" />
+          </div>  
+        </div>
 
         <!-- icon *load from files* || null -->
+        <div class="form-group">
+          <label for="updateFormControlIconFile">Upload Icon</label>
+          <input name="icon" type="file" class="form-control" id="updateFormControlIconFile" />
+        </div>
 
+        <input name="previousFieldsPayload" type="hidden" />
+        <input name="projectType" type="hidden" />
+        <input name="id" type="hidden" />
+
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" value="Update Project" />
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
       </form>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
     </div>
   </div>
 </div>
