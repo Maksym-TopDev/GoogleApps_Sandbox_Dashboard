@@ -1,5 +1,5 @@
 <div class="slide">
-  <% projects.forEach(function(bundle) { %>
+  <% work.forEach(function(bundle) { %>
     <% if (bundle.version == 'v3') { %>
       <div>
         <script type="application/javascript" src="/dist/projects/<%= bundle.title %>/<%= bundle.version %>.bundle.js"></script>
@@ -14,7 +14,7 @@
             const appContainer = document.getElementById("test_app_container");
             appContainer.innerHTML = "";
 
-            fetch('/unzip-decrypt?id=<%= bundle.id %>&keyName=<%= bundle.title %>/<%= bundle.version %>')
+            fetch('/unzip-decrypt?title=<%= bundle.title %>&version=<%= bundle.version %>&keyName=<%= bundle.title %>/<%= bundle.version %>')
               .then(res => res.text())
               .then(res => {
                 eval(res);

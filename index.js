@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const glob = require('glob');
 const multer  = require('multer');
 const upload = multer({ dest: "" });
 const {
@@ -24,7 +25,6 @@ app.use("/public", express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
 
 const {   
-  getProjects,
   getOneProject,
   updateProject,
   createProject 
@@ -33,44 +33,69 @@ const {
 
 //route for index page
 app.get("/", async (req, res) => {
-  const projects = await getProjects();
-  
-  res.render("index", {projects});
+  const projects = await new Promise(function (resolve, reject) {
+    glob("./dist/projects/**/*", function (err, res) {
+      if (err) reject(err);
+
+      resolve(res)
+    })
+  });
+  const work = projects.flatMap(path => {
+    const dirPartials = path.split("/");
+    if (dirPartials.length === 5) {
+      const version = dirPartials[dirPartials.length-1].split(".")[0];
+      if (version === "v3") {
+        return {
+          title: dirPartials[3],
+          version,
+          fullPath: path
+        }
+      }
+      return [];
+    }
+    return [];
+  });
+
+  res.render("index", {work});
 });
 
 const { createOrUpdate, getOneAndUnzip } = require("./db/s3.js");
 app.get("/unzip-decrypt", async (req, res) => {
-  const encryption = await getOneAndUnzip(req.query.keyName);
-  const secret = await (await getOneProject(req.query.id)).secret_key;
-
+  const { title, version, keyName } = req.query;
+  const encryption = await getOneAndUnzip(keyName);
+  const secret = await (await getOneProject(title, version)).secret_key;
+  
   const decryption = getDecryptedData(encryption, secret);
   res.send(decryption);
 });
 
-app.post("/create-project", upload.single('icon'), async (req, res) => {
+app.post("/create-project", upload.fields([
+  { name: 'icon', maxCount: 1 }, 
+  { name: 'app', maxCount: 8 }
+]), async (req, res) => {
   const { 
     title,
     description,
     repository,
     projectType,
     website,
-    app,
     version
   } = req.body;
 
-  const { 
-    encryptedData, 
-    secret 
-  } = encryptAndPushCode(app);
+  const {icon, app} = req.files;
 
   try {
-    const icon = req.file;
+    const { 
+      encryptedData, 
+      secret 
+    } = await encryptAndPushCode(app);
+
     const project = await zipDataIntoStream(encryptedData);
     
     await createOrUpdate(
       [
         {name: "core", data: project.buffer, type: project.mimetype},
-        {name: "icon", data: icon.buffer, type: icon.mimetype}
+        {name: "icon", data: icon[0].buffer, type: icon[0].mimetype}
       ], 
       {
         title,

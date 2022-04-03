@@ -14,13 +14,16 @@ async function getProjects() {
   }
 }
 
-async function getOneProject(id) {
+async function getOneProject(title, version) {
   try {
-    const project = await prisma.projects.findUnique({
-      where: { id: parseInt(id) },
+    const project = await prisma.projects.findMany({
+      where: { 
+          title: title,
+          version: version 
+      },
     });
-
-    return project;
+    
+    return project[0];
   } catch(err) {
     console.log("Failed to get project:", err);
   } finally {

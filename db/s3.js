@@ -28,6 +28,7 @@ async function createOrUpdate(files, fields, pgCb) {
     secret,
     version
   } = fields;  
+  
   let errMsg = [];
   files.forEach(file => {
     const corePath = file.name === "core" && `${title}/${version}`;
@@ -57,7 +58,7 @@ async function createOrUpdate(files, fields, pgCb) {
     description, 
     game_file: (files[0]?.data) ? `${S3_ROOT_URL}/${title}/${version}` : null, 
     git_url: repository, 
-    icon_file: (files[1]?.data) ? `${S3_ROOT_URL}/${title}/media/${files[1].name}` : null, 
+    icon_file: (files[1]?.data) ? `${S3_ROOT_URL}/${title}/${files[1].name}` : null, 
     secret_key: secret, 
     title,
     version

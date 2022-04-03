@@ -1,7 +1,7 @@
 <script>
-  const bundleDataList = <%- JSON.stringify(projects) %>;
+  const bundleDataList = <%- JSON.stringify(work) %>;
   const setOfProjectNames = new Set();
-  bundleDataList.forEach(b => setOfProjectNames.add(b.name));
+  bundleDataList.forEach(b => setOfProjectNames.add(b.title));
   const listOfNames = Array.from(setOfProjectNames);
 </script>
 
