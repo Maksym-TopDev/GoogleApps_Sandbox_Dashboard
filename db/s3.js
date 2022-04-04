@@ -19,20 +19,10 @@ aws.config.update({
 const s3 = new aws.S3();
 
 async function createOrUpdate(files, fields, pgCb) {
-  const {
-    title,
-    description,
-    repository,
-    projectType,
-    website,
-    secret,
-    version
-  } = fields;  
-  
   let errMsg = [];
   files.forEach(file => {
-    const corePath = file.name === "core" && `${title}/${version}`;
-    const iconPath = file.name === "icon" && `${title}/${file.name}`;
+    const corePath = file.name === "core" && `${fields.title}/${fields.version}`;
+    const iconPath = file.name === "icon" && `${fields.title}/${file.name}`;
     
     s3.upload({
       Bucket: BUCKET_NAME, // pass your bucket name
@@ -52,17 +42,10 @@ async function createOrUpdate(files, fields, pgCb) {
 
   if (errMsg.length) throw errMsg;
 
-  const response = await pgCb({
-    projectType, 
-    website, 
-    description, 
-    app: (files[0]?.data) ? `${S3_ROOT_URL}/${title}/${version}` : null, 
-    repository, 
-    icon: (files[1]?.data) ? `${S3_ROOT_URL}/${title}/${files[1].name}` : null, 
-    secret_key: secret, 
-    title,
-    version
-  });
+  if(files[0]?.data) {fields.app = `${S3_ROOT_URL}/${fields.title}/${fields.version}`;}
+  if(files[1]?.data) {fields.icon = `${S3_ROOT_URL}/${fields.title}/${files[1].name}`;}
+
+  const response = await pgCb(fields);
 
   if (!response) throw response;
 }

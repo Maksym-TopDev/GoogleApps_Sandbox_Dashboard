@@ -31,13 +31,16 @@ async function getOneProject(title, version) {
   }
 }
 
-async function updateProject(id, data) {
+async function updateProject(fields) {
+  const { id } = fields;
+  delete fields.id;
+  
   try {
     await prisma.projects.update({
       where: {
         id: parseInt(id),
       },
-      data: data, // object
+      data: fields, // object
     });
   } catch(err) {
     console.log("Failed to update project:", err);

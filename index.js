@@ -90,7 +90,7 @@ app.get("/unzip-decrypt", async (req, res) => {
 
 app.post("/create-project", upload.fields([
   { name: 'icon', maxCount: 1 }, 
-  { name: 'app', maxCount: 8 }
+  { name: 'app', maxCount: 1 }
 ]), async (req, res) => {
   const { 
     title,
@@ -106,9 +106,8 @@ app.post("/create-project", upload.fields([
   try {
     const { 
       encryptedData, 
-      secret 
+      secret_key
     } = await encryptAndPushCode(app);
-
     const project = await zipDataIntoStream(encryptedData);
     
     await createOrUpdate(
@@ -122,7 +121,7 @@ app.post("/create-project", upload.fields([
         repository,
         projectType,
         website,
-        secret,
+        secret_key,
         version
       },
       createProject
@@ -139,13 +138,19 @@ app.post("/update-project", upload.fields([
   { name: 'app', maxCount: 1 }
 ]), async (req, res) => {
   const projectId = req.body.id;
-  const {
-    filesExist, acceptedFields
-  } = determineAndGetChanges(req.files, req.body);
-console.log(filesExist, acceptedFields, projectId)
+
   try {
-    // if (filesExist) await createOrUpdate(arrayOfFiles, acceptedFields, updateProject);
-    // else await updateProject(acceptedFields);
+    const {
+      filesArrayIfExist, 
+      acceptedFields
+    } = await determineAndGetChanges(req.files, req.body, encryptAndPushCode, zipDataIntoStream);
+    acceptedFields.id = parseInt(projectId);
+
+    if (!!filesArrayIfExist.length) {
+      await createOrUpdate(filesArrayIfExist, acceptedFields, updateProject);
+    } else {
+      await updateProject(acceptedFields);
+    }
   } catch (err) {
     console.log(err)
   } finally {
