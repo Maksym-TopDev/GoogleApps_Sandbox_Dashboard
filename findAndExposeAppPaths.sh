@@ -44,7 +44,7 @@ for d in dist/projects/*/ ; do
 
         read app_version
         reset
-        concurrently "npx nodemon index.js $app_type $app_version $app_name" "webpack --watch --env type=$app_type --env version=$app_version --env name=$app_name" 
+        concurrently "npx nodemon index.js $app_type $app_version $app_name" "webpack --config ./webpack.config.app.js --watch --env type=$app_type --env version=$app_version --env name=$app_name" 
     fi
 done
 

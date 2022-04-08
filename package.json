@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "./findAndExposeAppPaths.sh",
+    "build:modules": "webpack --config ./webpack.config.mods.js",
     "build:existing": "npx prisma && npx prisma init && npx prisma db pull && npx prisma generate",
     "build:new": "npx prisma && npx prisma init && npx prisma migrate dev && npx prisma generate"
   },
@@ -12,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.7.1",
+    "lodash": "^4.17.21",
     "npm-run-all": "^4.1.5",
     "prisma": "^3.11.0",
     "style-loader": "^3.3.1",
