@@ -1,0 +1,342 @@
+* {
+  margin: 0 auto;	
+}
+body {
+  background-color: lightblue;
+  background-attachment: fixed;
+  background-size: cover;
+  /*position: fixed;*/
+  position: relative;
+  animation: night 20s ease-in 80s;
+  animation-fill-mode: forwards;
+}
+@keyframes night{
+  100% {background-color: darkblue}
+}
+.grass {
+  background-image: url('grass.png');
+  background-size: cover;			
+  background-repeat: no-repeat;
+  height: 160px;
+  transform: translate(0%,360%);
+
+  /*background-attachment: fixed;*/
+}
+#cloud {
+  background-image: url('cloud1.png');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 230px;
+  width: 230px;
+  margin-top: 40px;
+  transform: translate(-300%,0%);
+  position: absolute;
+
+}
+#clouda {
+  background-image: url('cloud1.png');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 280px;
+  width: 300px;
+  margin-top: 320px;
+  transform: translate(-250%,0%);
+  position: absolute;
+}
+#cloudb {
+  background-image: url('cloud1.png');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 250px;
+  width: 280px;
+  margin-top: 400px;
+  transform: translate(-200%,0%);
+  position: absolute;
+}
+
+#cloud2 {
+  background-image: url('cloud2.png');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 320px;
+  width: 380px;
+  margin-top: 220px;
+  transform: translate(50%,0%);
+  position: absolute;
+}
+#cloud2a {
+  background-image: url('cloud2.png');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 130px;
+  width: 180px;
+  margin-top: 180px;
+  transform: translate(-150%,0%);
+  position: absolute;
+}
+#cloud2b {
+  background-image: url('cloud2.png');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 290px;
+  width: 310px;
+  margin-top: 40px;
+  transform: translate(-50%,0%);
+  position: absolute;
+}
+
+#mario {
+  background-image: url('mario.gif');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  margin-top: 440px;
+  margin-left: 80px;
+
+}
+#megaman {
+  background-image: url('megaman.gif');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 80px;
+  width: 80px;
+  position: absolute;
+  margin-top: 440px;
+  transform: translate(-250%,0%);
+}
+#mario1 {
+  background-image: url('mario.gif');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  margin-top: 600px;
+  margin-left: 80px;
+  transform: translate(1000%,0%);
+  transform: scale(-1,1);
+
+}
+#megaman1 {
+  background-image: url('megaman.gif');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  margin-top: 595px;
+  transform: translate(1000%,0%);
+  transform: scale(-1,1);
+}
+#tree {
+  background-image: url('tree.png');
+  /*background-size: cover;*/
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /*background-color: blue;*/
+  height: 320px;
+  width: 300px;
+  position: absolute;
+  margin-top: 220px;
+}
+#pine1 {
+  background-image: url('pine.png');
+  
+  background-size: 100%;
+  background-repeat: no-repeat;
+  
+  height: 320px;
+  width: 220px;
+  position: absolute;
+  margin-top: 350px;
+  margin-left: 800px;
+}
+#pine2 {
+  background-image: url('pine.png');
+  
+  background-size: 100%;
+  background-repeat: no-repeat;
+  
+  height: 320px;
+  width: 250px;
+  position: absolute;
+  margin-top: 300px;
+  margin-left: 1030px;
+}
+#pine3 {
+  background-image: url('pine.png');
+  /*background-size: cover;*/
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /*background-color: blue;*/
+  height: 320px;
+  width: 200px;
+  position: absolute;
+  margin-top: 360px;
+  margin-left: 1100px;
+}
+#pine4 {
+  background-image: url('pine.png');
+  /*background-size: cover;*/
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /*background-color: blue;*/
+  height: 320px;
+  width: 250px;
+  position: absolute;
+  margin-top: 260px;
+  margin-left: 1190px;
+}
+#pine5 {
+  background-image: url('pine.png');
+  /*background-size: cover;*/
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /*background-color: blue;*/
+  height: 320px;
+  width: 210px;
+  position: absolute;
+  margin-top: 330px;
+  margin-left: 1230px;
+}
+#mario2 {
+  background-image: url('mario.gif');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 600px;
+  width: 600px;
+  position: absolute;
+  margin-top: 80px;
+  transform: translate(-2050%,0%);
+
+}
+#megaman2 {
+  background-image: url('megaman.gif');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 600px;
+  width: 600px;
+  position: absolute;
+  margin-top: 120px;
+  transform: translate(-3550%,0%);
+}
+#sun {
+  background-image: url('sun.png');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 170px;
+  width: 170px;
+  transform: translate(200%, -100%);
+  position: absolute;
+}
+#moon {
+  background-image: url('moon.png');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 500px;
+  width: 500px;
+  transform: translate(180%, 300%);
+  position: absolute;
+}
+#haunter {
+  background-image: url('hunter.gif');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 170px;
+  width: 170px;
+  transform: translate(650%, 1500%);
+  position: absolute;
+}
+#gengar {
+  background-image: url('gengar.gif');
+  background-size: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 170px;
+  width: 170px;
+  transform: translate(50%, 70%);
+  position: absolute;
+  opacity: 0;
+  animation: gen 20s ease-in 100s;
+  animation-fill-mode: forwards;
+}
+@keyframes gen{
+  100% {opacity: 1;}
+}
+#charmil {
+  background-image: url('charman.gif');
+  /*background-size: cover;*/
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /*background-color: blue;*/
+  height: 180px;
+  width: 150px;
+  position: absolute;
+  margin-top: 360px;
+  margin-left: 200px;
+}
+#fire {
+  background-image: url('fire.gif');
+  /*background-size: cover;*/
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /*background-color: blue;*/
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  margin-top: 410px;
+  margin-left: 150px;
+}
+#bomb {
+  background-image: url('bombman.gif');
+  /*background-size: cover;*/
+  background-size: 70%;
+  background-repeat: no-repeat;
+  /*background-color: blue;*/
+  height: 150px;
+  width: 150px;
+  position: absolute;
+  margin-top: 300px;
+  margin-left: 550px;
+}
+#vict {
+  background-image: url('bomberman.gif');
+  /*background-size: cover;*/
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /*background-color: blue;*/
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  margin-top: 380px;
+  margin-left: 600px;
+}
+#twist {
+  background-image: url('topman.gif');
+  /*background-size: cover;*/
+  background-size: 90%;
+  background-repeat: no-repeat;
+  /*background-color: blue;*/
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  margin-top: 350px;
+  margin-left: 640px;
+}

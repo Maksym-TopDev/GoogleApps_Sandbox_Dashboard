@@ -1,0 +1,75 @@
+<div class="slide">
+  <% work.forEach(function(bundle) { %>
+    <% if (bundle.version == 'v3') { %>
+      <div>
+        <script type="application/javascript" src="/dist/projects/<%= bundle.title %>/<%= bundle.version %>.bundle.js"></script>
+
+        <!-- Button trigger modal -->
+        <button type="button" id="<%= bundle.title %>_update" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProject">Edit <%= bundle.title %>
+        </button>
+        <button type="button" id="<%= bundle.title %>_test" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#testProject">Test</button>
+        
+        <script>
+          document.getElementById('<%= bundle.title %>_update').onclick = () => {
+            const appContainer = document.forms["update_app_container"].elements;
+            
+            fetch('/get-project?title=<%= bundle.title %>&version=<%= bundle.version %>')
+              .then(res => res.json())
+              .then(res => {
+                const {
+                  id,
+                  title,
+                  description,
+                  repository,
+                  projectType,
+                  website
+                } = res;
+
+                function determineTypeInput(type) {
+                  console.log(type)
+                  const appTypeContainer = document.getElementById("updateInputProjectType");
+                  switch (type) {
+                    case "Application": appTypeContainer.innerHTML = "Input file: <input type='file' name='app' />"; break;
+                    case "Deployment": appTypeContainer.innerHTML = "Input URL: <input name='website' type='text' id='updateFormWebUrlInput' placeholder='deployedUrl.com' />"; break;
+                  }
+                }
+
+                for (const elementPos in appContainer) {
+                  const element = appContainer[elementPos];
+                  switch (element.name) {
+                    case "id": element.value = id; break;
+                    case "title": element.value = title; break;
+                    case "description": element.value = description; break;
+                    case "repository": element.value = repository; break;
+                    case "projectType": determineTypeInput(projectType); break;
+                    case "website": element.value = website; break;
+                    case "previousFieldsPayload": element.value = JSON.stringify(res); break;
+                  }
+                }
+              })
+              .catch(error => console.log(error));
+          }
+
+          document.getElementById('<%= bundle.title %>_test').onclick = () => {
+            const appContainer = document.getElementById("test_app_container");
+            appContainer.innerHTML = "";
+
+            fetch('/unzip-decrypt?title=<%= bundle.title %>&version=<%= bundle.version %>&keyName=<%= bundle.title %>/<%= bundle.version %>')
+              .then(res => res.text())
+              .then(res => {
+                eval(res);
+
+                Window.games["<%= bundle.title %>"](appContainer);
+              })
+              .catch(error => console.log(error));
+          }
+        </script>
+      </div>
+    <% } %>
+  <% }); %>
+</div>
+
+<!-- Modals -->
+<%- include('partials/createForm') %>
+<%- include('partials/updateForm') %>
+<%- include('partials/testModal') %>

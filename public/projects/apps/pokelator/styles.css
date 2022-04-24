@@ -1,0 +1,204 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/*start parallax*/
+
+.parallax {
+  background-image: url('images/bamboo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+#exp {
+  margin: 40% 25% 0% 25%;
+  padding-bottom: 0%;
+  height: 650px;
+  z-index: 22;
+  /*background-color: pink;*/
+}
+#pika {
+  background: 
+    url('images/pika.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+  width: 48%;
+  height: 39%;
+  position: absolute;
+  margin-top: 0%;
+  padding-bottom: 0%;
+  /*background-color: blue;	*/
+  left: -700px;
+  z-index: 33;
+}
+#dex {
+  background: 
+    url('images/dex1.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+  width: 48%;
+  height: 39%;
+  position: absolute;
+  margin-top: 0%;
+  padding-bottom: 0%;
+  /*background-color: blue;	*/
+  right: -700px;
+  z-index: 37;
+}
+section {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.round {
+  border-radius: 50%;
+  margin: 15% 50% 0% 40%;
+}
+.hover {
+  height: 250px;
+  width: 250px;
+  margin-left: 50%;
+}
+.hover:hover {
+  height: 300px;
+  width: 300px;
+  /*background-color: blue;*/
+  position: relative;
+  right: 15%;
+  bottom: -300%;
+}
+/*end parallax*/
+form {
+  margin-left: 63%;
+  margin-top: 250px;
+  position: absolute;
+}
+input {
+  color: white;
+  font-weight: bold;
+}
+th input {
+  position: absolute;
+  background-image: url('images/pika.jpg');
+  background-size: 70%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  /*position: relative;*/
+  right: 425px;
+  height: 160px;
+  width: 229px;
+  top: -110px;
+  border-radius: 5%;
+  font-size: 30pt;
+  padding-left: 10px;
+}
+.row1 input:hover {
+  background-color: lightblue;
+  color: blue;
+}
+.row1 input {
+  padding: 5px 18px 5px 0%;
+  margin: 15px 4px 1px 0%;
+  background-color: blue;
+}
+.row2 input:hover {
+  background-color: lightblue;
+  color: blue
+}
+.row2 input {
+  padding: 5px 18px 5px 0%;
+  margin: 2px 4px 1px 0%;
+  background-color: blue;
+}
+#td1 input:hover {
+  background-color: pink;
+  color: red
+}
+#td2 input:hover {
+  background-color: lightgreen;
+  color: green;
+}
+#td3 input:hover {
+  background-color: green;
+  color: lightgreen;
+}
+#td4 input:hover {
+  background-color: red;
+  color: orange;
+}
+.row3 input {
+  padding:;
+  margin-top: 18px;
+}
+.circle {
+  position: relative;
+  border-radius: 50%;
+  background-color: red;
+}
+.circle2 {
+  position: relative;
+  right: 17px;
+  border-radius: 50%;
+  background-color: green;
+}
+.circle3 {
+  position: relative;
+  right: -10px;
+  padding: 0px 10px;
+  border-radius: 30%;
+  background-color: lightgreen;
+  color: green;
+}
+.circle4 {
+  position: relative;
+  right: -35px;
+  padding: 0px 12px;
+  border-radius: 25%;
+  background-color: orange;
+  color: red;
+}
+.row4 input:hover {
+  background-color: red;
+  color: yellow;
+}
+.coma {
+  position: relative;
+  padding: 3px;
+  font-size: 10pt;
+  color: red;
+  top: 5px;
+  left: 7px;
+}
+.equal {
+  position: relative;
+  margin-top: 9px;
+  padding: 3px;
+  left: 133px;
+  border-radius: 50%;
+  color: red;
+  font-size: 12pt;
+  background-color: yellow;
+}
+.row5 input:hover {
+  background-color: yellow;
+  color: pink;
+}
+.row5 input{
+  margin-top: 28px; 
+  padding: 8px 16px 8px 16px;
+  border-radius: 10%;
+  background-color: orange;
+  font-size: 16pt;	
+  color: black;
+}
+.sq {
+  position: relative;
+  right: 10px;
+}
+.sq1 {
+  position: relative;
+  right: 85px;
+}

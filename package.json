@@ -1,34 +1,40 @@
 {
-  "name": "aws_api",
+  "name": "static_env",
   "version": "1.0.0",
-  "description": "api for s3 bucket read, write. db only",
-  "main": "server.js",
+  "description": "",
+  "private": true,
   "scripts": {
-    "start": "node ./src/server.js",
-    "dev": "npx prisma migrate dev --preview-feature && nodemon ./src/server.js",
-    "lint": "eslint **/*.js --ignore-pattern node_modules/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./findAndExposeAppPaths.sh",
+    "build:modules": "webpack --config ./webpack.config.mods.js",
+    "build:existing": "npx prisma && npx prisma init && npx prisma db pull && npx prisma generate",
+    "build:new": "npx prisma && npx prisma init && npx prisma migrate dev && npx prisma generate"
   },
-  "author": "alvarian",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "eslint": "^7.19.0",
-    "nodemon": "^2.0.4",
-    "prisma": "^2.16.0"
+    "css-loader": "^6.7.1",
+    "lodash": "^4.17.21",
+    "npm-run-all": "^4.1.5",
+    "prisma": "^3.11.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "@prisma/client": "^2.16.0",
-    "aws-sdk": "^2.734.0",
-    "bcryptjs": "^2.4.3",
-    "connect-flash": "^0.1.1",
-    "dotenv": "^8.2.0",
-    "ejs": "^3.1.3",
-    "express": "^4.17.1",
-    "express-ejs-layouts": "^2.5.0",
-    "express-session": "^1.17.1",
-    "multer": "^1.4.2",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "@prisma/client": "^3.11.0",
+    "@zip.js/zip.js": "^2.4.9",
+    "archiver": "^5.3.0",
+    "aws-sdk": "^2.1096.0",
+    "body-parser": "^1.19.2",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-ejs-layouts": "^2.5.1",
+    "file-type": "^17.1.1",
+    "glob": "^7.2.0",
+    "multer": "^1.4.4",
+    "stream-buffers": "^3.0.2",
+    "unzipper": "^0.10.11"
   }
 }
