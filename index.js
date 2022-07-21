@@ -34,8 +34,6 @@ const {
 
 //route for index page
 app.get("/", async (req, res) => {
-  console.log(process.argv, "hhhey")
-
   const projects = await new Promise(function (resolve, reject) {
     glob("./dist/projects/**/*", function (err, res) {
       if (err) reject(err);
