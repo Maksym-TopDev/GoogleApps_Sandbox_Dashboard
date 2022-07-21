@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "./findAndExposeAppPaths.sh",
+    "start": "./run.sh",
     "build:modules": "webpack --config ./webpack.config.mods.js",
     "build:existing": "npx prisma && npx prisma init && npx prisma db pull && npx prisma generate",
     "build:new": "npx prisma && npx prisma init && npx prisma migrate dev && npx prisma generate"

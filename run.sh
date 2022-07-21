@@ -20,8 +20,8 @@ echo -e "${CYAN}presentation${NC}"
 COLOR_ARR=($RED $GREEN $YELLOW $ORANGE $PURPLE $CYAN $LIGHT_RED $LIGHTGREEN $LIGHT_BLUE $LIGHT_PURPLE $LIGHT_CYAN)
 
 read app_type
-app_dir="dist/projects/${app_type}/"
-for d in dist/projects/*/ ; do
+app_dir="public/projects/${app_type}/"
+for d in public/projects/*/ ; do
     if [ $app_dir == $d ]
     then
         echo "Choose app name:"
@@ -36,7 +36,7 @@ for d in dist/projects/*/ ; do
         reset
         echo "Choose app version:"
         
-        for v in $app_dir$app_name/* ; do
+        for v in $app_dir$app_name/versions/* ; do
             RANDOM_COLOR=${COLOR_ARR[$(( ( RANDOM % 10 )  + 1 ))]}
 
             echo -e "${RANDOM_COLOR}${v##*/}${NC}" | sed 's/\.bundle\.js//'
