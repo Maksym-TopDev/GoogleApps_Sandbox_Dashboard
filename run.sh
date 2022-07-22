@@ -22,6 +22,7 @@ function choose_app() {
     COLOR_ARR=($RED $GREEN $YELLOW $ORANGE $PURPLE $CYAN $LIGHT_RED $LIGHTGREEN $LIGHT_BLUE $LIGHT_PURPLE $LIGHT_CYAN)
 
     read app_type
+    reset
     app_dir="public/projects/${app_type}/"
     for d in public/projects/*/ ; do
         if [ $app_dir == $d ]
@@ -46,13 +47,13 @@ function choose_app() {
 
             read app_version
             reset
-            concurrently "npx nodemon index.js $app_type $app_version $app_name" "webpack --config ./webpack.config.app.js --watch --env type=$app_type --env version=$app_version --env name=$app_name" 
+            concurrently "npx nodemon index.js projects" "webpack --config ./webpack.config.app.js --watch --env type=$app_type --env version=$app_version --env name=$app_name" 
         fi
     done
 }
 
 function choose_challenge() {
-    npx nodemon index.js
+    npx nodemon index.js challenge
 }
 
 echo "Which Section?"
