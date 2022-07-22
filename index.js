@@ -17,7 +17,7 @@ const client = createClient({
   url: process.env.CACHE_URL
 });
 
-client.on('error', (err) => console.log('Redis Client Error', err));
+// client.on('error', (err) => console.log('Redis Client Error', err));
 
 // parse application/json
 app.use(bodyParser.json())
@@ -42,41 +42,59 @@ const {
 
 //route for index page
 app.get("/", async (req, res) => {
-  switch (process.argv[2]) {
-    case "projects": 
-      const work = (await new Promise(function (resolve, reject) {
-        glob("./dist/projects/**/*", function (err, res) {
-          if (err) reject(err);
-    
-          resolve(res)
-        })
-      })).flatMap(path => {
-        const dirPartials = path.split("/");
-        if (dirPartials.length === 5) {
-          const version = dirPartials[dirPartials.length-1].split(".")[0];
-          if (version === "v3") {
-            return {
-              title: dirPartials[3],
-              version,
-              fullPath: path
+  try {
+    switch (process.argv[2]) {
+      case "projects": 
+        const work = (await new Promise(function (resolve, reject) {
+          glob("./dist/projects/**/*", function (err, res) {
+            if (err) reject(err);
+      
+            resolve(res)
+          })
+        })).flatMap(path => {
+          const dirPartials = path.split("/");
+          if (dirPartials.length === 5) {
+            const version = dirPartials[dirPartials.length-1].split(".")[0];
+            if (version === "v3") {
+              return {
+                title: dirPartials[3],
+                version,
+                fullPath: path
+              }
             }
+            return [];
           }
           return [];
-        }
-        return [];
-      });
-    
-      res.render("projects/index", {work});
-      break;
-    case "challenge":
-      await client.connect();
-      const cachedChallenge = JSON.parse(await client.get("mostRecentSolution"));
-      await client.disconnect();
+        });
       
-      res.render("challenge/index", {cachedChallenge});
-      break;
+        res.render("projects/index", {work});
+        break;
+        
+      case "challenge":
+        const a = await client.connect();
+        
+        const cachedChallenge = await client.get("mostRecentSolution");
+        
+        await client.disconnect();
+        
+        res.render("challenge/index", {
+          data: {
+            ok: true,
+            msg: JSON.stringify(cachedChallenge)
+          }
+        });
+        break;
+    }
+  } catch (err) {
+    // client.disconnect();
+    console.log(err)
+    res.render("challenge/index", {
+      data: {
+        ok: false,
+        msg: err
+      }
+    })
   }
-  
 });
 
 app.get("/get-project", async (req, res) => {

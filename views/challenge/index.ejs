@@ -2,16 +2,70 @@
   <h1>Most Recent Challenge</h1>
 
   <form action="">
-    <input type="text" disabled value='<%= cachedChallenge.title %>'>
+    <input type="text" disabled value='Hello' id="title">
     
-    <div id="solutionSlide">
-      <textarea name="" id="" cols="30" rows="10"></textarea>
-    </div>
+    <div id="solutionSlide"></div>
   </form>
 </main>
 
 <script>
-  console.log('<%= cachedChallenge.languages %>')
-  const slide = document.getElementById('solutionSlide');
+  function loadDOM(DOMargs) {
+    const slide = document.getElementById('solutionSlide');
+    const formTitle = document.getElementById('title');
+
+    console.log(DOMargs);
+    // DOMargs.solutions.forEach((solution, index) => {
+    //   const textarea = `<textarea name="" id="" cols="30" rows="10">${index}</textarea>`;
+    //   slide.innerHTML += textarea
+    // });
+  }
   
+  (async function() {
+    if (!<%= data.ok %>) return loadDOM({
+      title: "Error - Could not fetch cache",
+      solutions: [
+        {
+          language: "ERR",
+          solution: "Check firewall / if redis is properly integrated"
+        }
+      ]
+    })
+
+    const { name, completedLanguages } = (await (await fetch("https://www.codewars.com/api/v1/users/Alvarian_/code-challenges/completed", 
+      {
+        method: "GET",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    )).json()).data[0]
+
+    if ('<%- JSON.parse(data.msg).title %>' !== name) return loadDOM({
+      title: name,
+      solutions: [
+        {
+          language: "ERR",
+          solution: "Submit, into cache, expected solutions for new completed challenge"
+        }
+      ]
+    })
+
+    let missingSolutions = " ";
+    if (!completedLanguages.map(lang => {
+      const isMatched = '<%- JSON.parse(data.msg).language %>' === lang
+      missingSolutions += lang+" "
+      return isMatched
+    }).reduce((outcome, match) => outcome * match)) return loadDOM({
+      title: name,
+      solutions: [
+        {
+          language: "ERR",
+          solution: `Include [${missingSolutions}] solutions`
+        }
+      ]
+    })
+    
+    loadDOM(<%- JSON.parse(data.msg) %>)
+  })()
 </script>
