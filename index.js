@@ -1,4 +1,5 @@
 const express = require('express');
+const { createClient } = require('redis');
 const bodyParser = require('body-parser');
 const app = express();
 const glob = require('glob');
@@ -10,6 +11,13 @@ const {
   encryptAndPushCode,
   determineAndGetChanges
 } = require('./lib/main.js');
+
+require("dotenv").config();
+const client = createClient({
+  url: process.env.CACHE_URL
+});
+
+client.on('error', (err) => console.log('Redis Client Error', err));
 
 // parse application/json
 app.use(bodyParser.json())
@@ -61,7 +69,11 @@ app.get("/", async (req, res) => {
       res.render("projects/index", {work});
       break;
     case "challenge":
-      res.render("challenge/index");
+      await client.connect();
+      const cachedChallenge = JSON.parse(await client.get("mostRecentSolution"));
+      await client.disconnect();
+      
+      res.render("challenge/index", {cachedChallenge});
       break;
   }
   
