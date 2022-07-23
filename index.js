@@ -71,27 +71,26 @@ app.get("/", async (req, res) => {
         break;
         
       case "challenge":
-        const a = await client.connect();
+        await client.connect();
         
         const cachedChallenge = await client.get("mostRecentSolution");
-        
+
         await client.disconnect();
+        if (!cachedChallenge) throw "Error: solution is not cached or redis connection is wrong";
         
         res.render("challenge/index", {
           data: {
             ok: true,
-            msg: JSON.stringify(cachedChallenge)
+            msg: cachedChallenge
           }
         });
         break;
     }
   } catch (err) {
-    // client.disconnect();
-    console.log(err)
     res.render("challenge/index", {
       data: {
         ok: false,
-        msg: err
+        msg: JSON.stringify({err})
       }
     })
   }

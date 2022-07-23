@@ -1,35 +1,94 @@
+<style>
+  /* Style the tab */
+  #tabs {
+    overflow: hidden;
+  }
+  
+  /* Style the buttons inside the tab */
+  #tabs button {
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+  }
+</style>
+
 <main>
   <h1>Most Recent Challenge</h1>
 
-  <form action="">
-    <input type="text" disabled value='Hello' id="title">
-    
+  <form action="" onsubmit="return handleReplacementPost(event)">
+    <input type="text" disabled=true id="title">
+    <div id="tabs"></div>
     <div id="solutionSlide"></div>
+
+    <input type="submit" value="Replace" />
   </form>
 </main>
 
 <script>
-  function loadDOM(DOMargs) {
+  const payload = JSON.parse(<%- JSON.stringify(data.msg) %>)
+  
+  function handleReplacementPost(e) {
+    e.preventDefault();
+    // return false;
+  }
+
+  function loadDOM({title, languages}) {
     const slide = document.getElementById('solutionSlide');
+    const tabs = document.getElementById('tabs');
     const formTitle = document.getElementById('title');
 
-    console.log(DOMargs);
-    // DOMargs.solutions.forEach((solution, index) => {
-    //   const textarea = `<textarea name="" id="" cols="30" rows="10">${index}</textarea>`;
-    //   slide.innerHTML += textarea
-    // });
+    languages.forEach((language, index) => {
+      formTitle.value = title;
+
+      const textarea = `<textarea id="${language.language}" name="" cols="30" rows="10" class="tabcontent">${language.solution}</textarea>`;
+
+      const tab = `<button class="tablinks" onclick="openSolution(event, '${language.language}')"> ${language.language}</button>`;
+      
+      slide.innerHTML += textarea;
+      tabs.innerHTML += tab;
+    });
+    
+    slide.children[0].style.display = "block";
+  }
+
+  function openSolution(evt, solutionName) {
+    var i, tablinks, tabcontent;
+    tabcontent = document.getElementsByClassName("tabcontent");
+
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    
+    document.getElementById(solutionName).style.display = "block";
+    evt.currentTarget.className += " active";
   }
   
   (async function() {
     if (!<%= data.ok %>) return loadDOM({
       title: "Error - Could not fetch cache",
-      solutions: [
+      languages: [
         {
           language: "ERR",
           solution: "Check firewall / if redis is properly integrated"
         }
       ]
-    })
+    }) && console.log(payload)
 
     const { name, completedLanguages } = (await (await fetch("https://www.codewars.com/api/v1/users/Alvarian_/code-challenges/completed", 
       {
@@ -40,32 +99,42 @@
         },
       }
     )).json()).data[0]
-
-    if ('<%- JSON.parse(data.msg).title %>' !== name) return loadDOM({
+    
+    if (payload.title !== name) return loadDOM({
       title: name,
-      solutions: [
+      languages: [
         {
           language: "ERR",
           solution: "Submit, into cache, expected solutions for new completed challenge"
         }
       ]
-    })
+    }) && console.log(payload)
+    
+    const { hasAllSolutions, missingSolutions } = (() => {
+      let missingSolutions = " ";
+      const hasAllSolutions = completedLanguages.map(apiLang => {
+        const isMatched = !!payload.languages.find(cachedLang => cachedLang.language === apiLang);
+        
+        !isMatched && (missingSolutions += apiLang+" ")
+        return isMatched
+      }).reduce((outcome, match) => outcome * match);
 
-    let missingSolutions = " ";
-    if (!completedLanguages.map(lang => {
-      const isMatched = '<%- JSON.parse(data.msg).language %>' === lang
-      missingSolutions += lang+" "
-      return isMatched
-    }).reduce((outcome, match) => outcome * match)) return loadDOM({
+      return {
+        hasAllSolutions,
+        missingSolutions
+      }
+    })()
+    
+    if (!hasAllSolutions) return loadDOM({
       title: name,
-      solutions: [
+      languages: [
         {
           language: "ERR",
           solution: `Include [${missingSolutions}] solutions`
         }
       ]
-    })
+    }) && console.log(payload)
     
-    loadDOM(<%- JSON.parse(data.msg) %>)
+    loadDOM(payload)
   })()
 </script>
