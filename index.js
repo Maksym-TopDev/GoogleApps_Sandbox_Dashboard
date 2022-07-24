@@ -74,7 +74,7 @@ app.get("/", async (req, res) => {
         await client.connect();
         
         const cachedChallenge = await client.get("mostRecentSolution");
-
+        
         await client.disconnect();
         if (!cachedChallenge) throw "Error: solution is not cached or redis connection is wrong";
         
@@ -95,6 +95,21 @@ app.get("/", async (req, res) => {
     })
   }
 });
+
+app.post("/replace-challenge", async (req, res) => {
+  try {
+    await client.connect();
+    
+    await client.set("mostRecentSolution", JSON.stringify(req.body));
+
+    await client.disconnect();
+
+    res.redirect("/")
+  } catch (err) {
+    console.log(err)
+    res.redirect("/")
+  }
+})
 
 app.get("/get-project", async (req, res) => {
   try {
